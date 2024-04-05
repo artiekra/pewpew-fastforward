@@ -1,6 +1,7 @@
 require"/dynamic/ppol/.lua"
-require"helpers/graphics_helpers"
-require"helpers/color_helpers"
+gh = require"helpers/graphics_helpers"
+ch = require"helpers/color_helpers"
+require"globals"
 
 lh = to_int(LEVEL_HEIGHT)
 lw = to_int(LEVEL_WIDTH)
@@ -15,4 +16,5 @@ lw = to_int(LEVEL_WIDTH)
 --
 -- }
 
-add_line_to_mesh(meshes, {{0, 0}, {lw, 0}, {lw, lh}, {0, lh}}, {0xffffffff}, 1)
+meshes = {gh.new_mesh()}
+gh.add_line_to_mesh(meshes[1], {{0, 0}, {lw, 0}, {lw, lh}, {0, lh}}, {0xffffffff}, 1)

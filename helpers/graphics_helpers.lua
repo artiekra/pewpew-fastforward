@@ -1,4 +1,4 @@
-local color_helper = require("/dynamic/helpers/color_helpers.lua")
+local color_helper = require("helpers/color_helpers")
 local helper = {}
 
 --- Creates a new empty mesh.

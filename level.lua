@@ -11,7 +11,7 @@ entity_set_mesh(border, "border")
 
 
 function level_tick()
-  print("Hi!")
+  -- print("Hi!")
 end
 
 
