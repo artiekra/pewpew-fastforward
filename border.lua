@@ -1,12 +1,18 @@
 require"/dynamic/ppol/.lua"
-require"globals"
+require"helpers/graphics_helpers"
+require"helpers/color_helpers"
 
-meshes = {
+lh = to_int(LEVEL_HEIGHT)
+lw = to_int(LEVEL_WIDTH)
 
-  {
-    vertexes = {{0, 0}, {LEVEL_WIDTH_INT, 0}, {LEVEL_WIDTH_INT,LEVEL_HEIGHT_INT}, {0, LEVEL_HEIGHT_INT}},
-    segments = {{0, 1, 2, 3, 0}},
-    colors = {0xffffffff}
-  },
+-- meshes = {
+--
+--   {
+--     vertexes = {{0, 0}, {lw, 0}, {lw, lh}, {0, lh}},
+--     segments = {{0, 1, 2, 3, 0}},
+--     colors = {0xffffffff}
+--   },
+--
+-- }
 
-}
+add_line_to_mesh(meshes, {{0, 0}, {lw, 0}, {lw, lh}, {0, lh}}, {0xffffffff}, 1)

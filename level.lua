@@ -9,4 +9,10 @@ set_player_ship_weapon(1, cannon_frequency["_15"], cannon_type["triple"])
 border = new_entity(0fx, 0fx)
 entity_set_mesh(border, "border")
 
-add_memory_print()
+
+function level_tick()
+  print("Hi!")
+end
+
+
+add_update_callback(level_tick)
