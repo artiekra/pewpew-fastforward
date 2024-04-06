@@ -38,7 +38,9 @@ function make_mesh()
 
   -- draw borders lower
   for z=init_z, -100, -25 do
-    draw_border_outline(mesh, lw, lh, BEVEL_SIZE, COLOR_MAIN1, COLOR_MAIN2, z)
+    color1 = ch.make_color_with_alpha(COLOR_MAIN1, 2*z+225)
+    color2 = ch.make_color_with_alpha(COLOR_MAIN2, 2*z+225)
+    draw_border_outline(mesh, lw, lh, BEVEL_SIZE, color1, color2, z)
   end
 
   return mesh
