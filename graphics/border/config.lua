@@ -4,4 +4,3 @@ COLOR_MAIN2 = 0x02ba17ff
 
 -- Other variables
 BORDER_WIDTH = 5
-BEVEL_SIZE = 150
