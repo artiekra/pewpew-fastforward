@@ -25,10 +25,10 @@ end
 
 
 function make_mesh()
-  mesh = gh.new_mesh()
-  lw = to_int(LEVEL_WIDTH)
-  lh = to_int(LEVEL_HEIGHT)
-  bevel = to_int(BEVEL_SIZE)
+  local mesh = gh.new_mesh()
+  local lw = to_int(LEVEL_WIDTH)
+  local lh = to_int(LEVEL_HEIGHT)
+  local bevel = to_int(BEVEL_SIZE)
 
   -- draw main border, one thick line
   local init_z = 10
@@ -39,8 +39,8 @@ function make_mesh()
 
   -- draw borders lower
   for z=init_z, -100, -25 do
-    color1 = ch.make_color_with_alpha(COLOR_MAIN1, 2*z+225)
-    color2 = ch.make_color_with_alpha(COLOR_MAIN2, 2*z+225)
+    local color1 = ch.make_color_with_alpha(COLOR_MAIN1, 2*z+225)
+    local color2 = ch.make_color_with_alpha(COLOR_MAIN2, 2*z+225)
     draw_border_outline(mesh, lw, lh, bevel, color1, color2, z)
   end
 
