@@ -6,6 +6,7 @@ set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
 ship = new_player_ship(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 set_player_ship_weapon(1, cannon_frequency["_15"], cannon_type["triple"])
+set_joystick_color(0x202020ff, 0x202020ff)
 set_shield(3)
 ship_speed = 0.99
 
