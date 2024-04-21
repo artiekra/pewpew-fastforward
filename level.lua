@@ -43,7 +43,7 @@ end
 
 time = 0
 function level_tick()
-  local time = time + 1 -- global time variable
+  time = time + 1 -- global time variable
 
   -- update ship speed, exponentially
   local speed_upd_condition = ( ( time % (500-((ship_speed-1)*500)) ) // 1 ) == 0

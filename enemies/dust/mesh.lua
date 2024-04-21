@@ -1,7 +1,7 @@
 meshes = {
 
   {
-    vertexes = {{-1, 1}, {0, 0}},
+    vertexes = {{-50, 50}, {50, -50}},
     segments = {{0, 1}},
     colors = {0xffffffff, 0xffffffff},
   }
