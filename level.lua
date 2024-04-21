@@ -4,6 +4,7 @@ require"globals"
 local hud = require"hud"
 local labels = require"labels"
 local camera = require"camera"
+local enemies = require"enemies/spawn"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
@@ -51,6 +52,7 @@ function level_tick()
   end
 
   camera_z = camera.set_camera_z(camera_z)
+  enemies.spawn(time)
 
 end
 
