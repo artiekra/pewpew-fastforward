@@ -1,6 +1,6 @@
-ch = require"helpers/color_helpers"
+local ch = require"helpers/color_helpers"
 
-module = {}
+local module = {}
 
 
 -- Initialise the HUD

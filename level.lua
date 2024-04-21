@@ -3,6 +3,7 @@ require"globals"
 
 local hud = require"hud"
 local labels = require"labels"
+local camera = require"camera"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
@@ -39,11 +40,6 @@ function update_ship_speed(speed)
 end
 
 
--- only executed once, when level is created
-function startup()
-  local ship_speed = update_ship_speed(ship_speed)
-end
-
 time = 0
 function level_tick()
   local time = time + 1 -- global time variable
@@ -54,8 +50,12 @@ function level_tick()
     ship_speed = update_ship_speed(ship_speed)
   end
 
+  camera_z = camera.set_camera_z(camera_z)
+
 end
 
 
-startup()
+local ship_speed = update_ship_speed(ship_speed)
+camera_z = 1000fx
+
 add_update_callback(level_tick)

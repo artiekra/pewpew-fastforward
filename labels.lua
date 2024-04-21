@@ -1,4 +1,4 @@
-module = {}
+local module = {}
 
 
 -- Create a specific label
