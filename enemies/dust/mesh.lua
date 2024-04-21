@@ -1,9 +1,12 @@
+local s = 3
+
+
 meshes = {
 
   {
-    vertexes = {{-50, 50}, {50, -50}},
-    segments = {{0, 1}},
-    colors = {0xffffffff, 0xffffffff},
+    vertexes = {{-s, -s}, {-s, s}, {s, s}, {s, -s}},
+    segments = {{0, 2}, {1, 3}},
+    colors = {0x00e31aff, 0x00e31aff, 0x00e31aff, 0x00e31aff},
   }
 
 }

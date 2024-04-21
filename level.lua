@@ -45,6 +45,10 @@ time = 0
 function level_tick()
   time = time + 1 -- global time variable
 
+  if get_is_lost() == true then
+    stop_game()
+  end
+
   -- update ship speed, exponentially
   local speed_upd_condition = ( ( time % (500-((ship_speed-1)*500)) ) // 1 ) == 0
   if speed_upd_condition then
