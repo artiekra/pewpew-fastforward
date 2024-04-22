@@ -61,7 +61,8 @@ function level_tick()
   camera_z = camera.set_camera_z(camera_z)
   enemies.spawn(ship, time)
 
-  rays.update(ray, LEVEL_WIDTH, LEVEL_HEIGHT, BEVEL_SIZE, player_x, player_y)
+  rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
+    BEVEL_SIZE, player_x, player_y)
 
 end
 
@@ -69,6 +70,7 @@ end
 local ship_speed = update_ship_speed(ship_speed)
 camera_z = 1000fx
 
-ray = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT, BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
+ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
+  BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 
 add_update_callback(level_tick)
