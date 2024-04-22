@@ -56,7 +56,7 @@ function level_tick()
   end
 
   camera_z = camera.set_camera_z(camera_z)
-  enemies.spawn(time)
+  enemies.spawn(ship, time)
 
 end
 
