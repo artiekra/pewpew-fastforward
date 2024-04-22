@@ -73,4 +73,6 @@ camera_z = 1000fx
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 
+enemies.init_spawn(ship)
+
 add_update_callback(level_tick)
