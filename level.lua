@@ -6,11 +6,11 @@ local labels = require"labels"
 local camera = require"camera"
 local enemies = require"enemies/spawn"
 local rays = require"rays/logic"
+local shooting = require"shooting"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
 local ship = new_player_ship(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
-set_player_ship_weapon(1, cannon_frequency["_15"], cannon_type["triple"])
 set_joystick_color(0x202020ff, 0x202020ff)
 set_shield(3)
 local ship_speed = 0.99
@@ -60,6 +60,7 @@ function level_tick()
 
   camera_z = camera.set_camera_z(camera_z)
   enemies.spawn(ship, time)
+  shooting.update(time, player_x, player_y)
 
   rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
     BEVEL_SIZE, player_x, player_y)
