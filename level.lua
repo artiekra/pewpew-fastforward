@@ -1,12 +1,12 @@
 require"/dynamic/ppol/.lua"
 require"globals"
 
-local hud = require"hud"
-local labels = require"labels"
-local camera = require"camera"
-local enemies = require"enemies/spawn"
+local hud = require"misc/hud"
+local labels = require"misc/labels"
+local camera = require"misc/camera"
+local enemies = require"entities/spawn"
 local rays = require"rays/logic"
-local shooting = require"shooting"
+local shooting = require"misc/shooting"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 

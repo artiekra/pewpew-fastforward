@@ -1,6 +1,6 @@
-local dust = require"enemies/dust/logic"
-local shield = require"powerups/shield/logic"
-local helpers = require"enemies/helpers"
+local dust = require"entities/dust/logic"
+local shield = require"entities/powerups/shield/logic"
+local helpers = require"entities/helpers"
 
 local module = {}
 
