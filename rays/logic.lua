@@ -25,7 +25,7 @@ end
 
 
 -- Update the rays (called every tick)
--- Formulas for any bevel angle: https://justpaste.it/5a4c146c-b483-4ed7-b7f5-908d68040ca1
+-- Formulas for any bevel angle: https://jpcdn.it/img/2fe1c1bb54d7ea4810c4fb689041fb22.png
 function module.update(ray1, ray2, W, H, b, x, y)
   entity_set_pos(ray1, x, y)
   entity_set_pos(ray2, x, y)

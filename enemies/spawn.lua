@@ -21,7 +21,7 @@ function module.spawn(ship, time)
 
   -- Function graph: https://jpcdn.it/img/5716adb64996deddb9172d1a1542a643.png
   req = 37.5 * (2.71828^(-0.00020362*time))
-  print(req//1)
+  -- print(req//1)
   if time % (req//1) == 0 then
     x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     dust.spawn(x, y, fx_random(FX_TAU))
