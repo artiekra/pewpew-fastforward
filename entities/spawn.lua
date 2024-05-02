@@ -15,7 +15,7 @@ function module.init_spawn(ship)
   end
 
   local x, y = helpers.random_coordinates(ship, 50fx, 50fx)
-  shield.spawn(x, y)
+  shield.spawn(ship, x, y)
 
 end
 
@@ -35,7 +35,7 @@ function module.spawn(ship, time)
   ---- Spawn shields (powerup)
   if time % 300 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 50fx)
-    shield.spawn(x, y)
+    shield.spawn(ship, x, y)
   end
 
 end
