@@ -22,6 +22,8 @@ function module.spawn(x, y, angle)
   function dust_player_collision(entity_id, player_id, ship_id)
     damage_player_ship(ship_id, 1)
     entity_start_exploding(entity_id, 10)
+
+    increase_score(1)
   end
 
   entity_set_update_callback(dust, dust_update_callback)
