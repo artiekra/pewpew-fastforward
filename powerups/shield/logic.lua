@@ -16,6 +16,7 @@ function module.spawn(x, y)
   
     x, y = entity_get_pos(ship_id)
     pu = fm.new(x, y, "+1 shield", 1fx, 0x209a70ff, 16)  -- [TODO: make this global in config?]
+    play_sound("powerups/sounds/pickup")
 
     entity_start_exploding(entity_id, 11)
   end
