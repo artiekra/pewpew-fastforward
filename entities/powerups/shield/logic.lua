@@ -1,6 +1,6 @@
 local fm = require"helpers/floating_message"
 local template = require"entities/powerups/template"
-require"entities/powerups/color_config"
+require"entities/powerups/config"
 
 local module = {}
 

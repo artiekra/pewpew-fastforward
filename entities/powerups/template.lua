@@ -1,4 +1,5 @@
 fm = require"helpers/floating_message"
+require"entities/powerups/config"
 
 local module = {}
 
@@ -11,22 +12,23 @@ function module.spawn(ship_id, x, y, mesh, icon_mesh, text, color, callback)
   local box = new_entity(x, y)
   entity_start_spawning(box, 2)
   entity_set_mesh(box, mesh)
-  entity_set_radius(box, 22fx)
+  entity_set_radius(box, to_fx(BOX_RADIUS))
 
   -- entity for inner shield icon
   local inner_box= new_entity(x, y)
   entity_start_spawning(inner_box, 2)
   entity_set_mesh(inner_box, icon_mesh)
-  entity_set_radius(inner_box, 22fx)
+  entity_set_radius(inner_box, to_fx(BOX_RADIUS))
 
   local box_time = 0
-  function box_update_callback()
+  function box_update_callback()  -- [TODO: add args??]
     box_time = box_time + 1
     if box_time >= start_dissapearing then
       local total = stop_dissapearing - start_dissapearing
       local time_left = stop_dissapearing - box_time
-      local opacity = (time_left * 255 ) // total
+      local opacity = (time_left * 255) // total
 
+      -- [TODO: check if entity exists]
       if opacity > 0 then
         entity_set_mesh_color(box, 0xffffff00 + opacity)
         entity_set_mesh_color(inner_box, 0xffffff00 + opacity)

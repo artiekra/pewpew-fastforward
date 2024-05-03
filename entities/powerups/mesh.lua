@@ -1,12 +1,8 @@
 gh = require"helpers/graphics_helpers"
 ch = require"helpers/color_helpers"
+require"entities/powerups/config"
 
 local module = {}
-
--- Some globals
-VERTEXES = 7
-HEIGHT = 10
-RADIUS = 22
 
 
 function module.make_mesh(color)
@@ -26,7 +22,7 @@ function module.make_mesh(color)
   --   index_of_first_vertex = index_of_first_vertex + 1
   -- end
 
-  gh.add_poly(mesh, center, VERTEXES, color, RADIUS, HEIGHT)
+  gh.add_poly(mesh, center, BOX_VERTEXES, color, BOX_RADIUS, BOX_HEIGHT)
 
   return mesh
 end
