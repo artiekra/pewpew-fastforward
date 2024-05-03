@@ -5,19 +5,25 @@ local module = {}
 
 -- Initialise the HUD
 function module.init()
-  configure_hud_string("#ff0000ffVelocity: ????")
+  configure_hud_string("#ff0000ffLoading...")
 end
 
 
 -- Set a HUD to new value, also set the right color
-function module.set(value)
+function module.update(velocity, performance)
   local mul = 255 -- multiplier for color
 
-  local nval = ((value-1)*mul) // 1
-  color = ch.make_color(nval, 255-nval, 0, 255)
-  color_str = ch.color_to_string(color)
+  local nvel = ((velocity-1)*mul) // 1
+  local vel_color = ch.make_color(nvel, 255-nvel, 0, 255)
+  local vel_color_str = ch.color_to_string(vel_color)
 
-  configure_hud_string(color_str .. string.format("Velocity: x%.2f", value))
+  local nperf = ((performance/2)*mul) // 1
+  local perf_color = ch.make_color(255-nperf, nperf, 0, 255)
+  local perf_color_str = ch.color_to_string(perf_color)
+
+  local velocity_str = vel_color_str .. string.format("Velocity: x%.2f", velocity)
+  local performance_str = perf_color_str .. string.format("Performance: x%.2f", performance)
+  configure_hud_string(velocity_str .. "     " .. performance_str)
 end
 
 

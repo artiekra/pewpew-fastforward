@@ -1,3 +1,5 @@
+local performance = require"misc/performance"
+
 local module = {}
 
 
@@ -23,7 +25,7 @@ function module.spawn(x, y, angle)
     damage_player_ship(ship_id, 1)
     entity_start_exploding(entity_id, 10)
 
-    increase_score(1)
+    performance.increase_player_score(1)
   end
 
   entity_set_update_callback(dust, dust_update_callback)

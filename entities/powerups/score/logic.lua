@@ -6,6 +6,7 @@ local module = {}
 
 
 function points_player_collision(entity_id, player_id, ship_id)
+  -- [NOTE: consider accounting from performance here too?]
   increase_score(10)
 end
 

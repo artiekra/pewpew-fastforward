@@ -7,6 +7,7 @@ local camera = require"misc/camera"
 local enemies = require"entities/spawn"
 local rays = require"rays/logic"
 local shooting = require"misc/shooting"
+local performance = require"misc/performance"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
@@ -34,7 +35,6 @@ function update_ship_speed(speed)
 
   if ship_speed < limit then
     speed = speed + increment_val
-    hud.set(speed)
     set_player_ship_speed(1, 0fx, to_fx((speed*100)//10), -1)
   end
 
@@ -65,10 +65,13 @@ function level_tick()
   rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
     BEVEL_SIZE, player_x, player_y)
 
+  performance.update(time, get_score())
+  hud.update(ship_speed, performance.get())
+
 end
 
 
-local ship_speed = update_ship_speed(ship_speed)
+ship_speed = update_ship_speed(ship_speed)
 camera_z = 1000fx
 
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,

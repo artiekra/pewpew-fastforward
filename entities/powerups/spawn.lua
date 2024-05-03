@@ -62,11 +62,11 @@ function module.spawn_powerup(ship, time)
   -- (100% for <2 shields, 50% for <3 shields)
   player_shields = get_shield()
   if player_shields < 2 then
-    spawn_shield(ship)
+    module.spawn_shield(ship)
     return
   elseif player_shields < 3 then
     if random(0, 1) then
-      spawn_shield(ship)
+      module.spawn_shield(ship)
       return
     end
   end
