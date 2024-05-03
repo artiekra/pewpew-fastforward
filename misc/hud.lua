@@ -21,7 +21,7 @@ function module.update(velocity, performance)
   local perf_color = ch.make_color(nperf, 255-nperf, 0, 255)
   local perf_color_str = ch.color_to_string(perf_color)
 
-  local velocity_str = vel_color_str .. string.format("⏩ x%.2f", velocity)
+  local velocity_str = vel_color_str .. string.format("⚡ x%.2f", velocity)
   local performance_str = perf_color_str .. string.format("👁 x%.2f", performance)
   configure_hud_string(velocity_str .. "  " .. performance_str)
 end

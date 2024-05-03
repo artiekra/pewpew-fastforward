@@ -1,4 +1,6 @@
 local dust = require"entities/dust/logic"
+local polygon = require"entities/polygon/logic"
+
 local helpers = require"entities/helpers"
 local spawn_powerup = require"entities/powerups/spawn"
 
@@ -14,6 +16,9 @@ function module.init_spawn(ship)
   end
 
   spawn_powerup.spawn_shield(ship)
+
+  local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
+  polygon.spawn(x, y, fx_random(FX_TAU))
 
   -- local x, y = helpers.random_coordinates(ship, 150fx, 50fx)
   -- score_powerup.spawn(ship, x, y)
@@ -34,6 +39,14 @@ function module.spawn(ship, time)
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     dust.spawn(x, y, fx_random(FX_TAU))
   end
+
+  ---- Spawn polygon 
+  -- [TODO: better condition]
+  if time % 200 == 0 then
+    local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
+    polygon.spawn(x, y, fx_random(FX_TAU))
+  end
+
 
   ---- Spawn powerups
   -- [TODO: better condition]
