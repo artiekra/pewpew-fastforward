@@ -17,7 +17,7 @@ function module.set(value)
   color = ch.make_color(nval, 255-nval, 0, 255)
   color_str = ch.color_to_string(color)
 
-  configure_hud_string(color_str .. "Velocity: x" .. value)
+  configure_hud_string(color_str .. string.format("Velocity: x%.2f", value))
 end
 
 

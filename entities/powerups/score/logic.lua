@@ -1,5 +1,6 @@
 local fm = require"helpers/floating_message"
 local template = require"entities/powerups/template"
+require"entities/powerups/color_config"
 
 local module = {}
 
@@ -13,7 +14,7 @@ end
 function module.spawn(ship_id, x, y)
 
   local shield = template.spawn(ship_id, x, y, "entities/powerups/score/mesh",
-    "entities/powerups/score/icon", "+10 points", 0x21d900ff, points_player_collision)
+    "entities/powerups/score/icon", "+10 points", COLOR_SCORE_POWERUP, points_player_collision)
 
   return shield
 end
