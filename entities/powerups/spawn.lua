@@ -55,6 +55,18 @@ function module.weighted_random(pool)
 end
 
 
+-- https://www.reddit.com/r/lua/comments/mcen99/how_to_deal_with_lua_tables_copies_and_not_mess/
+function module.shallow_table_copy(maintable)
+
+  local tablecopy = {}
+  for k, v in pairs(maintable) do
+    tablecopy[k] = v
+  end
+
+  return tablecopy
+end
+
+
 -- Uses complex conditions to spawn the correct powerup
 function module.spawn_powerup(ship, time)
 
