@@ -5,16 +5,16 @@ local module = {}
 
 -- Spawn entity, add update callback
 function module.spawn(x, y, angle)
+  local speed = 1fx
 
   local dust = new_entity(x, y)
   entity_start_spawning(dust, 2)
   entity_set_mesh(dust, "entities/dust/mesh")
   entity_set_radius(dust, 2fx)
 
+  local dy, dx = fx_sincos(angle)
   function dust_update_callback()
-    -- [TODO: optimize, by calculating only once?]
-    local dy, dx = fx_sincos(angle)
-    entity_change_pos(dust, dx, dy)
+    entity_change_pos(dust, dx*speed, dy*speed)
   end
 
   function dust_wall_collision()
@@ -29,7 +29,7 @@ function module.spawn(x, y, angle)
   end
 
   entity_set_update_callback(dust, dust_update_callback)
-  entity_set_wall_collision(dust, false, dust_wall_collision)
+  entity_set_wall_collision(dust, true, dust_wall_collision)
   entity_set_player_collision(dust, dust_player_collision)
 
   return dust
