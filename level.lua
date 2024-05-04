@@ -66,7 +66,7 @@ function level_tick()
     BEVEL_SIZE, player_x, player_y)
 
   performance.update(time, get_score())
-  hud.update(ship_speed, performance.get())
+  hud.update(ship_speed, performance.PERFORMANCE)
 
 end
 

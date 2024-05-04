@@ -1,13 +1,14 @@
 local fm = require"helpers/floating_message"
 local template = require"entities/powerups/template"
+local performance = require"misc/performance"
 require"entities/powerups/config"
 
 local module = {}
 
 
 function points_player_collision(entity_id, player_id, ship_id)
-  -- [NOTE: consider accounting from performance here too?]
-  increase_score(10)
+  -- [NOTE: consider not accounting from performance here?]
+  performance.increase_player_score(10)
 end
 
 

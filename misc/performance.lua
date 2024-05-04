@@ -1,38 +1,27 @@
 local module = {}
 
-PERFORMANCE = 1
-
-
-function module.get()
-  return PERFORMANCE
-end
-
-function module.set(value)
-  PERFORMANCE = value
-  return PERFORMANCE
-end
-
-function module.increment(value)
-  PERFORMANCE = PERFORMANCE + value
-  return PERFORMANCE
-end
+module.PERFORMANCE = 1
+module.SCORE = 0
 
 
 -- Update performance multiplier (basic score&time calculation)
 function module.update(time, score)
-  PERFORMANCE = 1 + (score/time*100)
-  return PERFORMANCE
+  module.PERFORMANCE = 1 + (score/time*10)
+  return module.PERFORMANCE
 end
 
 
 -- Increase player score, taking performance into account
 function module.increase_player_score(value)
 
-  -- [TODO: check if you can use non-integers here]
-  new_score = (value * PERFORMANCE) // 1
-  increase_score(new_score)
+  -- internal score counter, so that non-integers scores are possible
+  new_score = value * module.PERFORMANCE
+  module.SCORE = module.SCORE + new_score
 
-  return PERFORMANCE
+  new_game_score = module.SCORE // 1
+  increase_score(new_game_score - get_score())
+
+  return module.PERFORMANCE
 end
 
 
