@@ -8,6 +8,7 @@ local enemies = require"entities/spawn"
 local rays = require"entities/rays/logic"
 local shooting = require"misc/shooting"
 local performance = require"misc/performance"
+local angle = require"graphics/angle/logic"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
@@ -18,6 +19,11 @@ local ship_speed = 0.99
 
 local border = new_entity(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 entity_set_mesh(border, "graphics/border/border")
+
+-- add two half-squares (angles), just as a decorative element
+-- [TODO: fix it (see graphics/angle/logic.lua)]
+angle.spawn(LEVEL_WIDTH, 0fx, 0fx)
+angle.spawn(0fx, LEVEL_HEIGHT, FX_TAU/2fx)
 
 -- level labels around the border
 labels.create_decorations(LEVEL_WIDTH, LEVEL_HEIGHT)

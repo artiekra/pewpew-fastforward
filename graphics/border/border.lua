@@ -1,7 +1,7 @@
 require"/dynamic/ppol/.lua"
 
-gh = require"helpers/graphics_helpers"
-ch = require"helpers/color_helpers"
+local gh = require"helpers/graphics_helpers"
+local ch = require"helpers/color_helpers"
 
 require"globals"
 require"graphics/border/config"
@@ -18,7 +18,7 @@ function draw_border_outline(mesh, width, height, bevel, color1, color2, z)
     mesh,
       {{-hw, -hh, z}, {hw-b, -hh, z}, {hw, -hh+b, z}, {hw, hh, z},
        {-hw+b, hh, z}, {-hw, hh-b, z}},
-    {color1, color1, color1, color2, color2, color2}, 1
+    {color1, color1, color1, color2, color2, color2}, true
   )
 
 end
