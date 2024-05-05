@@ -1,6 +1,6 @@
 local helpers = require"entities/helpers"
-local shield = require"entities/powerups/shield/logic"
-local score_powerup = require"entities/powerups/score/logic"
+local shield = require"entities/powerups/powerup/shield/logic"
+local score_powerup = require"entities/powerups/powerup/score/logic"
 
 module = {}
 

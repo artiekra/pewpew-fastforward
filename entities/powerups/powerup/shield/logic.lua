@@ -25,7 +25,7 @@ function module.spawn(ship_id, x, y)
     {color_text1, color_text2}
   }
 
-  local shield = template.spawn(ship_id, x, y, "entities/powerups/shield/icon",
+  local shield = template.spawn(ship_id, x, y, "entities/powerups/powerup/shield/icon",
     "+1 shield", colors, shield_player_collision)
 
   return shield

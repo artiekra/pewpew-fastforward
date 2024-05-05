@@ -1,4 +1,5 @@
 local helpers = require"entities/helpers"
+local arrow = require"entities/powerups/arrow/logic"
 local fm = require"helpers/floating_message"
 require"entities/powerups/config"
 
@@ -75,8 +76,7 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
     entity_destroy(inner_box)
   end
 
-  -- [TODO: custom arrows?]
-  add_arrow(ship_id, box, 0x002902ff)
+  arrow.add_arrow(ship_id, box)
 
   entity_set_update_callback(box, box_update_callback)
   entity_set_player_collision(box, box_player_collision)
