@@ -16,12 +16,13 @@ function module.update(time, x, y)
       new_player_bullet(x, y, shoot_angle-a)
       new_player_bullet(x, y, shoot_angle)
       new_player_bullet(x, y, shoot_angle+a)
+      play_sound("sounds/shoot")
 
     elseif time % (30//WEAPON_HZ) == 0 then
       new_player_bullet(x, y, shoot_angle-(a/2))
       new_player_bullet(x, y, shoot_angle+(a/2))
+      play_sound("sounds/shoot")
     end
-
   end
 end
 

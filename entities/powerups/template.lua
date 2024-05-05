@@ -30,19 +30,30 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
   local box_time = 0
   function box_update_callback()
     box_time = box_time + 1
+    local flicker_speed = 0.2
 
     if entity_get_is_alive(box) and
-       entity_get_is_alive(inner_box) then
+      entity_get_is_alive(inner_box) then
 
-      -- [TODO: sync changing outer and inner color]
-      outer_color = helpers.get_mesh_color(box_time, table.unpack(outer_colors))
-      if outer_color ~= nil then
-        entity_set_mesh_color(box, outer_color)
-      end
-
-      inner_color = helpers.get_mesh_color(box_time, table.unpack(inner_colors))
-      if inner_color ~= nil then
-        entity_set_mesh_color(inner_box, inner_color)
+      -- not using helpers, so that color change is synced
+      -- (still able to use different inner/outer colors)
+      if LEVEL_MODE == 0 then
+        entity_set_mesh_color(box, outer_colors[1])
+        entity_set_mesh_color(inner_box, inner_colors[1])
+      elseif LEVEL_MODE == 1 then
+        n = random(0, 1)
+        if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
+          if n == 0 then
+            entity_set_mesh_color(box, outer_colors[1])
+            entity_set_mesh_color(inner_box, inner_colors[1])
+          else
+            entity_set_mesh_color(box, outer_colors[2])
+            entity_set_mesh_color(inner_box, inner_colors[2])
+          end
+        end
+      elseif LEVEL_MODE == 2 then
+        entity_set_mesh_color(box, outer_colors[2])
+        entity_set_mesh_color(inner_box, inner_colors[2])
       end
 
       if box_time >= start_dissapearing then
