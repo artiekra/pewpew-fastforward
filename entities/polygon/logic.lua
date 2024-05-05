@@ -69,10 +69,13 @@ function module.spawn(x, y, angle)
     end
   end
 
-  function polygon_wall_collision()
-    dy = -dy
-    dx = -dx
+  function polygon_wall_collision(entity_id, wall_normal_x, wall_normal_y)
+    local dot_product_move = ((wall_normal_x * dx) + (wall_normal_y * dy)) * 2fx; 
+    dx = dx - (wall_normal_x * dot_product_move)
+    dy = dy - (wall_normal_y * dot_product_move); 
+    angle = fx_atan2(dy,dx)
   end
+
 
   function polygon_player_collision(entity_id, player_id, ship_id)
     if health > 0 then

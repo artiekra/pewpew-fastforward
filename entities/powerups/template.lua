@@ -42,28 +42,28 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
       -- (still able to use different inner/outer colors)
       -- [TODO: refactor?]
       if LEVEL_MODE == 0 then
-        local outer_color = outer_colors[1]
-        local inner_color = inner_colors[1]
+        outer_color = outer_colors[1]
+        inner_color = inner_colors[1]
         entity_set_mesh_color(box, outer_color)
         entity_set_mesh_color(inner_box, inner_color)
       elseif LEVEL_MODE == 1 then
         n = random(0, 1)
         if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
           if n == 0 then
-            local outer_color = outer_colors[1]
-            local inner_color = inner_colors[1]
+            outer_color = outer_colors[1]
+            inner_color = inner_colors[1]
             entity_set_mesh_color(box, outer_color)
             entity_set_mesh_color(inner_box, inner_color)
           else
-            local outer_color = outer_colors[2]
-            local inner_color = inner_colors[2]
+            outer_color = outer_colors[2]
+            inner_color = inner_colors[2]
             entity_set_mesh_color(box, outer_color)
             entity_set_mesh_color(inner_box, inner_color)
           end
         end
       elseif LEVEL_MODE == 2 then
-        local outer_color = outer_colors[2]
-        local inner_color = inner_colors[2]
+        outer_color = outer_colors[2]
+        inner_color = inner_colors[2]
         entity_set_mesh_color(box, outer_color)
         entity_set_mesh_color(inner_box, inner_color)
       end
@@ -106,7 +106,7 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
     entity_destroy(inner_box)
   end
 
-  arrow.add_arrow(ship_id, box)
+  arrow.add_arrow(ship_id, box, outer_colors)
 
   entity_set_update_callback(box, box_update_callback)
   entity_set_player_collision(box, box_player_collision)

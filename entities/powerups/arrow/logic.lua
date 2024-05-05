@@ -5,11 +5,11 @@ local module = {}
 
 
 -- Add arrow near the owner, which points to the target
-function module.add_arrow(owner, target)
+function module.add_arrow(owner, target, colors)
   local distance = 25fx
 
-  local color1 = 0x00ff008a
-  local color2 = 0x8000ffdd
+  local color1 = colors[1]
+  local color2 = colors[2]
 
   local arrow = new_entity(entity_get_pos(owner))
   entity_start_spawning(arrow, 2)
