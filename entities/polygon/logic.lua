@@ -1,5 +1,6 @@
 local performance = require"misc/performance"
 local bullets = require"entities/polygon/bullets/logic"
+local helpers = require"entities/helpers"
 
 local module = {}
 
@@ -30,20 +31,33 @@ function module.spawn(x, y, angle)
   local speed = 2fx
   local health = 5
 
+  local color1 = 0x004a15ff
+  local color2 = 0x5700adff
+
   local polygon = new_entity(x, y)
   entity_start_spawning(polygon, 2)
   entity_set_mesh(polygon, "entities/polygon/mesh")
   entity_set_radius(polygon, 30fx)
 
+  local time = 0
   local mesh_index = 0
   local dy, dx = fx_sincos(angle)
   function polygon_update_callback()
+    time = time + 1
+    
     entity_change_pos(polygon, dx*speed, dy*speed)
-    if mesh_index > 119 then
+
+    if mesh_index >= 120 then
       mesh_index = 0
     end
+
     entity_set_mesh(polygon, "entities/polygon/mesh", mesh_index, mesh_index + 1)
     mesh_index = mesh_index + 2
+
+    color = helpers.get_mesh_color(time, color1, color2)
+    if color ~= nil then
+      entity_set_mesh_color(polygon, color)
+    end
   end
 
   function polygon_wall_collision()

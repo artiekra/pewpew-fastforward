@@ -1,15 +1,30 @@
-require"rays/config"
+local helpers = require"entities/helpers"
 
 local module = {}
+
+local color1 = 0x002902ff
+local color2 = 0x000229ff
 
 
 -- Create individual ray
 function module.create_individual(x, y, angle)
   local ray = new_entity(x, y)
   entity_start_spawning(ray, 0)
-  entity_set_mesh(ray, "rays/mesh")
+  entity_set_mesh(ray, "entities/rays/mesh")
 
   entity_add_mesh_angle(ray, angle, 0fx, 0fx, 1fx)
+
+  local time = 0
+  function ray_update_callback()
+    time = time + 1
+
+    color = helpers.get_mesh_color(time, color1, color2)
+    if color ~= nil then
+      entity_set_mesh_color(ray, color)
+    end
+  end
+
+  entity_set_update_callback(ray, ray_update_callback)
 
   return ray
 end

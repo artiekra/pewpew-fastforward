@@ -4,6 +4,8 @@ local polygon = require"entities/polygon/logic"
 local helpers = require"entities/helpers"
 local spawn_powerup = require"entities/powerups/spawn"
 
+require"globals"
+
 local module = {}
 
 -- Initial spawn of the enemies at the start of the level

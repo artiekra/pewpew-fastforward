@@ -6,7 +6,7 @@ require"entities/polygon/config"
 meshes = {}
 
 for angle_offset = 0, math.pi * 2, math.pi * 2 / 120 do
-  local computed_vertexes, computed_segments, computed_colors = {}, {}, {}
+  local computed_vertexes, computed_segments = {}, {}
 
   local i = 0
   for angle = 0, math.pi * 2, math.pi * 2 / 6 do
@@ -15,9 +15,6 @@ for angle_offset = 0, math.pi * 2, math.pi * 2 / 120 do
 
     table.insert(computed_vertexes, { x * RADIUS, y * RADIUS })
     table.insert(computed_vertexes, { x2 * INNER_RADIUS, y2 * INNER_RADIUS })
-
-    table.insert(computed_colors, COLOR)
-    table.insert(computed_colors, COLOR)
 
     table.insert(computed_segments, { i, i + 1 })
     table.insert(computed_segments, { i, i + 2 })
@@ -32,7 +29,6 @@ for angle_offset = 0, math.pi * 2, math.pi * 2 / 120 do
 
   table.insert(meshes, {
     vertexes = computed_vertexes,
-    segments = computed_segments,
-    colors = computed_colors
+    segments = computed_segments
   })
 end

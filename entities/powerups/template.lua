@@ -1,17 +1,22 @@
-fm = require"helpers/floating_message"
+local helpers = require"entities/helpers"
+local fm = require"helpers/floating_message"
 require"entities/powerups/config"
 
 local module = {}
 
 
 -- Spawn entity, add update callback
-function module.spawn(ship_id, x, y, mesh, icon_mesh, text, color, callback)
+function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
   local start_dissapearing = 240  -- 480 maybe or smth?
   local stop_dissapearing = 480
 
+  local outer_colors = colors[1]
+  local inner_colors = colors[2]
+  local text_colors = colors[3]
+
   local box = new_entity(x, y)
   entity_start_spawning(box, 2)
-  entity_set_mesh(box, mesh)
+  entity_set_mesh(box, "entities/powerups/mesh")
   entity_set_radius(box, to_fx(BOX_RADIUS))
 
   -- entity for inner shield icon
@@ -37,11 +42,29 @@ function module.spawn(ship_id, x, y, mesh, icon_mesh, text, color, callback)
         entity_destroy(inner_box)
       end
     end
+
+    -- [TODO: sync changing outer and inner color?]
+    outer_color = helpers.get_mesh_color(box_time, table.unpack(outer_colors))
+    if outer_color ~= nil then
+      entity_set_mesh_color(box, outer_color)
+    end
+
+    inner_color = helpers.get_mesh_color(box_time, table.unpack(inner_colors))
+    if inner_color ~= nil then
+      entity_set_mesh_color(inner_box, inner_color)
+    end
+
   end
 
   function box_player_collision(entity_id, player_id, ship_id)
     x, y = entity_get_pos(ship_id)
-    pu = fm.new(x, y, text, 1fx, color, 16)
+
+    if LEVEL_MODE == 0 then    
+      pu = fm.new(x, y, text, 1fx, text_colors[1], 16)
+    else
+      pu = fm.new(x, y, text, 1fx, text_colors[2], 16)
+    end
+
     play_sound("entities/powerups/sounds/pickup")
 
     entity_start_exploding(entity_id, 11)

@@ -1,4 +1,5 @@
 local performance = require"misc/performance"
+local helpers = require"entities/helpers"
 
 local module = {}
 
@@ -6,15 +7,25 @@ local module = {}
 -- Spawn entity, add update callback
 function module.spawn(x, y, angle)
   local speed = 1fx
+  local color1 = 0x007a50ff
+  local color2 = 0x0248abff
 
   local dust = new_entity(x, y)
   entity_start_spawning(dust, 2)
   entity_set_mesh(dust, "entities/dust/mesh")
   entity_set_radius(dust, 2fx)
 
+  local time = 0
   local dy, dx = fx_sincos(angle)
   function dust_update_callback()
+    time = time + 1
+
     entity_change_pos(dust, dx*speed, dy*speed)
+
+    color = helpers.get_mesh_color(time, color1, color2)
+    if color ~= nil then
+      entity_set_mesh_color(dust, color)
+    end
   end
 
   function dust_wall_collision()

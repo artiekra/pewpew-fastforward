@@ -5,7 +5,7 @@ local hud = require"misc/hud"
 local labels = require"misc/labels"
 local camera = require"misc/camera"
 local enemies = require"entities/spawn"
-local rays = require"rays/logic"
+local rays = require"entities/rays/logic"
 local shooting = require"misc/shooting"
 local performance = require"misc/performance"
 
@@ -42,6 +42,32 @@ function update_ship_speed(speed)
 end
 
 
+-- update border colors according to level mode
+function update_border_colors()
+
+  function border_update_callback()
+    local flicker_speed = 0.1
+
+    if LEVEL_MODE == 0 then
+      entity_set_mesh(border, "graphics/border/border", 0)
+    elseif LEVEL_MODE == 1 then
+      n = random(0, 1)
+      if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
+        if n == 0 then
+          entity_set_mesh(border, "graphics/border/border", 0)
+        else
+          entity_set_mesh(border, "graphics/border/border", 1)
+        end
+      end
+    elseif LEVEL_MODE == 2 then
+      entity_set_mesh(border, "graphics/border/border", 1)
+    end
+  end
+
+  entity_set_update_callback(border, border_update_callback)
+end
+
+
 time = 0
 function level_tick()
   time = time + 1 -- global time variable
@@ -68,6 +94,14 @@ function level_tick()
   performance.update(time, get_score())
   hud.update(ship_speed, performance.PERFORMANCE)
 
+  local mode_change_end = MODE_CHANGE_START + MODE_CHANGE_DURATION
+  if time > MODE_CHANGE_START then
+    LEVEL_MODE = 1
+    if time > mode_change_end then
+      LEVEL_MODE = 2
+    end
+  end
+
 end
 
 
@@ -79,4 +113,5 @@ ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
 
 enemies.init_spawn(ship)
 
+update_border_colors()
 add_update_callback(level_tick)

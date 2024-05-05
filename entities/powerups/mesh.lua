@@ -1,11 +1,10 @@
+require"/dynamic/ppol/.lua"
+
 gh = require"helpers/graphics_helpers"
-ch = require"helpers/color_helpers"
 require"entities/powerups/config"
 
-local module = {}
 
-
-function module.make_mesh(color)
+function make_mesh(color)
   local center = {0,0,0}
   local mesh = gh.new_mesh()
 
@@ -28,4 +27,6 @@ function module.make_mesh(color)
 end
 
 
-return module
+meshes = {
+  make_mesh(0xffffffff)
+}

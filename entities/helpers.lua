@@ -3,6 +3,28 @@ require"globals"
 local module = {}
 
 
+function module.get_mesh_color(time, color1, color2)
+  local flicker_speed = 0.2
+
+  if LEVEL_MODE == 0 then
+    return color1
+  elseif LEVEL_MODE == 1 then
+    n = random(0, 1)
+    if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
+      if n == 0 then
+        return color1
+      else
+        return color2
+      end
+    end
+  elseif LEVEL_MODE == 2 then
+    return color2
+  end
+
+  return nil
+end
+
+
 -- Get random coordinates, that are not too close to the player
 -- Specify an offset to not spawn to close to the border
 function module.random_coordinates(ship, player_zone, offset)
