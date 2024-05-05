@@ -22,14 +22,16 @@ function module.add_arrow(owner, target)
     -- destroy the arrow if owner/target dont exist anymore
     if not entity_get_is_alive(target) or
        not entity_get_is_alive(owner) then
+      entity_set_mesh_color(arrow, 0x00000000)
       entity_destroy(arrow)
+      return
     end
 
     local ox, oy = entity_get_pos(owner)
     local tx, ty = entity_get_pos(target)
 
     -- point to the target
-    -- [NOTE: array is in between owner and target, atan2 is the same,
+    -- [NOTE: arrow is in between owner and target, atan2 is the same,
     --  both for when you base on on owner, and on arrow itself?]
     local angle = fx_atan2(ty-oy, tx-ox)
     entity_set_mesh_angle(arrow, angle, 0fx, 0fx, 1fx)

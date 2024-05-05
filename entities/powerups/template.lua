@@ -1,6 +1,7 @@
 local helpers = require"entities/helpers"
 local arrow = require"entities/powerups/arrow/logic"
 local fm = require"helpers/floating_message"
+local ch = require"helpers/color_helpers"
 require"entities/powerups/config"
 
 local module = {}
@@ -27,32 +28,38 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
   entity_set_radius(inner_box, to_fx(BOX_RADIUS))
 
   local box_time = 0
-  function box_update_callback()  -- [TODO: add args??]
+  function box_update_callback()
     box_time = box_time + 1
-    if box_time >= start_dissapearing then
-      local total = stop_dissapearing - start_dissapearing
-      local time_left = stop_dissapearing - box_time
-      local opacity = (time_left * 255) // total
 
-      -- [TODO: check if entity exists]
-      if opacity > 0 then
-        entity_set_mesh_color(box, 0xffffff00 + opacity)
-        entity_set_mesh_color(inner_box, 0xffffff00 + opacity)
-      else
-        entity_destroy(box)
-        entity_destroy(inner_box)
+    if entity_get_is_alive(box) and
+       entity_get_is_alive(inner_box) then
+
+      -- [TODO: sync changing outer and inner color]
+      outer_color = helpers.get_mesh_color(box_time, table.unpack(outer_colors))
+      if outer_color ~= nil then
+        entity_set_mesh_color(box, outer_color)
       end
-    end
 
-    -- [TODO: sync changing outer and inner color?]
-    outer_color = helpers.get_mesh_color(box_time, table.unpack(outer_colors))
-    if outer_color ~= nil then
-      entity_set_mesh_color(box, outer_color)
-    end
+      inner_color = helpers.get_mesh_color(box_time, table.unpack(inner_colors))
+      if inner_color ~= nil then
+        entity_set_mesh_color(inner_box, inner_color)
+      end
 
-    inner_color = helpers.get_mesh_color(box_time, table.unpack(inner_colors))
-    if inner_color ~= nil then
-      entity_set_mesh_color(inner_box, inner_color)
+      if box_time >= start_dissapearing then
+        local total = stop_dissapearing - start_dissapearing
+        local time_left = stop_dissapearing - box_time
+        local opacity = (time_left * 255) // total
+
+        if opacity > 0 then
+          entity_set_mesh_color(box, ch.make_color_with_alpha(outer_color, opacity))
+          entity_set_mesh_color(inner_box, ch.make_color_with_alpha(inner_color, opacity))
+        else
+          entity_destroy(box)
+          entity_destroy(inner_box)
+          return
+        end
+      end
+
     end
 
   end

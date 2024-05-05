@@ -1,6 +1,7 @@
 local performance = require"misc/performance"
 local bullets = require"entities/polygon/bullets/logic"
 local helpers = require"entities/helpers"
+local ch = require"helpers/color_helpers"
 
 local module = {}
 
@@ -31,8 +32,10 @@ function module.spawn(x, y, angle)
   local speed = 2fx
   local health = 5
 
-  local color1 = 0x004a15ff
-  local color2 = 0x5700adff
+  -- [NOTE: cant have maximum alpha value,
+  --  its increased for effect, when hit by bullet]
+  local color1 = 0x009a6590
+  local color2 = 0xa700fd90
 
   local polygon = new_entity(x, y)
   entity_start_spawning(polygon, 2)
@@ -41,9 +44,11 @@ function module.spawn(x, y, angle)
 
   local time = 0
   local mesh_index = 0
+  local highlight = 0
   local dy, dx = fx_sincos(angle)
   function polygon_update_callback()
     time = time + 1
+    highlight = highlight - 1
     
     entity_change_pos(polygon, dx*speed, dy*speed)
 
@@ -56,7 +61,11 @@ function module.spawn(x, y, angle)
 
     color = helpers.get_mesh_color(time, color1, color2)
     if color ~= nil then
-      entity_set_mesh_color(polygon, color)
+      if highlight > 0 then
+        entity_set_mesh_color(polygon, ch.make_color_with_alpha(color, 255))
+      else
+        entity_set_mesh_color(polygon, color)
+      end
     end
   end
 
@@ -82,6 +91,7 @@ function module.spawn(x, y, angle)
     if health > 0 then
       if weapon == weapon_type.bullet then
         health = health - 1
+        highlight = 5
         if health <= 0 then
           module.destroy_polygon(entity_id)
         end

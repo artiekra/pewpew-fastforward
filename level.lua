@@ -91,7 +91,8 @@ function level_tick()
   rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
     BEVEL_SIZE, player_x, player_y)
 
-  performance.update(time, get_score())
+  local player_score = get_score()
+  performance.update(time, player_score)
   hud.update(ship_speed, performance.PERFORMANCE)
 
   local mode_change_end = MODE_CHANGE_START + MODE_CHANGE_DURATION
