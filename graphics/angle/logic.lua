@@ -6,6 +6,7 @@ local module = {}
 
 
 -- Spawn entity (border decoration), add update callback
+-- [TODO: add music visualisation]
 function module.spawn(x, y, pos_angle)
   local angle = new_entity(x, y)
   entity_set_mesh(angle, "graphics/angle/mesh")

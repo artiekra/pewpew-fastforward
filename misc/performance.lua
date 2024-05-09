@@ -6,7 +6,7 @@ module.SCORE = 0
 
 -- Update performance multiplier (basic score&time calculation)
 function module.update(time, score)
-  module.PERFORMANCE = 1 + (score/time*10)
+  module.PERFORMANCE = 1 + (score/time*5)
   return module.PERFORMANCE
 end
 

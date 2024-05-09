@@ -7,8 +7,10 @@ local module = {}
 -- Spawn entity, add update callback
 function module.spawn(x, y, angle)
   local speed = 8.5fx
+  local spin_speed = 1fx/4fx
   local color1 = 0x094500ff
   local color2 = 0x450044ff
+  local color3 = 0x000000ff
 
   local darkbaf = new_entity(x, y)
   entity_start_spawning(darkbaf, 2)
@@ -17,16 +19,18 @@ function module.spawn(x, y, angle)
 
   local time = 0
   local dy, dx = fx_sincos(angle)
+  entity_set_mesh_angle(darkbaf, angle, 0fx, 0fx, 1fx)
   function darkbaf_update_callback()
     time = time + 1
 
     entity_change_pos(darkbaf, dx*speed, dy*speed)
-    entity_set_mesh_angle(darkbaf, angle, 0fx, 0fx, 1fx)
+    -- entity_add_mesh_angle(darkbaf, spin_speed, 1fx, 0fx, 0fx)
 
     color = helpers.get_mesh_color(time, color1, color2)
     if color ~= nil then
       entity_set_mesh_color(darkbaf, color)
     end
+
   end
 
   function darkbaf_wall_collision(entity_id, wall_normal_x, wall_normal_y)
@@ -34,6 +38,7 @@ function module.spawn(x, y, angle)
     dx = dx - (wall_normal_x * dot_product_move)
     dy = dy - (wall_normal_y * dot_product_move); 
     angle = fx_atan2(dy,dx)
+    entity_set_mesh_angle(darkbaf, angle, 0fx, 0fx, 1fx)
   end
 
   function darkbaf_player_collision(entity_id, player_id, ship_id)
