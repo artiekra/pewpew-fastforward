@@ -30,42 +30,21 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
   local box_time = 0
   function box_update_callback()
     box_time = box_time + 1
-    local flicker_speed = 0.2
-
-    local outer_color = outer_colors[1]
-    local inner_color = inner_colors[1]
 
     if entity_get_is_alive(box) and
       entity_get_is_alive(inner_box) then
 
-      -- not using helpers, so that color change is synced
-      -- (still able to use different inner/outer colors)
-      -- [TODO: refactor?]
-      if LEVEL_MODE == 0 then
-        outer_color = outer_colors[1]
-        inner_color = inner_colors[1]
+      local outer_color = outer_colors[1]
+      local inner_color = inner_colors[1]
+
+      local color = helpers.get_color_state(time)
+      if color ~= nil then
+
+        outer_color = outer_colors[color]
+        inner_color = inner_colors[color]
         entity_set_mesh_color(box, outer_color)
         entity_set_mesh_color(inner_box, inner_color)
-      elseif LEVEL_MODE == 1 then
-        n = random(0, 1)
-        if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
-          if n == 0 then
-            outer_color = outer_colors[1]
-            inner_color = inner_colors[1]
-            entity_set_mesh_color(box, outer_color)
-            entity_set_mesh_color(inner_box, inner_color)
-          else
-            outer_color = outer_colors[2]
-            inner_color = inner_colors[2]
-            entity_set_mesh_color(box, outer_color)
-            entity_set_mesh_color(inner_box, inner_color)
-          end
-        end
-      elseif LEVEL_MODE == 2 then
-        outer_color = outer_colors[2]
-        inner_color = inner_colors[2]
-        entity_set_mesh_color(box, outer_color)
-        entity_set_mesh_color(inner_box, inner_color)
+
       end
 
       if box_time >= start_dissapearing then
@@ -90,10 +69,10 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
   function box_player_collision(entity_id, player_id, ship_id)
     x, y = entity_get_pos(ship_id)
 
-    if LEVEL_MODE == 0 then    
-      pu = fm.new(x, y, text, 1fx, text_colors[1], 16)
-    else
-      pu = fm.new(x, y, text, 1fx, text_colors[2], 16)
+    local color_state = helpers.get_color_state(time)
+    if color_state ~= nil then
+      color = text_colors[color_state]
+      pu = fm.new(x, y, text, 1fx, color, 16)
     end
 
     play_sound("entities/powerups/sounds/pickup")

@@ -12,17 +12,10 @@ end
 
 -- Spawn entity, add update callback
 function module.spawn(ship_id, x, y)
-  local color_icon1 = 0x007a50ff
-  local color_outer1 = 0x007a50ff
-  local color_icon2 = 0x0000ffff
-  local color_outer2 = 0x0000ffff
-  local color_text1 = 0x007a50ff
-  local color_text2 = 0x0000ffff
-
   local colors = {
-    {color_outer1, color_outer2},
-    {color_icon1, color_icon2},
-    {color_text1, color_text2}
+    {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff},
+    {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff},
+    {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff}
   }
 
   local shield = template.spawn(ship_id, x, y, "entities/powerups/powerup/shield/icon",
