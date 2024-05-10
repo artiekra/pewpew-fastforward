@@ -3,13 +3,15 @@ require"globals"
 local module = {}
 
 
-function module.get_mesh_color(time, colors)
+-- Useful generalisation for get_mesh_color(),
+-- based on LEVEL_MODE
+function module.get_color_state(time)
   local flicker_speed = 0.2
 
   -- colors isn't changing right now
   if LEVEL_MODE % 2 == 0 then
     local color = (LEVEL_MODE+2) / 2
-    return colors[color]
+    return color
   end
 
   -- color should flicker
@@ -19,14 +21,27 @@ function module.get_mesh_color(time, colors)
     if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
       if n == 0 then
         local color = (LEVEL_MODE+3) / 2
-        return colors[color]
+        return color
       else
         local color = (LEVEL_MODE+1) / 2
-        return colors[color]
+        return color
       end
     end
   end
 
+  return nil
+end
+
+
+-- Get the right color for the mesh, based on LEVEL_MODE
+-- [TODO: change mesh in this function too?]
+function module.get_mesh_color(time, colors)
+
+  local color = module.get_color_state(time)
+  if color ~= nil then
+    return colors[color]
+  end
+  
   return nil
 end
 

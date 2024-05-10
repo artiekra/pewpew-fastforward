@@ -2,7 +2,7 @@ require"/dynamic/ppol/.lua"
 require"globals"
 
 local hud = require"misc/hud"
-local labels = require"misc/labels"
+local labels = require"entities/misc/labels"
 local camera = require"misc/camera"
 local enemies = require"entities/spawn"
 local rays = require"entities/rays/logic"
