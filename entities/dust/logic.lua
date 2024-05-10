@@ -22,10 +22,7 @@ function module.spawn(x, y, angle)
 
     entity_change_pos(dust, dx*speed, dy*speed)
 
-    local color = helpers.get_mesh_color(time, colors)
-    if color ~= nil then
-      entity_set_mesh_color(dust, color)
-    end
+    helpers.set_entity_color(time, dust, colors)
   end
 
   function dust_wall_collision()

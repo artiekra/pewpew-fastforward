@@ -16,10 +16,7 @@ function module.spawn(x, y)
   function border_update_callback()
     time = time + 1
 
-    local color = helpers.get_mesh_color(time, colors)
-    if color ~= nil then
-      entity_set_mesh_color(border, color)
-    end
+    helpers.set_entity_color(time, border, colors)
   end
 
   entity_set_update_callback(border, border_update_callback)

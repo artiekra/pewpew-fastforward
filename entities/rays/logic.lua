@@ -18,10 +18,7 @@ function module.create_individual(x, y, angle)
   function ray_update_callback()
     time = time + 1
 
-    local color = helpers.get_mesh_color(time, colors)
-    if color ~= nil then
-      entity_set_mesh_color(ray, color)
-    end
+    helpers.set_entity_color(time, ray, colors)
   end
 
   entity_set_update_callback(ray, ray_update_callback)

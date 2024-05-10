@@ -3,7 +3,7 @@ require"globals"
 local module = {}
 
 
--- Useful generalisation for get_mesh_color(),
+-- Useful generalisation for set_entity_color(),
 -- based on LEVEL_MODE
 function module.get_color_state(time)
   local flicker_speed = 0.2
@@ -33,15 +33,17 @@ function module.get_color_state(time)
 end
 
 
--- Get the right color for the mesh, based on LEVEL_MODE
--- [TODO: change mesh in this function too?]
-function module.get_mesh_color(time, colors)
+-- Get the right color for the mesh, based on LEVEL_MODE,
+-- and also set it right away
+function module.set_entity_color(time, entity, colors)
 
-  local color = module.get_color_state(time)
-  if color ~= nil then
-    return colors[color]
+  local color_state = module.get_color_state(time)
+  if color_state ~= nil then
+    local color = colors[color_state]
+    entity_set_mesh_color(entity, color)
+    return color
   end
-  
+ 
   return nil
 end
 

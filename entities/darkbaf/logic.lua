@@ -25,11 +25,7 @@ function module.spawn(x, y, angle)
     entity_change_pos(darkbaf, dx*speed, dy*speed)
     -- entity_add_mesh_angle(darkbaf, spin_speed, 1fx, 0fx, 0fx)
 
-    local color = helpers.get_mesh_color(time, colors)
-    if color ~= nil then
-      entity_set_mesh_color(darkbaf, color)
-    end
-
+    helpers.set_entity_color(time, darkbaf, colors)
   end
 
   function darkbaf_wall_collision(entity_id, wall_normal_x, wall_normal_y)

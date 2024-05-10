@@ -59,8 +59,9 @@ function module.spawn(x, y, angle)
     entity_set_mesh(polygon, "entities/polygon/mesh", mesh_index, mesh_index + 1)
     mesh_index = mesh_index + 2
 
-    local color = helpers.get_mesh_color(time, colors)
-    if color ~= nil then
+    local color_state = helpers.get_color_state(time)
+    if color_state ~= nil then
+      local color = colors[color_state]
       if highlight > 0 then
         entity_set_mesh_color(polygon, ch.make_color_with_alpha(color, 255))
       else

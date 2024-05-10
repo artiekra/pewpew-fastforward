@@ -15,9 +15,10 @@ function module.create_label(x, y, text, colors, scale, angle)
   local time = 0
   function label_update_callback()
     time = time + 1
-    local color = helpers.get_mesh_color(time, colors)
-    
+
+    local color = helpers.get_color_state(time)
     if color ~= nil then
+      local color = colors[color]
       local text = ch.color_to_string(color) .. text
       entity_set_string(label, text)
     end

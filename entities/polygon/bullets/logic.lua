@@ -23,10 +23,7 @@ function module.spawn(x, y, angle)
 
     entity_change_pos(bullet, dx*speed, dy*speed)
 
-    local color = helpers.get_mesh_color(time, colors)
-    if color ~= nil then
-      entity_set_mesh_color(bullet, color)
-    end
+    helpers.set_entity_color(time, bullet, colors)
   end
 
   function bullet_wall_collision()
