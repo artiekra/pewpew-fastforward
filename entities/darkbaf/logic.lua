@@ -9,7 +9,7 @@ function module.spawn(x, y, angle)
   local speed = 8.5fx
   local spin_speed = 1fx/4fx
   local colors = {0x094500ff, 0x450044ff,
-    0xff0000ff, 0x808080ff}
+    0x940c00ff, 0x808080ff}
 
   local darkbaf = new_entity(x, y)
   entity_start_spawning(darkbaf, 2)

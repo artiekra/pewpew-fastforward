@@ -3,7 +3,7 @@ local helpers = require"entities/helpers"
 local module = {}
 
 local colors = {0x00ff00ff, 0x0000ffff,
-  0xff0000ff, 0x808080ff}
+  0xff9100ff, 0x808080ff}
 
 
 -- Spawn entity (border decoration), add update callback

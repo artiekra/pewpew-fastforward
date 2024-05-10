@@ -8,7 +8,7 @@ local module = {}
 function module.spawn(x, y, angle)
   local speed = 1fx
   local colors = {0x007a50ff, 0x0248abff,
-    0xff0000ff, 0x808080ff}
+    0xd17300ff, 0x808080ff}
 
   local dust = new_entity(x, y)
   entity_start_spawning(dust, 2)

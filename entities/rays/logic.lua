@@ -3,7 +3,7 @@ local helpers = require"entities/helpers"
 local module = {}
 
 local colors = {0x002902ff, 0x000229ff,
-  0xff0000ff, 0x808080ff}
+  0xe0a800ff, 0x808080ff}
 
 
 -- Create individual ray

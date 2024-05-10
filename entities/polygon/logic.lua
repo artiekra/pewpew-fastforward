@@ -35,7 +35,7 @@ function module.spawn(x, y, angle)
   -- [NOTE: cant have maximum alpha value,
   --  its increased for effect, when hit by bullet]
   local colors = {0x009a6590, 0xa700fd90,
-    0xff000090, 0x80808090}
+    0xe0340090, 0x80808090}
 
   local polygon = new_entity(x, y)
   entity_start_spawning(polygon, 2)

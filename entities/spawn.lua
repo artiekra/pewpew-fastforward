@@ -19,6 +19,7 @@ function module.init_spawn(ship)
   end
 
   spawn_powerup.spawn_shield(ship)
+  spawn_powerup.spawn_score(ship)
 
   local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
   polygon.spawn(x, y, fx_random(FX_TAU))
