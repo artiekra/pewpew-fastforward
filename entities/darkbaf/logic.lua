@@ -8,9 +8,8 @@ local module = {}
 function module.spawn(x, y, angle)
   local speed = 8.5fx
   local spin_speed = 1fx/4fx
-  local color1 = 0x094500ff
-  local color2 = 0x450044ff
-  local color3 = 0x000000ff
+  local colors = {0x094500ff, 0x450044ff,
+    0xff0000ff, 0x808080ff}
 
   local darkbaf = new_entity(x, y)
   entity_start_spawning(darkbaf, 2)
@@ -26,7 +25,7 @@ function module.spawn(x, y, angle)
     entity_change_pos(darkbaf, dx*speed, dy*speed)
     -- entity_add_mesh_angle(darkbaf, spin_speed, 1fx, 0fx, 0fx)
 
-    color = helpers.get_mesh_color(time, color1, color2)
+    local color = helpers.get_mesh_color(time, colors)
     if color ~= nil then
       entity_set_mesh_color(darkbaf, color)
     end

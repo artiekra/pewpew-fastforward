@@ -4,7 +4,6 @@ local gh = require"helpers/graphics_helpers"
 local ch = require"helpers/color_helpers"
 
 require"globals"
-require"graphics/border/config"
 
 
 ---- Draws simple shape to outline the border
@@ -32,7 +31,7 @@ function make_mesh(color1, color2)
 
   -- draw main border, one thick line
   local init_z = 10
-  for i=1, BORDER_WIDTH do
+  for i=1, 5 do
     local d = (i - 1) * 2
     draw_border_outline(mesh, lw-d, lh-d, bevel, color1, color2, 10)
   end
@@ -49,6 +48,5 @@ end
 
 
 meshes = {
-  make_mesh(COLOR_MAIN1_1, COLOR_MAIN1_2),
-  make_mesh(COLOR_MAIN2_1, COLOR_MAIN2_2)
+  make_mesh(0xffffffff, 0xffffffff)
 }

@@ -2,8 +2,8 @@ local helpers = require"entities/helpers"
 
 local module = {}
 
-local color1 = 0x002902ff
-local color2 = 0x000229ff
+local colors = {0x002902ff, 0x000229ff,
+  0xff0000ff, 0x808080ff}
 
 
 -- Create individual ray
@@ -18,7 +18,7 @@ function module.create_individual(x, y, angle)
   function ray_update_callback()
     time = time + 1
 
-    color = helpers.get_mesh_color(time, color1, color2)
+    local color = helpers.get_mesh_color(time, colors)
     if color ~= nil then
       entity_set_mesh_color(ray, color)
     end

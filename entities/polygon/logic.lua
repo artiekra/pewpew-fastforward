@@ -34,8 +34,8 @@ function module.spawn(x, y, angle)
 
   -- [NOTE: cant have maximum alpha value,
   --  its increased for effect, when hit by bullet]
-  local color1 = 0x009a6590
-  local color2 = 0xa700fd90
+  local colors = {0x009a6590, 0xa700fd90,
+    0xff000090, 0x80808090}
 
   local polygon = new_entity(x, y)
   entity_start_spawning(polygon, 2)
@@ -59,7 +59,7 @@ function module.spawn(x, y, angle)
     entity_set_mesh(polygon, "entities/polygon/mesh", mesh_index, mesh_index + 1)
     mesh_index = mesh_index + 2
 
-    color = helpers.get_mesh_color(time, color1, color2)
+    local color = helpers.get_mesh_color(time, colors)
     if color ~= nil then
       if highlight > 0 then
         entity_set_mesh_color(polygon, ch.make_color_with_alpha(color, 255))

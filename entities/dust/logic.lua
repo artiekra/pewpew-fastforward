@@ -7,8 +7,8 @@ local module = {}
 -- Spawn entity, add update callback
 function module.spawn(x, y, angle)
   local speed = 1fx
-  local color1 = 0x007a50ff
-  local color2 = 0x0248abff
+  local colors = {0x007a50ff, 0x0248abff,
+    0xff0000ff, 0x808080ff}
 
   local dust = new_entity(x, y)
   entity_start_spawning(dust, 2)
@@ -22,7 +22,7 @@ function module.spawn(x, y, angle)
 
     entity_change_pos(dust, dx*speed, dy*speed)
 
-    color = helpers.get_mesh_color(time, color1, color2)
+    local color = helpers.get_mesh_color(time, colors)
     if color ~= nil then
       entity_set_mesh_color(dust, color)
     end

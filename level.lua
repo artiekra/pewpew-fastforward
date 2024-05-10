@@ -8,7 +8,8 @@ local enemies = require"entities/spawn"
 local rays = require"entities/rays/logic"
 local shooting = require"misc/shooting"
 local performance = require"misc/performance"
-local angle = require"graphics/angle/logic"
+local angle = require"entities/graphics/angle/logic"
+local border = require"entities/graphics/border/logic"
 
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
@@ -17,8 +18,7 @@ set_joystick_color(0x202020ff, 0x202020ff)
 set_shield(3)
 local ship_speed = 0.99
 
-local border = new_entity(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
-entity_set_mesh(border, "graphics/border/border")
+border.spawn(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 
 -- add two half-squares (angles), just as a decorative element
 -- [TODO: fix it (see graphics/angle/logic.lua)]
@@ -48,31 +48,6 @@ function update_ship_speed(speed)
 end
 
 
--- update border colors according to level mode
-function update_border_colors()
-
-  function border_update_callback()
-    local flicker_speed = 0.1
-
-    if LEVEL_MODE == 0 then
-      entity_set_mesh(border, "graphics/border/border", 0)
-    elseif LEVEL_MODE == 1 then
-      n = random(0, 1)
-      if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
-        if n == 0 then
-          entity_set_mesh(border, "graphics/border/border", 0)
-        else
-          entity_set_mesh(border, "graphics/border/border", 1)
-        end
-      end
-    elseif LEVEL_MODE == 2 then
-      entity_set_mesh(border, "graphics/border/border", 1)
-    end
-  end
-
-  entity_set_update_callback(border, border_update_callback)
-end
-
 
 time = 0
 function level_tick()
@@ -101,11 +76,23 @@ function level_tick()
   performance.update(time, player_score)
   hud.update(ship_speed, performance.PERFORMANCE)
 
-  local mode_change_end = MODE_CHANGE_START + MODE_CHANGE_DURATION
-  if time > MODE_CHANGE_START then
+  -- [TODO: refactor code]
+  if time > MODE_CHANGE_START_PURPLE then
     LEVEL_MODE = 1
-    if time > mode_change_end then
+    if time > MODE_CHANGE_START_PURPLE + MODE_CHANGE_DURATION then
       LEVEL_MODE = 2
+      if time > MODE_CHANGE_START_ORANGE then
+        LEVEL_MODE = 3
+        if time > MODE_CHANGE_START_ORANGE + MODE_CHANGE_DURATION then
+          LEVEL_MODE = 4
+          if time > MODE_CHANGE_START_GREY then
+            LEVEL_MODE = 5
+            if time > MODE_CHANGE_START_GREY + MODE_CHANGE_DURATION then
+              LEVEL_MODE = 6
+            end
+          end
+        end
+      end
     end
   end
 
@@ -120,5 +107,4 @@ ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
 
 enemies.init_spawn(ship)
 
-update_border_colors()
 add_update_callback(level_tick)

@@ -3,22 +3,28 @@ require"globals"
 local module = {}
 
 
-function module.get_mesh_color(time, color1, color2)
+function module.get_mesh_color(time, colors)
   local flicker_speed = 0.2
 
-  if LEVEL_MODE == 0 then
-    return color1
-  elseif LEVEL_MODE == 1 then
+  -- colors isn't changing right now
+  if LEVEL_MODE % 2 == 0 then
+    local color = (LEVEL_MODE+2) / 2
+    return colors[color]
+  end
+
+  -- color should flicker
+  -- [TODO: combine with the previous if, with else?]
+  if LEVEL_MODE % 2 == 1 then
     n = random(0, 1)
     if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
       if n == 0 then
-        return color1
+        local color = (LEVEL_MODE+3) / 2
+        return colors[color]
       else
-        return color2
+        local color = (LEVEL_MODE+1) / 2
+        return colors[color]
       end
     end
-  elseif LEVEL_MODE == 2 then
-    return color2
   end
 
   return nil

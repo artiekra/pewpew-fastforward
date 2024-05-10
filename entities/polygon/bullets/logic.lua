@@ -8,8 +8,8 @@ local module = {}
 function module.spawn(x, y, angle)
   local speed = 10fx
 
-  local color1 = 0x00ff00ff
-  local color2 = 0x8000ffff
+  local colors = {0x00ff00ff, 0x8000ffff,
+    0xff0000ff, 0x808080ff}
 
   local bullet = new_entity(x, y)
   entity_start_spawning(bullet, 2)
@@ -23,7 +23,7 @@ function module.spawn(x, y, angle)
 
     entity_change_pos(bullet, dx*speed, dy*speed)
 
-    color = helpers.get_mesh_color(time, color1, color2)
+    local color = helpers.get_mesh_color(time, colors)
     if color ~= nil then
       entity_set_mesh_color(bullet, color)
     end

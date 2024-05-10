@@ -8,9 +8,6 @@ local module = {}
 function module.add_arrow(owner, target, colors)
   local distance = 25fx
 
-  local color1 = colors[1]
-  local color2 = colors[2]
-
   local arrow = new_entity(entity_get_pos(owner))
   entity_start_spawning(arrow, 2)
   entity_set_mesh(arrow, "entities/powerups/arrow/mesh")
@@ -41,7 +38,7 @@ function module.add_arrow(owner, target, colors)
     entity_set_pos(arrow, ox+dx*distance, oy+dy*distance)
 
     -- change colors according to level mode
-    color = helpers.get_mesh_color(time, color1, color2)
+    local color = helpers.get_mesh_color(time, colors)
     if color ~= nil then
       entity_set_mesh_color(arrow, color)
     end
