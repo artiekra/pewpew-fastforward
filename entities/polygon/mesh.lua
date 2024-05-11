@@ -1,11 +1,10 @@
--- [TODO: refactor the code?]
-
 require"/dynamic/ppol/.lua"
 require"entities/polygon/config"
 
 meshes = {}
 
-for angle_offset = 0, math.pi * 2, math.pi * 2 / 120 do
+
+function make_mesh(angle_offset)
   local computed_vertexes, computed_segments = {}, {}
 
   local i = 0
@@ -27,8 +26,16 @@ for angle_offset = 0, math.pi * 2, math.pi * 2 / 120 do
   table.remove(computed_segments, #computed_segments)
   table.remove(computed_segments, #computed_segments)
 
-  table.insert(meshes, {
+  local mesh = {
     vertexes = computed_vertexes,
     segments = computed_segments
-  })
+  }
+
+  return mesh
+end
+
+
+local step = math.pi * 2 / (ANIMATION_TIME*60)
+for angle_offset = 0, math.pi * 2, step do
+  table.insert(meshes, make_mesh(angle_offset))
 end

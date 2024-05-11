@@ -3,39 +3,39 @@ local bullets = require"entities/polygon/bullets/logic"
 local helpers = require"entities/helpers"
 local ch = require"helpers/color_helpers"
 
+require"entities/polygon/config"
+
 local module = {}
 
+-- [NOTE: cant have maximum alpha value,
+--  its increased for effect, when hit by bullet]
+local colors = {0x009a6590, 0xa700fd90,
+  0xe0340090, 0x80808090}
 
-function module.destroy_polygon(polygon_id)
-  local total_bullets = 12
 
+function module.destroy_polygon(polygon_id, color)
   entity_start_exploding(polygon_id, 15)
   performance.increase_player_score(5)
 
   local x, y = entity_get_pos(polygon_id)
+  create_explosion(x, y, color, 2fx, 50)
 
-  local a = FX_TAU / total_bullets
-  for i=1, total_bullets do
-    -- [TODO: refactor, make configurable]
-    local bullet1 = bullets.spawn(x, y, a * i - 1fx)
-    local bullet2 = bullets.spawn(x, y, a * i + 1fx)
-    entity_set_mesh_angle(bullet1, a * i - 1fx, 0fx, 0fx, 1fx)
-    entity_set_mesh_angle(bullet2, a * i + 1fx, 0fx, 0fx, 1fx)
+  local a = FX_TAU / TOTAL_BULLETS
+  for i=1, TOTAL_BULLETS do
+    local bullet1 = bullets.spawn(x, y, a * i - GROUP_SPREAD)
+    local bullet2 = bullets.spawn(x, y, a * i + GROUP_SPREAD)
+    entity_set_mesh_angle(bullet1, a * i - GROUP_SPREAD, 0fx, 0fx, 1fx)
+    entity_set_mesh_angle(bullet2, a * i + GROUP_SPREAD, 0fx, 0fx, 1fx)
   end
 end
 
 
 -- Spawn entity, add update callback
--- [TODO: make it more natural (angle after collision, movement/animation speed, etc)]
--- [NOTE: use explosions separately, instead of entity_start_exploding()?]
 function module.spawn(x, y, angle)
   local speed = 2fx
   local health = 5
 
-  -- [NOTE: cant have maximum alpha value,
-  --  its increased for effect, when hit by bullet]
-  local colors = {0x009a6590, 0xa700fd90,
-    0xe0340090, 0x80808090}
+  local explosion_color = colors[1]
 
   local polygon = new_entity(x, y)
   entity_start_spawning(polygon, 2)
@@ -52,7 +52,7 @@ function module.spawn(x, y, angle)
     
     entity_change_pos(polygon, dx*speed, dy*speed)
 
-    if mesh_index >= 120 then
+    if mesh_index >= ANIMATION_TIME*60 then
       mesh_index = 0
     end
 
@@ -61,7 +61,8 @@ function module.spawn(x, y, angle)
 
     local color_state = helpers.get_color_state(time)
     if color_state ~= nil then
-      local color = colors[color_state]
+      color = colors[color_state]
+      explosion_color = color
       if highlight > 0 then
         entity_set_mesh_color(polygon, ch.make_color_with_alpha(color, 255))
       else
@@ -85,7 +86,7 @@ function module.spawn(x, y, angle)
       else
         damage_player_ship(ship_id, health)
       end
-      module.destroy_polygon(entity_id)
+      module.destroy_polygon(entity_id, explosion_color)
 
       performance.increase_player_score(3)
     end
@@ -97,7 +98,7 @@ function module.spawn(x, y, angle)
         health = health - 1
         highlight = 5
         if health <= 0 then
-          module.destroy_polygon(entity_id)
+          module.destroy_polygon(entity_id, explosion_color)
         end
       end
     end
