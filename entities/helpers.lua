@@ -12,11 +12,9 @@ function module.get_color_state(time)
   if LEVEL_MODE % 2 == 0 then
     local color = (LEVEL_MODE+2) / 2
     return color
-  end
-
   -- color should flicker
-  -- [TODO: combine with the previous if, with else?]
-  if LEVEL_MODE % 2 == 1 then
+  -- if LEVEL_MODE % 2 == 1 then
+  else
     n = random(0, 1)
     if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
       if n == 0 then
