@@ -7,7 +7,6 @@ local colors = {0x00ff00ff, 0x0000ffff,
 
 
 -- Spawn entity (border decoration), add update callback
--- [TODO: add music visualisation]
 function module.spawn(x, y, pos_angle)
   local angle = new_entity(x, y)
   entity_set_mesh(angle, "entities/graphics/angle/mesh")
@@ -21,6 +20,8 @@ function module.spawn(x, y, pos_angle)
   end
 
   entity_set_update_callback(angle, angle_update_callback)
+  entity_set_music_sync(angle, {scale_x_start = 1fx, scale_x_end = 6fx/5fx,
+    scale_y_start = 1fx, scale_y_end = 6fx/5fx})
 
   return angle
 end

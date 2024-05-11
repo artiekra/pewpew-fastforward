@@ -6,8 +6,7 @@ local colors = {0x00ff00ff, 0x0000ffff,
   0xff9100ff, 0x808080ff}
 
 
--- Spawn entity (border decoration), add update callback
--- [TODO: add music visualisation]
+-- Spawn entity (border), add update callback
 function module.spawn(x, y)
   local border = new_entity(x, y)
   entity_set_mesh(border, "entities/graphics/border/mesh")
