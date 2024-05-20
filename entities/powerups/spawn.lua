@@ -35,14 +35,14 @@ end
 function module.spawn_performance_pu(ship)
   local x, y = helpers.random_coordinates(
     ship, table.unpack(POWERUP_SPAWN_OFFSETS.performance))
-  performance_pu.spawn(ship, x, y)
+  performance_pu.spawn(ship, x, y, random(1, 3))
 end
 
 
 -- Chance table for powerups (after preconditions)
 POWERUP_SPAWN_WEIGHTS = {
-  {100, module.spawn_shield}, {100, module.spawn_score},
-  {100, module.spawn_performance}
+  {100, module.spawn_shield_pu}, {100, module.spawn_score_pu},
+  {100, module.spawn_performance_pu}
 }
 
 
