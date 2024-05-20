@@ -1,6 +1,7 @@
 local helpers = require"entities/helpers"
-local shield = require"entities/powerups/powerup/shield/logic"
-local score_powerup = require"entities/powerups/powerup/score/logic"
+local shield_pu = require"entities/powerups/powerup/shield/logic"
+local score_pu = require"entities/powerups/powerup/score/logic"
+local performance_pu = require"entities/powerups/powerup/performance/logic"
 
 module = {}
 
@@ -9,29 +10,39 @@ module = {}
 -- 2. Borders
 POWERUP_SPAWN_OFFSETS = {
   shield = {150fx, 50fx},
-  score = {150fx, 50fx}
+  score = {150fx, 50fx},
+  performance = {150fx, 50fx}
 }
 
 
 -- Get random coordinates and spawn shield powerup
-function module.spawn_shield(ship)
+function module.spawn_shield_pu(ship)
   local x, y = helpers.random_coordinates(
     ship, table.unpack(POWERUP_SPAWN_OFFSETS.shield))
-  shield.spawn(ship, x, y)
+  shield_pu.spawn(ship, x, y)
 end
 
 
 -- Get random coordinates and spawn score powerup
-function module.spawn_score(ship)
+function module.spawn_score_pu(ship)
   local x, y = helpers.random_coordinates(
     ship, table.unpack(POWERUP_SPAWN_OFFSETS.score))
-  score_powerup.spawn(ship, x, y)
+  score_pu.spawn(ship, x, y)
+end
+
+
+-- Get random coordinates and spawn performance powerup
+function module.spawn_performance_pu(ship)
+  local x, y = helpers.random_coordinates(
+    ship, table.unpack(POWERUP_SPAWN_OFFSETS.performance))
+  performance_pu.spawn(ship, x, y)
 end
 
 
 -- Chance table for powerups (after preconditions)
 POWERUP_SPAWN_WEIGHTS = {
-  {100, module.spawn_shield}, {100, module.spawn_score}
+  {100, module.spawn_shield}, {100, module.spawn_score},
+  {100, module.spawn_performance}
 }
 
 
@@ -74,11 +85,11 @@ function module.spawn_powerup(ship, time)
   -- (100% for <2 shields, 50% for <3 shields)
   player_shields = get_shield()
   if player_shields < 2 then
-    module.spawn_shield(ship)
+    module.spawn_shield_pu(ship)
     return
   elseif player_shields < 3 then
     if random(0, 1) then
-      module.spawn_shield(ship)
+      module.spawn_shield_pu(ship)
       return
     end
   end

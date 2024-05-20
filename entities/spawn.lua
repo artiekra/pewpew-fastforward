@@ -18,8 +18,9 @@ function module.init_spawn(ship)
     dust.spawn(x, y, fx_random(FX_TAU))
   end
 
-  spawn_powerup.spawn_shield(ship)
-  spawn_powerup.spawn_score(ship)
+  spawn_powerup.spawn_shield_pu(ship)
+  spawn_powerup.spawn_score_pu(ship)
+  spawn_powerup.spawn_performance_pu(ship)
 
   local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
   polygon.spawn(x, y, fx_random(FX_TAU))

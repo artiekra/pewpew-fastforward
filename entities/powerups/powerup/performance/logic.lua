@@ -5,7 +5,7 @@ require"entities/powerups/config"
 local module = {}
 
 
-function shield_player_collision(entity_id, player_id, ship_id)
+function performance_player_collision(entity_id, player_id, ship_id)
   set_shield(get_shield() + 1)
 end
 
@@ -13,18 +13,18 @@ end
 -- Spawn entity, add update callback
 function module.spawn(ship_id, x, y)
   local colors = {
-    {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff},
-    {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff},
-    {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff}
+    {0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff},
+    {0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff},
+    {0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff},
   }
 
   function inner_box_player_collision(entity_id, player_id, ship_id)
-    shield_player_collision(entity_id, player_id, ship_id)
+    performance_player_collision(entity_id, player_id, ship_id)
     entity_destroy(entity_id)
   end
 
-  local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/shield/icon",
-    "+1 shield", colors, shield_player_collision)
+  local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/performance/icon",
+    "x3 performance", colors, shield_player_collision)
   entity_set_player_collision(inner_box, inner_box_player_collision)
 
   return outer_box, inner_box

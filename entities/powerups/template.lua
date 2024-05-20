@@ -22,7 +22,7 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
   entity_set_radius(box, to_fx(BOX_RADIUS))
 
   -- entity for inner shield icon
-  local inner_box= new_entity(x, y)
+  local inner_box = new_entity(x, y)
   entity_start_spawning(inner_box, 2)
   entity_set_mesh(inner_box, icon_mesh)
   entity_set_radius(inner_box, to_fx(BOX_RADIUS))
@@ -80,18 +80,12 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback)
     entity_start_exploding(entity_id, 11)
   end
 
-  function inner_box_player_collision(entity_id, player_id, ship_id)
-    callback(entity_id, player_id, ship_id)
-    entity_destroy(inner_box)
-  end
-
   arrow.add_arrow(ship_id, box, outer_colors)
 
   entity_set_update_callback(box, box_update_callback)
   entity_set_player_collision(box, box_player_collision)
-  entity_set_player_collision(inner_box, inner_box_player_collision)
 
-  return shield
+  return box, inner_box
 end
 
 
