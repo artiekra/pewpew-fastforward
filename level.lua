@@ -48,11 +48,15 @@ function update_ship_speed(speed)
 end
 
 
-function update_level_mode()
-  LEVEL_MODE = LEVEL_MODE + 1
-  if LEVEL_MODE > LEVEL_MODE_MAX then
-    LEVEL_MODE = LEVEL_MODE_MAX
+function get_level_mode(t, a, b)
+  local div = t // a
+  local m = div * 2
+  local remainder = t % a
+  if remainder > b then
+    m = m + 1
   end
+
+  return m
 end
 
 
@@ -83,12 +87,8 @@ function level_tick()
   performance.update(time, player_score)
   hud.update(ship_speed, performance.PERFORMANCE)
 
-  if time % MODE_CHANGE_FREQ == 0 then
-    LEVEL_MODE = (time / MODE_CHANGE_FREQ) * 2 - 1
-  end
-  if time % (MODE_CHANGE_FREQ+MODE_CHANGE_DURATION) == 0 then
-    LEVEL_MODE = (time / (MODE_CHANGE_FREQ+MODE_CHANGE_DURATION)) * 2
-  end
+  local interval = MODE_CHANGE_FREQ - MODE_CHANGE_DURATION
+  LEVEL_MODE = get_level_mode(time, MODE_CHANGE_FREQ, interval)
   if LEVEL_MODE > LEVEL_MODE_MAX then
     LEVEL_MODE = LEVEL_MODE_MAX
   end
