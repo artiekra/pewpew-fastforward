@@ -9,10 +9,8 @@ function module.set_camera_z(current)
   local max = 100fx
   local step = 20fx
 
-  local move_angle, move_distance, shoot_angle, shoot_distance = get_inputs()
-
   -- Why this formula? https://jpcdn.it/img/5f7a5cee79c493a2cd9c18467ca14944.png
-  target_z = 1000fx - max * (1-move_distance)
+  target_z = 1000fx - max * (1-inputs.md)
 
   if current < target_z then
     new_z = current + step

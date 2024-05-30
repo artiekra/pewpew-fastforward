@@ -6,7 +6,7 @@ c_colors1={}
 c_segments1={}
 
 local mn1=6
-local fk=2*math.pi
+local fk=2*PI
 local r1=22
 local r2=22
 local index1 = 0
@@ -16,8 +16,8 @@ local segm1 =fk/mn1
 
 for k=1,mn1 do
 
-local x=math.sin(k*segm1)*r1
-local y=math.cos(k*segm1)*r2
+local x=sin(k*segm1)*r1
+local y=cos(k*segm1)*r2
 table.insert(c_vertexes,{x,y})
 table.insert(c_colors,c1)
 if k~=mn1 then table.insert(c_segments,{index1,index1+1}) else table.insert(c_segments,{index1,index1+1-mn1}) end

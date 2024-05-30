@@ -19,9 +19,9 @@ function helper.make_color_with_alpha(color, new_alpha)
 end
 
 function helper.make_fx_color(r, g, b, a)
-  local color = fmath.to_int(r) * 256 + fmath.to_int(g)
-  color = color * 256 + fmath.to_int(b)
-  color = color * 256 + fmath.to_int(a)
+  local color = to_int(r) * 256 + to_int(g)
+  color = color * 256 + to_int(b)
+  color = color * 256 + to_int(a)
   return color
 end
 

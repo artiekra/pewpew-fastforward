@@ -8,19 +8,17 @@ local module = {}
 function module.update(time, x, y)
   local max_spread = 1fx/3fx
 
-  local move_angle, move_distance, shoot_angle, shoot_distance = get_inputs()
-
-  if shoot_distance > 0fx then
-    local a = max_spread * shoot_distance
+  if inputs.sd > 0fx then
+    local a = max_spread * inputs.sd
     if time % (30//WEAPON_HZ*2) == 0 then
-      new_player_bullet(x, y, shoot_angle-a)
-      new_player_bullet(x, y, shoot_angle)
-      new_player_bullet(x, y, shoot_angle+a)
+      new_player_bullet(x, y, inputs.sa-a)
+      new_player_bullet(x, y, inputs.sa)
+      new_player_bullet(x, y, inputs.sa+a)
       play_sound("sounds/shoot")
 
     elseif time % (30//WEAPON_HZ) == 0 then
-      new_player_bullet(x, y, shoot_angle-(a/2))
-      new_player_bullet(x, y, shoot_angle+(a/2))
+      new_player_bullet(x, y, inputs.sa-(a/2))
+      new_player_bullet(x, y, inputs.sa+(a/2))
       play_sound("sounds/shoot")
     end
   end

@@ -8,7 +8,7 @@ function mesh_add_dotted_line(mesh, point1, point2, color)
   local inzone = 5
   local exzone = 10
 
-  local line_lenght = math.sqrt((point1[1] - point2[1])^2 + (point1[2] - point2[2])^2)
+  local line_lenght = sqrt((point1[1] - point2[1])^2 + (point1[2] - point2[2])^2)
   local inzone_segments = line_lenght // (inzone+exzone)
   for inzone_id=0, inzone_segments-1 do
 

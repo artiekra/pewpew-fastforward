@@ -71,6 +71,12 @@ weapon_type = {
   repulsive_explosion = _wt.REPULSIVE_EXPLOSION,
   atomize_explosion = _wt.ATOMIZE_EXPLOSION,
 }
+asteroid_size = {
+  small = 0,
+  medium = 1,
+  large = 2,
+  very_large = 3
+}
 
 _et = nil
 _ct = nil
@@ -94,7 +100,6 @@ entity_set_mesh_angle = pewpew.customizable_entity_set_mesh_angle
 entity_set_music_sync = pewpew.customizable_entity_configure_music_response
 entity_add_mesh_angle = pewpew.customizable_entity_add_rotation_to_mesh
 entity_set_render_radius = pewpew.customizable_entity_set_visibility_radius
-entity_start_spawning = pewpew.customizable_entity_start_spawning
 entity_start_exploding = pewpew.customizable_entity_start_exploding
 
 add_wall = pewpew.add_wall
@@ -136,11 +141,6 @@ function get_score()
   return gs(0)
 end
 
-local gi = pewpew.get_player_inputs
-function get_inputs()
-  return gi(0)
-end
-
 local ch = pewpew.configure_player_hud
 function configure_hud_string(str)
   return ch(0, {top_left_line = str})
@@ -149,7 +149,11 @@ end
 local ps = pewpew.play_sound
 local psa = pewpew.play_ambient_sound
 function play_sound(path, v1, v2, v3)
-  return v2 and ps(mpath(path), v1, v2, v3 or 0) or psa(mpath(path), v1 or 0)
+  if v2 then
+    ps(mpath(path), v3 or 0, v1, v2)
+  else
+    psa(mpath(path), v1 or 0)
+  end
 end
 
 local ne = pewpew.new_customizable_entity
@@ -255,11 +259,11 @@ function new_bonus_shield(x, y, shield, box_duration, callback)
 end
 
 function new_bonus_weapon(x, y, cannon, frequency, weapon_duration, box_duration, callback)
-  return new_bonus(x, y, bonus_type.shield, {cannon = cannon, frequency = frequency, weapon_duration = weapon_duration, box_duration = box_duration, taken_callback = callback})
+  return new_bonus(x, y, bonus_type.weapon, {cannon = cannon, frequency = frequency, weapon_duration = weapon_duration, box_duration = box_duration, taken_callback = callback})
 end
 
 function new_bonus_speed(x, y, speed_factor, speed_offset, speed_duration, box_duration, callback)
-  return new_bonus(x, y, bonus_type.shield, {speed_factor = speed_factor, speed_offset = speed_offset, speed_duration = speed_duration, box_duration = box_duration, taken_callback = callback})
+  return new_bonus(x, y, bonus_type.speed, {speed_factor = speed_factor, speed_offset = speed_offset, speed_duration = speed_duration, box_duration = box_duration, taken_callback = callback})
 end
 
 local nm = pewpew.new_floating_message
@@ -296,3 +300,19 @@ function entity_change_pos(id, dx, dy)
   local x, y = entity_get_pos(id)
   entity_set_pos(id, x + dx, y + dy)
 end
+
+local sp = pewpew.customizable_entity_start_spawning
+function entity_start_spawning(id, t)
+  return sp(id, t or 0)
+end
+
+
+local gi = pewpew.get_player_inputs
+inputs = {}
+add_update_callback(function()
+  inputs.ma, inputs.md, inputs.sa, inputs.sd = gi(0)
+  inputs.mdy, inputs.mdx = fx_sincos(inputs.ma)
+  inputs.mdy, inputs.mdx = inputs.mdy * inputs.md, inputs.mdx * inputs.md
+  inputs.sdy, inputs.sdx = fx_sincos(inputs.sa)
+  inputs.sdy, inputs.sdx = inputs.sdy * inputs.sd, inputs.sdx * inputs.sd
+end)

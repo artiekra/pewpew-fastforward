@@ -8,9 +8,9 @@ function make_mesh(angle_offset)
   local computed_vertexes, computed_segments = {}, {}
 
   local i = 0
-  for angle = 0, math.pi * 2, math.pi * 2 / 6 do
-    local y, x = math.sincos(angle - angle_offset)
-    local y2, x2 = math.sincos(angle + angle_offset)
+  for angle = 0, PI * 2, PI * 2 / 6 do
+    local y, x = sincos(angle - angle_offset)
+    local y2, x2 = sincos(angle + angle_offset)
 
     table.insert(computed_vertexes, { x * RADIUS, y * RADIUS })
     table.insert(computed_vertexes, { x2 * INNER_RADIUS, y2 * INNER_RADIUS })
@@ -35,7 +35,7 @@ function make_mesh(angle_offset)
 end
 
 
-local step = math.pi * 2 / (ANIMATION_TIME*60)
-for angle_offset = 0, math.pi * 2, step do
+local step = PI * 2 / (ANIMATION_TIME*60)
+for angle_offset = 0, PI * 2, step do
   table.insert(meshes, make_mesh(angle_offset))
 end

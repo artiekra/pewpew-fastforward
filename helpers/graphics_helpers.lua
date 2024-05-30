@@ -21,7 +21,7 @@ function helper.invLerp(a,b,v)--point a to point b, but value is used
 end
 
 function helper.normalize(x,y)
-  local mag = math.sqrt((x*x)+(y*y))
+  local mag = sqrt((x*x)+(y*y))
   if mag > 0 then
       return x/mag,y/mag
   end
@@ -75,9 +75,9 @@ function helper.add_poly(mesh, center, sides, color, radius, height)
 
     --Plots the vertices
     for i = 1, sides do
-      local angle = (math.pi * 2 * i)/sides
-      table.insert(vertices, {x + radius * math.cos(angle),y + radius * math.sin(angle), z + height})
-      table.insert(vertices2, {x + radius * math.cos(angle),y + radius * math.sin(angle), z - height})
+      local angle = (PI * 2 * i)/sides
+      table.insert(vertices, {x + radius * cos(angle),y + radius * sin(angle), z + height})
+      table.insert(vertices2, {x + radius * cos(angle),y + radius * sin(angle), z - height})
       table.insert(colors, color)
     end
 
@@ -108,8 +108,8 @@ function helper.add_flat_poly_angle(mesh, center, sides, color, radius, startang
     local vertices = {} 
     local colors = {}
     for i = 1, sides do
-      local angle = (math.pi * 2 * i)/sides + startangle
-      table.insert(vertices, {x + radius * math.cos(angle),y + radius * math.sin(angle), z})
+      local angle = (PI * 2 * i)/sides + startangle
+      table.insert(vertices, {x + radius * cos(angle),y + radius * ssin(angle), z})
       table.insert(colors, color)
     end
 
@@ -125,8 +125,8 @@ function helper.add_flat_poly_angle_verts(mesh, center, sides, color, radius, st
     local vertices = {} 
     local colors = {}
     for i = 1, sides do
-      local angle = (math.pi * 2 * i)/sides + startangle
-      table.insert(mesh.vertexes, {x + radius * math.cos(angle),y + radius * math.sin(angle), z})
+      local angle = (PI * 2 * i)/sides + startangle
+      table.insert(mesh.vertexes, {x + radius * cos(angle),y + radius * sin(angle), z})
       table.insert(mesh.colors, color)
     end
   end
@@ -206,7 +206,7 @@ function helper.add_dot(mesh, center, color_list)
   local y = center[2]
   local z = center[3]
 
-  local color = color_list[math.random(1,#color_list)]
+  local color = color_list[random(1,#color_list)]
 
   local a = {x-1,y,z}
   local b = {x+1,y,z}
@@ -223,9 +223,9 @@ function helper.add_stars(mesh,center,width,height,depth,amount)
   local z = center[3]
 
   for i = 1, amount do
-    local x2 = fmath.random_int(x,width)
-    local y2 = fmath.random_int(y,height)
-    local z2 = fmath.random_int(z,depth)
+    local x2 = random(x,width)
+    local y2 = random(y,height)
+    local z2 = random(z,depth)
 
     helper.add_dot(mesh,{x2,y2,z2},{0xffffff90,0xffffff70,0xffffff50,0xffffff30})
   end
@@ -272,9 +272,9 @@ function helper.add_circle(mesh, center, color, radius)
   local vertices = {}
   local colors = {}
   local vertex_amount = 50
-  local increment = math.pi/vertex_amount
+  local increment = PI/vertex_amount
   for i = 0, vertex_amount do
-      table.insert(vertices, {x + radius*(math.cos(increment*i*2)), y + radius*(math.sin(increment*i*2)), z})
+      table.insert(vertices, {x + radius*(cos(increment*i*2)), y + radius*(sin(increment*i*2)), z})
       table.insert(colors,color)
   end
 
@@ -288,9 +288,9 @@ function helper.add_circle2(mesh, center, color, radius)
   local vertices = {}
   local colors = {}
   local vertex_amount = 50
-  local increment = math.pi/vertex_amount
+  local increment = PI/vertex_amount
   for i = 0, vertex_amount do
-      table.insert(vertices, {x+ radius*(math.sin(increment*i*2)), y , z+ radius*(math.cos(increment*i*2))})
+      table.insert(vertices, {x+ radius*(sin(increment*i*2)), y , z+ radius*(cos(increment*i*2))})
       table.insert(colors,color)
   end
 
@@ -304,9 +304,9 @@ function helper.make_hemisphere(mesh,center,radius,color)
   local vertices = {}
   local colors = {}
   local vertex_amount = 50
-  local increment = math.pi/vertex_amount
+  local increment = PI/vertex_amount
   for i = 0, vertex_amount-vertex_amount/2 do
-      table.insert(vertices, {x + radius*(math.cos(increment*i*2)), y + radius*(math.sin(increment*i*2)), z})
+      table.insert(vertices, {x + radius*(cos(increment*i*2)), y + radius*(sin(increment*i*2)), z})
       table.insert(colors,color)
   end
 
@@ -314,10 +314,10 @@ function helper.make_hemisphere(mesh,center,radius,color)
 end
 
 local function f(x)
-  return math.sqrt(16-x*x)
+  return sqrt(16-x*x)
 end
 local function f2(x)
-  return math.sqrt(9-x*x)
+  return sqrt(9-x*x)
 end
 
 function helper.add_sphere(mesh, center, color, radius)
@@ -330,11 +330,11 @@ function helper.add_sphere(mesh, center, color, radius)
 
   for i = -3, 3 do
     for j = 1, (1+f(i)^2) do
-      local angle = (math.pi * 2 * j)/(1+f(i)^2)
+      local angle = (PI * 2 * j)/(1+f(i)^2)
       local scale = radius
       local xchange = i * scale
-      local ychange = math.sin(angle) * scale * f(i)
-      local zchange = math.cos(angle) * scale * f(i)
+      local ychange = sin(angle) * scale * f(i)
+      local zchange = cos(angle) * scale * f(i)
       
       table.insert(vertexes,{x + xchange, y + ychange, z + zchange})
       table.insert(colors,color)
@@ -351,7 +351,7 @@ end
 
 function dist(ex,ey,tx,ty)
   local dx,dy = tx-ex,ty-ey
-  return math.sqrt((dx*dx)+(dy*dy))
+  return sqrt((dx*dx)+(dy*dy))
 end
 
 function helper.add_cave(mesh,center,color,steps,rows,z_start,z_end,length,width_end,off)
@@ -359,13 +359,13 @@ function helper.add_cave(mesh,center,color,steps,rows,z_start,z_end,length,width
   local y = center[2]
 
   local space = 20
-  local angle_step = (math.pi*2)/steps
+  local angle_step = (PI*2)/steps
   local offset = off or 0
 
   for i = 1, rows do
-    local angle = (math.pi * 2 * i)/rows
+    local angle = (PI * 2 * i)/rows
     for j = 1, steps do 
-      local sin, cos = math.sin(angle),math.cos(angle)
+      local sin, cos = sin(angle),cos(angle)
       local posx,posy = x+cos*(j*length+space+offset),y+sin*(j*length+space+offset)
       local t = helper.invLerp(0, steps*length,dist(x,y,posx,posy))
       local cwdidth = helper.lerp(0,width_end,t)
