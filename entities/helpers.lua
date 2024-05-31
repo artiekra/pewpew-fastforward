@@ -36,7 +36,7 @@ end
 function module.set_entity_color(time, entity, colors)
 
   local color_state = module.get_color_state(time)
-  if color_state ~= nil then
+  if color_state then
     local color = colors[color_state]
     entity_set_mesh_color(entity, color)
     return color
@@ -49,30 +49,16 @@ end
 -- Get random coordinates, that are not too close to the player
 -- Specify an offset to not spawn to close to the border
 function module.random_coordinates(ship, player_zone, offset)
-
-  while true do
-    ::continue::
-
-    -- Get random coordinates (not near border)
-    x = fx_random(offset, LEVEL_WIDTH-offset)
-    y = fx_random(offset, LEVEL_HEIGHT-offset)
-    
-    player_x, player_y = entity_get_pos(ship)
-
-    -- Dissallow coordinates near the player
-    if fx_abs(y - player_y) < player_zone and
-       fx_abs(x - player_x) < player_zone then
-      goto continue
-    end
-
-    -- Dont spawn outside bevels (offset means cant spawn near them in most cases)
-    if (x < BEVEL_SIZE and y > LEVEL_HEIGHT - BEVEL_SIZE) or
-       (x > LEVEL_WIDTH - BEVEL_SIZE and y < BEVEL_SIZE) then
-      goto continue
-    end
-
-    return x, y
-  end
+  
+  local x, y
+  local px, py = entity_get_pos(ship)
+  
+  repeat
+    x = fx_random(offset, LEVEL_WIDTH - offset)
+    y = fx_random(offset, LEVEL_HEIGHT - offset)
+  until fx_abs(x - px) > player_zone and fx_abs(y - py) > player_zone and x > BEVEL_SIZE and x < LEVEL_WIDTH - BEVEL_SIZE and y > BEVEL_SIZE and y < LEVEL_HEIGHT - BEVEL_SIZE
+  
+  return x, y
 
 end
 
