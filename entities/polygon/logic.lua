@@ -60,7 +60,7 @@ function module.spawn(x, y, angle)
     mesh_index = mesh_index + 2
 
     local color_state = helpers.get_color_state(time)
-    if color_state ~= nil then
+    if color_state then
       color = colors[color_state]
       explosion_color = color
       if highlight > 0 then

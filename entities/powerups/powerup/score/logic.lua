@@ -1,4 +1,3 @@
-local fm = require"helpers/floating_message"
 local template = require"entities/powerups/template"
 local performance = require"misc/performance"
 require"entities/powerups/config"

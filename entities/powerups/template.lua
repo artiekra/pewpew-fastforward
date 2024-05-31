@@ -1,6 +1,5 @@
 local helpers = require"entities/helpers"
 local arrow = require"entities/powerups/arrow/logic"
-local fm = require"helpers/floating_message"
 local ch = require"helpers/color_helpers"
 require"entities/powerups/config"
 
