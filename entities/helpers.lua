@@ -65,8 +65,7 @@ function module.random_coordinates(ship, player_zone, offset)
       goto continue
     end
 
-    -- Dont spawn outside bevels
-    -- [TODO: allow spawning close to them]
+    -- Dont spawn outside bevels (offset means cant spawn near them in most cases)
     if (x < BEVEL_SIZE and y > LEVEL_HEIGHT - BEVEL_SIZE) or
        (x > LEVEL_WIDTH - BEVEL_SIZE and y < BEVEL_SIZE) then
       goto continue

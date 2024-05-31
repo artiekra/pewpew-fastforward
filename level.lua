@@ -21,7 +21,6 @@ local ship_speed = 0.99
 border.spawn(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 
 -- add two half-squares (angles), just as a decorative element
--- [TODO: fix it (see graphics/angle/logic.lua)]
 angle.spawn(LEVEL_WIDTH, 0fx, 0fx)
 angle.spawn(0fx, LEVEL_HEIGHT, FX_TAU/2fx)
 
