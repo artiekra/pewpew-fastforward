@@ -8,6 +8,19 @@ local module = {}
 module.CURRENT_COLOR = 0
 
 
+-- Convert ticks to formatted text (time string)
+function time_to_text(time)
+  local minutes = time // 1800
+  local seconds = (time//30) % 60
+  local ticks = time%30
+
+  -- local text = string.format("%02d:%02d", minutes, seconds)
+  local text = string.format("%02d:%02d.%02d", minutes, seconds, ticks)
+
+  return text
+end
+
+
 -- Create a specific label
 function module.create_label(x, y, text, colors, scale, angle)
   -- local alpha = 255
@@ -33,9 +46,9 @@ end
 
 
 -- Create the timer
--- [TODO: use coordinates based on small border box ones here?]
+-- [TODO: use coordinates based on small border box ones here]
 function module.init(lw, lh)
-  local labels = module.create_bold_label(lw-176fx, lh+52.2048fx, "timer", colors,
+  local labels = module.create_bold_label(lw-165fx, lh+52.2048fx, "timer", colors,
     1fx, 0fx, 2)
 
   return labels
@@ -43,9 +56,11 @@ end
 
 
 -- Update the timer
-function module.update(labels, text)
+function module.update(labels, time)
   local colors = {0x00ff00ff, 0x0000ffff,
     0xff9100ff, 0x808080ff}
+
+  text = time_to_text(18000-time)
 
   local color = helpers.get_color_state(time)
   if color ~= nil then
