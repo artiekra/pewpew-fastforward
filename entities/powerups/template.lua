@@ -129,7 +129,8 @@ end
 -- Spawn entity, add update callback
 function module.spawn(ship_id, x, y, icon_mesh, text, colors) -- provide nil instead of colors and rgb pallette will be used instead; removed callback, as it wasn't used anywhere
   
-  local angle = fx_random(0fx, FX_TAU)
+  -- local angle = fx_random(0fx, FX_TAU)
+  local angle = 0fx
   local box = new_entity(x, y)
   entity_start_spawning(box, 0)
   entity_set_mesh(box, "entities/powerups/mesh")

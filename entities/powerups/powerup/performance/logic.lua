@@ -1,11 +1,14 @@
 local template = require"entities/powerups/template"
+local performance = require"misc/performance"
 require"entities/powerups/config"
 
 local module = {}
 
 
 function performance_player_collision(entity_id, player_id, ship_id, multiplier)
-  set_shield(get_shield() + multiplier)
+  local duration = 135
+
+  performance.upgrade(multiplier, duration)
 end
 
 
