@@ -5,10 +5,10 @@ require"entities/powerups/config"
 local module = {}
 
 
-function performance_player_collision(entity_id, player_id, ship_id, multiplier)
+function performance_player_collision(multiplier)
   local duration = 135
 
-  performance.upgrade(multiplier, duration)
+  performance.upgrade(3, duration)
 end
 
 
