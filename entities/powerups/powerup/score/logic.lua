@@ -19,14 +19,8 @@ function module.spawn(ship_id, x, y)
     {0x21d900ff, 0x4e0582ff, 0xe04000ff, 0x808080ff}
   }
 
-  function inner_box_player_collision(entity_id, player_id, ship_id)
-    points_player_collision(entity_id, player_id, ship_id)
-    entity_destroy(entity_id)
-  end
-
   local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/score/icon",
     "+10 points", colors, points_player_collision)
-  entity_set_player_collision(inner_box, inner_box_player_collision)
 
   return outer_box, inner_box
 end
