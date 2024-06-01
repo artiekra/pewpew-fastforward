@@ -33,7 +33,7 @@ end
 function module.create_bold_label(x, y, text, colors, scale, angle, width)
 
   for i=1, width do
-    local label = module.create_label(x+i, y+i, text, colors, 3fx/2fx, angle)
+    local label = module.create_label(x+i, y+i, text, colors, scale, angle)
   end
 
 end

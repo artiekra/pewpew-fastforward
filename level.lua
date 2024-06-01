@@ -2,6 +2,7 @@ require"/dynamic/ppol/.lua"
 require"globals"
 
 local hud = require"misc/hud"
+local timer = require"misc/timer"
 local labels = require"entities/misc/labels"
 local camera = require"misc/camera"
 local enemies = require"entities/spawn"
@@ -31,6 +32,7 @@ add_wall(0fx, LEVEL_HEIGHT-BEVEL_SIZE, BEVEL_SIZE, LEVEL_HEIGHT)
 add_wall(LEVEL_WIDTH-BEVEL_SIZE, 0fx, LEVEL_WIDTH, BEVEL_SIZE)
 
 hud.init()
+local timer_labels = timer.init(LEVEL_WIDTH, LEVEL_HEIGHT)
 
 
 -- if speed < limit, update it (increment) and change the HUD
@@ -85,6 +87,8 @@ function level_tick()
   local player_score = get_score()
   performance.update(time, player_score)
   hud.update(ship_speed, performance.PERFORMANCE)
+
+  timer.update(timer_labels, time)
 
   local interval = MODE_CHANGE_FREQ - MODE_CHANGE_DURATION
   LEVEL_MODE = get_level_mode(time, MODE_CHANGE_FREQ, interval)

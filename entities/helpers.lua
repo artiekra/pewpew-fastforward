@@ -56,7 +56,9 @@ function module.random_coordinates(ship, player_zone, offset)
   repeat
     x = fx_random(offset, LEVEL_WIDTH - offset)
     y = fx_random(offset, LEVEL_HEIGHT - offset)
-  until fx_abs(x - px) > player_zone and fx_abs(y - py) > player_zone and x > BEVEL_SIZE and x < LEVEL_WIDTH - BEVEL_SIZE and y > BEVEL_SIZE and y < LEVEL_HEIGHT - BEVEL_SIZE
+  until fx_abs(x - px) > player_zone and fx_abs(y - py) > player_zone and
+    x > BEVEL_SIZE and x < LEVEL_WIDTH - BEVEL_SIZE and y > BEVEL_SIZE and
+    y < LEVEL_HEIGHT - BEVEL_SIZE
   
   return x, y
 

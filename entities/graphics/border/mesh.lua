@@ -20,6 +20,16 @@ function draw_border_outline(mesh, width, height, bevel, color1, color2, z)
     {color1, color1, color1, color2, color2, color2}, true
   )
 
+  -- small border boxes
+  local sd = 25
+  local sh = 55
+  local sw = 325
+
+  local so = hw - sw
+  gh.add_line_to_mesh(mesh, {{so-sh/2, hh+sd, z}, {so, hh+sd+sh, z},
+                             {hw, hh+sd+sh, z}, {hw, hh+sd, z}},
+    {color1, color1, color2, color2}, true)
+
 end
 
 
