@@ -18,7 +18,8 @@ local i_colors = 3
 local i_time = 4
 local i_text = 5
 local i_color_state = 6
-local i_rgb = 7 -- rgb state index - true if rgb colors should be used
+local i_callback = 7
+local i_rgb = 8 -- rgb state index - true if rgb colors should be used
 
 local dc = 5
 local function update_rgb(r, g, b, state)
@@ -56,6 +57,10 @@ local function player_collision(entity_id, player_id, ship_id)
     new_message(x, y, color_to_string(make_color(r, g, b, 255)) .. box[i_text], 1fx, 16)
   else
     new_message(x, y, color_to_string(box[i_colors][3][box[i_color_state]]) .. box[i_text], 1fx, 16)
+  end
+  
+  if box[i_callback] then
+    box[i_callback](entity_id, player_id, ship_id)
   end
 
   play_sound("entities/powerups/sounds/pickup")
@@ -128,7 +133,7 @@ local function update_callback_rgb(id)
 end
 
 -- Spawn entity, add update callback
-function module.spawn(ship_id, x, y, icon_mesh, text, colors) -- provide nil instead of colors and rgb pallette will be used instead; removed callback, as it wasn't used anywhere
+function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback) -- provide nil instead of colors and rgb pallette will be used instead
   
   local angle = fx_random(0fx, FX_TAU)
   local box = new_entity(x, y)
@@ -144,11 +149,11 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors) -- provide nil ins
   entity_set_mesh_angle(inner_box, angle, 0fx, 0fx, 1fx)
   
   if colors then
-    entities[box] = {box, inner_box, colors, 0, text, 1}
+    entities[box] = {box, inner_box, colors, 0, text, 1, callback}
     arrow.add_arrow(ship_id, box, colors[1])
     entity_set_update_callback(box, update_callback)
   else
-    entities[box] = {box, inner_box, {255, 0, 0, 1}, 0, text, 1, true}
+    entities[box] = {box, inner_box, {255, 0, 0, 1}, 0, text, 1, callback, true}
     arrow.add_arrow(ship_id, box, {0xff0000ff, 0x00ff00ff, 0x0000ffff, 0xffffffff})
     entity_set_update_callback(box, update_callback_rgb)
   end
