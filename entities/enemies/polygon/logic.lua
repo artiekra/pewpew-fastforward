@@ -50,7 +50,7 @@ end
 
 
 -- Function to call every tick on entity
-local function update_callback()
+local function update_callback(id)
   local e = entities[id]
   if not e then
     return
@@ -58,20 +58,20 @@ local function update_callback()
   e[i_time] = e[i_time] + 1
   e[i_highlight] = e[i_highlight] - 1
 
-  entity_change_pos(id, e[i_dx] * SPEED, e[i_dy] * SPEED)
+  entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
 
   if e[i_meshi] >= ANIMATION_TIME*60 then
     e[i_meshi] = 0
   end
 
-  entity_set_mesh(id, "entities/enemies/polygon/mesh", e[i_meshi], e[i_mesh_index]+1)
-  e[i_meshi] = e[i_mesh_index] + 2
+  entity_set_mesh(id, "entities/enemies/polygon/mesh", e[i_meshi], e[i_meshi]+1)
+  e[i_meshi] = e[i_meshi] + 2
 
   local color_state = helpers.get_color_state(e[i_time])
   if color_state then
     color = colors[color_state]
     explosion_color = color
-    if highlight > 0 then
+    if e[i_highlight] > 0 then
       entity_set_mesh_color(id, ch.make_color_with_alpha(color, 255))
     else
       entity_set_mesh_color(id, color)
@@ -103,7 +103,7 @@ local function wall_collision(entity_id, wall_normal_x, wall_normal_y)
   e[i_dx] = e[i_dx] - wall_normal_x * dot_product_move
   e[i_dy] = e[i_dy] - wall_normal_y * dot_product_move
   e[i_angle] = fx_atan2(e[i_dy], e[i_dx])
-  entity_set_mesh_angle(id, e[i_angle], 0fx, 0fx, 1fx)
+  entity_set_mesh_angle(entity_id, e[i_angle], 0fx, 0fx, 1fx)
 end
 
 
@@ -138,7 +138,7 @@ local function weapon_collision(entity_id, player_index, weapon)
       if weapon == weapon_type.bullet then
         e[i_health] = health - 1  -- [TODO: assigning to health, reference to array?]
         e[i_highlight] = 5
-        if health <= 0 then
+        if e[i_health] <= 0 then
           module.destroy_polygon(entity_id, explosion_color)
         end
       end
