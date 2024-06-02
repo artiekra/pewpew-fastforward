@@ -50,7 +50,7 @@ end
 
 
 -- Function to call every tick on entity
-function update_callback()
+local function update_callback()
   local e = entities[id]
   if not e then
     return
@@ -97,7 +97,7 @@ end
 
 
 -- Set wall collision callback function for the entity
-function wall_collision(entity_id, wall_normal_x, wall_normal_y)
+local function wall_collision(entity_id, wall_normal_x, wall_normal_y)
   local e = entities[entity_id]
   local dot_product_move = ((wall_normal_x * e[i_dx]) + (wall_normal_y * e[i_dy])) * 2fx
   e[i_dx] = e[i_dx] - wall_normal_x * dot_product_move
@@ -108,7 +108,7 @@ end
 
 
 -- Set player collision callback function for the entity
-function player_collision(entity_id, player_id, ship_id)
+local function player_collision(entity_id, player_id, ship_id)
   local e = entities[entity_id]
 
   if e then
@@ -128,7 +128,7 @@ end
 
 
 -- Set weapon collision callback function for the entity
-function weapon_collision(entity_id, player_index, weapon)
+local function weapon_collision(entity_id, player_index, weapon)
   local e = entities[entity_id]
 
   if e then

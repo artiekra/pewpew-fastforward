@@ -19,16 +19,16 @@ local i_dy = 4
 
 
 -- Function to call every tick on entity
-function id_update_callback()
+local function update_callback(id)
   local e = entities[id]
   if not e then
     return
   end
   e[i_time] = e[i_time] + 1
 
-  entity_change_pos(id, e[i_dx] * SPEED, e[i_dy] * SPEED)
+  entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
 
-  helpers.set_entity_color(e[i_time], id, COLORS)
+  helpers.set_entity_color(e[i_time], id, colors)
 end
 
 
@@ -48,13 +48,13 @@ end
 
 
 -- Set wall collision callback function for the entity
-function id_wall_collision(id, wall_normal_x, wall_normal_y)
+local function wall_collision(id, wall_normal_x, wall_normal_y)
   entity_start_exploding(id, 10)
 end
 
 
 -- Set player collision callback function for the entity
-function id_player_collision(entity_id, player_id, ship_id)
+local function player_collision(entity_id, player_id, ship_id)
   damage_player_ship(ship_id, 1)
   entity_start_exploding(entity_id, 10)
   entities[entity_id] = nil
