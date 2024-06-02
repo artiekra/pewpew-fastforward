@@ -68,7 +68,7 @@ end
 function module.spawn(x, y, angle)
 
   local id = new_entity(x, y)
-  entity_start_spawning(id, 0)
+  entity_start_spawning(id, 2)
   entity_set_mesh(id, "entities/enemies/dust/mesh")
   entity_set_radius(id, radius)
 
@@ -76,6 +76,8 @@ function module.spawn(x, y, angle)
   entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
 
   entities[id] = {0, angle, dx, dy}
+
+  helpers.set_entity_color(0, id, colors)
 
   entity_set_update_callback(id, initial_interpolation_fix)
   entity_set_wall_collision(id, true, wall_collision)

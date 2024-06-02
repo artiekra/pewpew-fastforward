@@ -74,6 +74,8 @@ function module.spawn(x, y, angle)
 
   entities[id] = {0, angle, dx, dy}
 
+  helpers.set_entity_color(0, id, colors)
+
   entity_set_update_callback(id, initial_interpolation_fix)
   entity_set_wall_collision(id, true, wall_collision)
   entity_set_player_collision(id, player_collision)
