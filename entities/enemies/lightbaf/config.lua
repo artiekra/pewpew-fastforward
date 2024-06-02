@@ -1,0 +1,4 @@
+RADIUS = 10fx
+SPEED = 6fx
+SPIN_SPEED = 0.0800fx
+COLORS = {0x347025ff, 0x702569ff, 0xb9e525ff, 0xa5a5a5ff}

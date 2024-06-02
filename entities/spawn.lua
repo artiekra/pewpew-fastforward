@@ -1,6 +1,7 @@
 local dust = require"entities/enemies/dust/logic"
 local polygon = require"entities/enemies/polygon/logic"
 local darkbaf = require"entities/enemies/darkbaf/logic"
+local lightbaf = require"entities/enemies/lightbaf/logic"
 
 local helpers = require"entities/helpers"
 local spawn_powerup = require"entities/powerups/spawn"
@@ -45,21 +46,25 @@ function module.spawn(ship, time)
     dust.spawn(x, y, fx_random(FX_TAU))
   end
 
-  ---- Spawn polygon 
+  -- Spawn polygon 
   if time % 200 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     polygon.spawn(x, y, fx_random(FX_TAU))
   end
 
-
-  ---- Spawn darkbaf
+  -- Spawn darkbaf
   if time % 30 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     darkbaf.spawn(x, y, fx_random(FX_TAU))
   end
 
+  -- Spawn lightbaf
+  if time % 30 == 0 then
+    local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
+    lightbaf.spawn(x, y, fx_random(FX_TAU))
+  end
 
-  ---- Spawn powerups
+  -- Spawn powerups
   if time % 400 == 0 then
     spawn_powerup.spawn_powerup(ship, time)
   end
