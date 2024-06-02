@@ -10,4 +10,6 @@ This level uses PPOL framework: https://github.com/glebi574/pewpew-overhaul-lite
 
 ### Thanks
 
+Special thanks to glebi for contributing to the level :з
+
 To JF for helping with the fix of the level mode change intervals.
