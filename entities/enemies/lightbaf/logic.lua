@@ -47,6 +47,7 @@ end
 
 -- Set wall collision callback function for the entity
 local function wall_collision(id, wall_normal_x, wall_normal_y)
+  entities[id] = nil
   entity_start_exploding(id, 10)
 end
 
@@ -102,18 +103,18 @@ function module.spawn_wave(side, baf_n)
   local lh = LEVEL_HEIGHT
   local lw = LEVEL_WIDTH
   -- local bs = BEVEL_SIZE  -- needed to prevent going out of bevel when using offset..
-  --
+  -- [NOTE: add margins to prevent wall collisions right away here?]
   for i=1, baf_n do
 
     if side == 0 then
-      x = LEVEL_WIDTH - i*baf_margin
-      y = LEVEL_HEIGHT
+      x = i*baf_margin
+      y = 0fx
     elseif side == 1 then
       x = LEVEL_WIDTH
       y = LEVEL_HEIGHT - i*baf_margin
     elseif side == 2 then
-      x = i*baf_margin
-      y = 0fx
+      x = LEVEL_WIDTH - i*baf_margin
+      y = LEVEL_HEIGHT
     elseif side == 3 then
       x = 0fx
       y = i*baf_margin

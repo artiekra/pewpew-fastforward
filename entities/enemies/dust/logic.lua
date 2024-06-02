@@ -51,6 +51,7 @@ end
 
 -- Set wall collision callback function for the entity
 local function wall_collision(id, wall_normal_x, wall_normal_y)
+  entities[id] = nil
   entity_start_exploding(id, 10)
 end
 
