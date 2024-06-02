@@ -1,6 +1,7 @@
 local performance = require"misc/performance"
 local helpers = require"entities/helpers"
 require"entities/enemies/lightbaf/config"
+require"globals"
 
 local module = {}
 
@@ -46,12 +47,7 @@ end
 
 -- Set wall collision callback function for the entity
 local function wall_collision(id, wall_normal_x, wall_normal_y)
-  local e = entities[id]
-  local dot_product_move = ((wall_normal_x * e[i_dx]) + (wall_normal_y * e[i_dy])) * 2fx
-  e[i_dx] = e[i_dx] - wall_normal_x * dot_product_move
-  e[i_dy] = e[i_dy] - wall_normal_y * dot_product_move
-  e[i_angle] = fx_atan2(e[i_dy], e[i_dx])
-  entity_set_mesh_angle(id, e[i_angle], 0fx, 0fx, 1fx)
+  entity_start_exploding(id, 10)
 end
 
 
@@ -95,6 +91,38 @@ function module.spawn(x, y, angle)
   entity_set_weapon_collision(id, weapon_collision)
 
   return id
+end
+
+
+-- Spawn a wave of light bafs
+-- [TODO: be able to spawn certain (smaller ig) waves with offset from corner]
+function module.spawn_wave(side, baf_n)
+  local baf_margin = 20fx
+
+  local lh = LEVEL_HEIGHT
+  local lw = LEVEL_WIDTH
+  -- local bs = BEVEL_SIZE  -- needed to prevent going out of bevel when using offset..
+  --
+  for i=1, baf_n do
+
+    if side == 0 then
+      x = LEVEL_WIDTH - i*baf_margin
+      y = LEVEL_HEIGHT
+    elseif side == 1 then
+      x = LEVEL_WIDTH
+      y = LEVEL_HEIGHT - i*baf_margin
+    elseif side == 2 then
+      x = i*baf_margin
+      y = 0fx
+    elseif side == 3 then
+      x = 0fx
+      y = i*baf_margin
+    end
+
+    local angle = (side+1) * (FX_TAU/4fx)
+    module.spawn(x, y, angle)
+  end
+
 end
 
 
