@@ -13,7 +13,7 @@ function module.spawn(x, y, angle)
 
   local bullet = new_entity(x, y)
   entity_start_spawning(bullet, 2)
-  entity_set_mesh(bullet, "entities/polygon/bullets/mesh")
+  entity_set_mesh(bullet, "entities/enemies/polygon/bullets/mesh")
   entity_set_radius(bullet, 4fx)
 
   local time = 0

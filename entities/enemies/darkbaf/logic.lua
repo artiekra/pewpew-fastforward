@@ -1,6 +1,6 @@
 local performance = require"misc/performance"
 local helpers = require"entities/helpers"
-require"entities/darkbaf/config"
+require"entities/enemies/darkbaf/config"
 
 local module = {}
 
@@ -40,7 +40,7 @@ local function initial_interpolation_fix(id)
   e[i_time] = e[i_time] + 1
   if e[i_time] == 2 then
     entity_set_update_callback(id, update_callback)
-    entity_set_mesh(id, 'entities/darkbaf/mesh')
+    entity_set_mesh(id, 'entities/enemies/darkbaf/mesh')
   end
 end
 

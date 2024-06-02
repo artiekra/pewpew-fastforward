@@ -12,7 +12,7 @@ function module.spawn(x, y, angle)
 
   local dust = new_entity(x, y)
   entity_start_spawning(dust, 2)
-  entity_set_mesh(dust, "entities/dust/mesh")
+  entity_set_mesh(dust, "entities/enemies/dust/mesh")
   entity_set_radius(dust, 2fx)
 
   local time = 0

@@ -1,6 +1,6 @@
-local dust = require"entities/dust/logic"
-local polygon = require"entities/polygon/logic"
-local darkbaf = require"entities/darkbaf/logic"
+local dust = require"entities/enemies/dust/logic"
+local polygon = require"entities/enemies/polygon/logic"
+local darkbaf = require"entities/enemies/darkbaf/logic"
 
 local helpers = require"entities/helpers"
 local spawn_powerup = require"entities/powerups/spawn"

@@ -44,7 +44,7 @@ end
 
 -- Set performance to a new value for a given duration (in ticks)
 function module.upgrade(value, time)
-  print(value, time)
+  -- print(value, time)
 
   module.UPGRADE = value
   module.UPGRADE_TIME = time

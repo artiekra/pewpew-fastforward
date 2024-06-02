@@ -1,9 +1,9 @@
 local performance = require"misc/performance"
-local bullets = require"entities/polygon/bullets/logic"
+local bullets = require"entities/enemies/polygon/bullets/logic"
 local helpers = require"entities/helpers"
 local ch = require"helpers/color_helpers"
 
-require"entities/polygon/config"
+require"entities/enemies/polygon/config"
 
 local module = {}
 
@@ -39,7 +39,7 @@ function module.spawn(x, y, angle)
 
   local polygon = new_entity(x, y)
   entity_start_spawning(polygon, 2)
-  entity_set_mesh(polygon, "entities/polygon/mesh")
+  entity_set_mesh(polygon, "entities/enemies/polygon/mesh")
   entity_set_radius(polygon, 30fx)
 
   local time = 0
@@ -56,7 +56,7 @@ function module.spawn(x, y, angle)
       mesh_index = 0
     end
 
-    entity_set_mesh(polygon, "entities/polygon/mesh", mesh_index, mesh_index + 1)
+    entity_set_mesh(polygon, "entities/enemies/polygon/mesh", mesh_index, mesh_index + 1)
     mesh_index = mesh_index + 2
 
     local color_state = helpers.get_color_state(time)
