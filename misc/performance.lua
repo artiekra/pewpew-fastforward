@@ -11,11 +11,17 @@ module.UPGRADE_TIME = 0
 -- MUST BE CALLED EACH TICK!
 -- [TODO: rework time system]
 function module.update(time, score)
+  -- [TODO: can use max function from somewhere?... maybe added in ppol later?]
+  local min_perf = 1 - (time//300)*0.01
+  if min_perf < 0 then
+    min_perf = 0
+  end
+  
   if module.UPGRADE_TIME ~= 0 then
     module.UPGRADE_TIME = module.UPGRADE_TIME - 1
     module.PERFORMANCE = module.UPGRADE
   else
-    module.PERFORMANCE = 1 + (score/time*5)
+    module.PERFORMANCE = min_perf + (score/time*3)
   end
 
   return module.PERFORMANCE

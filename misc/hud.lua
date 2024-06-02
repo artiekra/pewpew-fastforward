@@ -17,9 +17,13 @@ function module.update(velocity, performance)
   local vel_color = ch.make_color(nvel, 255-nvel, 0, 255)
   local vel_color_str = ch.color_to_string(vel_color)
 
-  local nperf = ((performance-1)*mul) // 1
-  local perf_color = ch.make_color(nperf, 255-nperf, 0, 255)
-  local perf_color_str = ch.color_to_string(perf_color)
+  if performance < 1 then
+    local nperf = (performance*mul) // 1
+    local perf_color = ch.make_color(255-nperf, nperf, 0, 255)
+    perf_color_str = ch.color_to_string(perf_color)
+  else
+    perf_color_str = "#00ff00ff"
+  end
 
   local velocity_str = vel_color_str .. string.format("⚡ x%.2f", velocity)
   local performance_str = perf_color_str .. string.format("👁 x%.2f", performance)
