@@ -61,7 +61,7 @@ function module.spawn(ship, time)
   -- Spawn lightbaf
   if time % 30 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    lightbaf.spawn_wave(random(0, 3), random(3, 8))
+    lightbaf.spawn_wave(random(0, 3), random(3, 8), fx_random(0fx, 500fx))
   end
 
   -- Spawn powerups

@@ -96,28 +96,28 @@ end
 
 
 -- Spawn a wave of light bafs
--- [TODO: be able to spawn certain (smaller ig) waves with offset from corner]
-function module.spawn_wave(side, baf_n)
+-- [TODO: prevent bafs from spawning in bevels]
+function module.spawn_wave(side, baf_n, offset)
   local baf_margin = 20fx
 
   local lh = LEVEL_HEIGHT
   local lw = LEVEL_WIDTH
   -- local bs = BEVEL_SIZE  -- needed to prevent going out of bevel when using offset..
-  -- [NOTE: add margins to prevent wall collisions right away here?]
+  -- [TODO: add margins to prevent wall collisions right away here?]
   for i=1, baf_n do
 
     if side == 0 then
-      x = i*baf_margin
+      x = i*baf_margin + offset
       y = 0fx
     elseif side == 1 then
       x = LEVEL_WIDTH
-      y = LEVEL_HEIGHT - i*baf_margin
+      y = LEVEL_HEIGHT - i*baf_margin - offset
     elseif side == 2 then
-      x = LEVEL_WIDTH - i*baf_margin
+      x = LEVEL_WIDTH - i*baf_margin - offset
       y = LEVEL_HEIGHT
     elseif side == 3 then
       x = 0fx
-      y = i*baf_margin
+      y = i*baf_margin + offset
     end
 
     local angle = (side+1) * (FX_TAU/4fx)
