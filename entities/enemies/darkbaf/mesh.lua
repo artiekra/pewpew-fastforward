@@ -1,9 +1,11 @@
 -- thanks Flavour! :з
 
-local x0 = -8
-local x1 = -4
-local x2 = 13
-local y0 = -11
+local scale = 1.25
+
+local x0 = -8 * scale
+local x1 = -4 * scale
+local x2 = 13 * scale
+local y0 = -11 * scale
 
 meshes = {
   {

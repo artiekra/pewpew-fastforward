@@ -11,7 +11,7 @@ local entities = {}
 
 -- Some entity globals
 local speed = 2fx
-local radius = 30fx
+local radius = 32fx
 local default_health = 5
 
 -- [NOTE: cant have maximum alpha value,

@@ -1,4 +1,4 @@
-local s = 3
+local s = 4
 
 meshes = {
   {

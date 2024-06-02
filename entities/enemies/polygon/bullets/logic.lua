@@ -7,7 +7,7 @@ local entities = {}
 
 -- Some entity globals
 local speed = 10fx
-local radius = 4fx
+local radius = 5fx
 local colors = {0x00ff00ff, 0x8000ffff,
   0xff0000ff, 0x808080ff}
 
