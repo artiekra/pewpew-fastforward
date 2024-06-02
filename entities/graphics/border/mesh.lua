@@ -26,9 +26,17 @@ function draw_border_outline(mesh, width, height, bevel, color1, color2, z)
   local sw = 325
 
   local so = hw - sw
+  -- [TODO: fix top layer not being bold when 1st coord is so-sh (no /2)]
   gh.add_line_to_mesh(mesh, {{so-sh/2, hh+sd, z}, {so, hh+sd+sh, z},
                              {hw, hh+sd+sh, z}, {hw, hh+sd, z}},
     {color1, color1, color2, color2}, true)
+
+  -- border bottom line decoration
+  local ld = 25
+  local lw = 325
+  local lo = lw-hw
+  gh.add_line_to_mesh(mesh, {{-hw, -hh-ld, z}, {lo, -hh-ld, z}},
+    {color1, color2}, false)
 
 end
 
