@@ -110,37 +110,39 @@ end
 -- Set player collision callback function for the entity
 local function player_collision(entity_id, player_id, ship_id)
   local e = entities[entity_id]
-
-  if e then
-    local health = e[i_health]
-
-    if health > 3 then
-      damage_player_ship(ship_id, 3)
-    else
-      damage_player_ship(ship_id, health)
-    end
-    module.destroy_polygon(entity_id, explosion_color)
-
-    entities[entity_id] = nil
-    performance.increase_player_score(3)
+  if not e then
+    return
   end
+
+  local health = e[i_health]
+
+  if health > 3 then
+    damage_player_ship(ship_id, 3)
+  else
+    damage_player_ship(ship_id, health)
+  end
+  module.destroy_polygon(entity_id, explosion_color)
+
+  entities[entity_id] = nil
+  performance.increase_player_score(3)
 end
 
 
 -- Set weapon collision callback function for the entity
 local function weapon_collision(entity_id, player_index, weapon)
   local e = entities[entity_id]
+  if not e then
+    return
+  end
 
-  if e then
-    local health = e[i_health]
+  local health = e[i_health]
 
-    if health > 0 then
-      if weapon == weapon_type.bullet then
-        e[i_health] = health - 1  -- [TODO: assigning to health, reference to array?]
-        e[i_highlight] = 5
-        if e[i_health] <= 0 then
-          module.destroy_polygon(entity_id, explosion_color)
-        end
+  if health > 0 then
+    if weapon == weapon_type.bullet then
+      e[i_health] = health - 1  -- [TODO: assigning to health, reference to array?]
+      e[i_highlight] = 5
+      if e[i_health] <= 0 then
+        module.destroy_polygon(entity_id, explosion_color)
       end
     end
   end
