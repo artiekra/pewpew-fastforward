@@ -1,6 +1,6 @@
 local performance = require"misc/performance"
 local helpers = require"entities/helpers"
-require"entities/mbaf/config"
+require"entities/darkbaf/config"
 
 local module = {}
 
@@ -26,7 +26,7 @@ local function update_callback(id)
   entity_change_pos(id, e[i_dx] * SPEED, e[i_dy] * SPEED)
   entity_add_mesh_angle(id, SPIN_SPEED, e[i_dx], e[i_dy], 0fx)
 
-  helpers.set_entity_color(e[i_time], id, e[i_type] == 1 and COLORS_LIGHT or COLORS_DARK)
+  helpers.set_entity_color(e[i_time], id, COLORS)
 end
 
 
@@ -40,7 +40,7 @@ local function initial_interpolation_fix(id)
   e[i_time] = e[i_time] + 1
   if e[i_time] == 2 then
     entity_set_update_callback(id, update_callback)
-    entity_set_mesh(id, 'entities/mbaf/mesh')
+    entity_set_mesh(id, 'entities/darkbaf/mesh')
   end
 end
 

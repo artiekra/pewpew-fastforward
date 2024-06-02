@@ -1,6 +1,6 @@
 local dust = require"entities/dust/logic"
 local polygon = require"entities/polygon/logic"
-local mbaf = require"entities/mbaf/logic"
+local darkbaf = require"entities/darkbaf/logic"
 
 local helpers = require"entities/helpers"
 local spawn_powerup = require"entities/powerups/spawn"
@@ -32,11 +32,11 @@ end
 
 
 -- Spawn enemies, given total level time
+  -- [TODO: better condition, literally everywhere..]
 function module.spawn(ship, time)
 
   ---- Spawn dust
   -- Function graph: https://jpcdn.it/img/5716adb64996deddb9172d1a1542a643.png
-  -- [TODO: better condition]
   -- [NOTE: might be slow]
   req = 37.5 * (2.71828^(-0.00020362*time))
   -- print(req//1)
@@ -46,7 +46,6 @@ function module.spawn(ship, time)
   end
 
   ---- Spawn polygon 
-  -- [TODO: better condition]
   if time % 200 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     polygon.spawn(x, y, fx_random(FX_TAU))
@@ -54,23 +53,13 @@ function module.spawn(ship, time)
 
 
   ---- Spawn darkbaf
-  -- [TODO: better condition]
   if time % 30 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    mbaf.spawn(2, x, y, fx_random(FX_TAU))
-  end
-
-
-  ---- Spawn lightbaf 
-  -- [TODO: better condition]
-  if time % 30 == 0 then
-    local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    mbaf.spawn(1, x, y, fx_random(FX_TAU))
+    darkbaf.spawn(2, x, y, fx_random(FX_TAU))
   end
 
 
   ---- Spawn powerups
-  -- [TODO: better condition]
   if time % 400 == 0 then
     spawn_powerup.spawn_powerup(ship, time)
   end
