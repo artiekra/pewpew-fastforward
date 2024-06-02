@@ -3,6 +3,16 @@ local helpers = require"entities/helpers"
 
 local module = {}
 
+local entities = {}
+
+
+-- Declaring scheme for entity table
+local i_type = 1
+local i_time = 2
+local i_angle = 3
+local i_dx = 4
+local i_dy = 5
+
 
 -- Spawn entity, add update callback
 function module.spawn(x, y, angle)

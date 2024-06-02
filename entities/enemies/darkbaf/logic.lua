@@ -8,11 +8,10 @@ local entities = {}
 
 
 -- Declaring scheme for entity table
-local i_type = 1
-local i_time = 2
-local i_angle = 3
-local i_dx = 4
-local i_dy = 5
+local i_time = 1
+local i_angle = 2
+local i_dx = 3
+local i_dy = 4
 
 
 -- Function to call every tick on entity
@@ -75,8 +74,9 @@ local function weapon_collision(entity_id, player_index, weapon)
   return true
 end
 
+
 -- Spawn entity, add update callback
-function module.spawn(baf_type, x, y, angle)
+function module.spawn(x, y, angle)
 
   local id = new_entity(x, y)
   entity_start_spawning(id, 0)
@@ -85,7 +85,7 @@ function module.spawn(baf_type, x, y, angle)
   local dy, dx = fx_sincos(angle)
   entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
   
-  entities[id] = {baf_type, 0, angle, dx, dy}
+  entities[id] = {0, angle, dx, dy}
 
   entity_set_update_callback(id, initial_interpolation_fix)
   entity_set_wall_collision(id, true, wall_collision)

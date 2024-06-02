@@ -55,7 +55,7 @@ function module.spawn(ship, time)
   ---- Spawn darkbaf
   if time % 30 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    darkbaf.spawn(2, x, y, fx_random(FX_TAU))
+    darkbaf.spawn(x, y, fx_random(FX_TAU))
   end
 
 
