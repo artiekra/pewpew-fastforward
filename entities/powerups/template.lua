@@ -53,9 +53,9 @@ local function player_collision(entity_id, player_id, ship_id)
   
   if box[i_rgb] then
     local r, g, b = table.unpack(box[i_colors])
-    new_message(x, y, color_to_string(make_color(r, g, b, 255)) .. box[i_text], 1fx, 16)
+    new_floating_message(x, y, color_to_string(make_color(r, g, b, 255)) .. box[i_text], 1fx, 16)
   else
-    new_message(x, y, color_to_string(box[i_colors][3][box[i_color_state]]) .. box[i_text], 1fx, 16)
+    new_floating_message(x, y, color_to_string(box[i_colors][3][box[i_color_state]]) .. box[i_text], 1fx, 16)
   end
   
   if box[i_callback] then

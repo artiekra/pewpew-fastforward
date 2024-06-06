@@ -2,13 +2,15 @@ emoji_error    = '\u{1f6d1}'
 emoji_warning  = '\u{26a0}'
 emoji_nice     = '\u{2705}'
 
+PPOL_VERSION = 'v0.10'
+
 function mpath(path)
   return string.format('%s%s%s', '/dynamic/', path ,'.lua')
 end
 
-local _r = require
+local __require = require
 function require(path)
-  return _r(mpath(path))
+  return __require(mpath(path))
 end
 
 function ppo_require(...)
@@ -36,15 +38,14 @@ function rmn(...)
   end
 end
 
-if not PPO_NDEBUG then
-  ppo_require('debug')
-end
-
 if math then
-  add_memory_print, add_memory_warning = nil, nil
   ppo_require('base', 'fmath', 'mesh')
 else
-  ppo_require('base', 'fmath', 'pewpew')
+  ppo_require('base', 'fmath', 'pewpew', 'camera')
+end
+
+if not PPO_NDEBUG then
+  ppo_require('debug')
 end
 
 rmn('pewpew', 'fmath', 'fmath_old', 'pewpewinternal')

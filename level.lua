@@ -4,7 +4,6 @@ require"globals"
 local hud = require"misc/hud"
 local timer = require"misc/timer"
 local labels = require"entities/misc/labels"
-local camera = require"misc/camera"
 local enemies = require"entities/spawn"
 local rays = require"entities/rays/logic"
 local shooting = require"misc/shooting"
@@ -15,7 +14,7 @@ local border = require"entities/graphics/border/logic"
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
 local ship = new_player_ship(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
-set_joystick_color(0x202020ff, 0x202020ff)
+set_joystick_colors(0x202020ff, 0x202020ff)
 set_shield(3)
 local ship_speed = 0.99
 
@@ -67,7 +66,7 @@ function level_tick()
 
   player_x, player_y = entity_get_pos(ship)
 
-  if get_is_lost() == true then
+  if get_has_lost() == true then
     stop_game()
   end
 
@@ -77,7 +76,6 @@ function level_tick()
     ship_speed = update_ship_speed(ship_speed)
   end
 
-  camera_z = camera.set_camera_z(camera_z)
   enemies.spawn(ship, time)
   shooting.update(time, player_x, player_y)
 
@@ -99,7 +97,8 @@ end
 
 
 ship_speed = update_ship_speed(ship_speed)
-camera_z = 1000fx
+camera.set_args(camera_mode.entity, ship)
+-- camera.set_args(camera_mode.free)
 
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)

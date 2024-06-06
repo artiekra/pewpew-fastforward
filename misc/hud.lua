@@ -5,7 +5,7 @@ local module = {}
 
 -- Initialise the HUD
 function module.init()
-  configure_hud_string("#ff0000ffLoading...")
+  set_hud_string("#ff0000ffLoading...")
 end
 
 
@@ -27,7 +27,7 @@ function module.update(velocity, performance)
 
   local velocity_str = vel_color_str .. string.format("⚡ x%.2f", velocity)
   local performance_str = perf_color_str .. string.format("👁 x%.2f", performance)
-  configure_hud_string(velocity_str .. "  " .. performance_str)
+  set_hud_string(velocity_str .. "  " .. performance_str)
 end
 
 
