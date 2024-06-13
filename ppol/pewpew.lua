@@ -182,8 +182,8 @@ remove_arrow = pewpew.remove_arrow_from_player_ship
 make_player_ship_transparent = pewpew.make_player_ship_transparent
 
 local __set_player_ship_speed = pewpew.set_player_ship_speed
-function set_player_ship_speed(id, speed, duration)
-  return __set_player_ship_speed(id, 0fx, speed, duration or -1)
+function set_player_ship_speed(id, factor, speed, duration)
+  return __set_player_ship_speed(id, factor, speed, duration or -1)
 end
 
 get_all_entities = pewpew.get_all_entities
@@ -271,6 +271,14 @@ function new_ufo(x, y, dx, v)
   local id = __new_ufo(x, y, dx)
   __ufo_set_enable_collisions_with_walls(id, v or true)
   return id
+end
+
+function rolling_cube_set_wall_collision(id, v)
+  return __rolling_cube_set_enable_collisions_with_walls(id, v or true)
+end
+
+function ufo_set_wall_collision(id, v)
+  return __ufo_set_enable_collisions_with_walls(id, v or true)
 end
 
 entity_get_pos = pewpew.entity_get_position
