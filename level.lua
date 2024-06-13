@@ -41,7 +41,8 @@ function update_ship_speed(speed)
 
   if ship_speed < limit then
     speed = speed + increment_val
-    set_player_ship_speed(1, 0fx, to_fx((speed*100)//10), -1)
+    -- set_player_ship_speed(1, 0fx, to_fx((speed*100)//10), -1)
+    set_player_ship_speed(1, to_fx((speed*100)//10))
   end
 
   return speed
@@ -97,8 +98,6 @@ end
 
 
 ship_speed = update_ship_speed(ship_speed)
-camera.set_args(camera_mode.entity, ship_id)
-camera.remove_ease()
 
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)

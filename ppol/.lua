@@ -2,7 +2,7 @@ emoji_error    = '\u{1f6d1}'
 emoji_warning  = '\u{26a0}'
 emoji_nice     = '\u{2705}'
 
-PPOL_VERSION = 'v0.10'
+PPOL_VERSION = '1.0.1'
 
 function mpath(path)
   return string.format('%s%s%s', '/dynamic/', path ,'.lua')
@@ -38,10 +38,12 @@ function rmn(...)
   end
 end
 
-if math then
-  ppo_require('base', 'fmath', 'mesh')
-else
+if not math then
   ppo_require('base', 'fmath', 'pewpew', 'camera')
+elseif PPO_SOUND then
+  ppo_require('base', 'sound')
+else
+  ppo_require('base', 'fmath', 'mesh')
 end
 
 if not PPO_NDEBUG then

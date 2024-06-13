@@ -27,13 +27,11 @@ entity_type = {
 }
 local _mt = pewpew.MothershipType
 mothership_type = {
-  _mt.THREE_CORNERS, -- [1]
-  _mt.THREE_CORNERS, -- [2]
-  _mt.THREE_CORNERS, -- [3]
-  _mt. FOUR_CORNERS,
-  _mt. FIVE_CORNERS,
-  _mt.  SIX_CORNERS,
-  _mt.SEVEN_CORNERS,
+  [3] = _mt.THREE_CORNERS,
+  [4] = _mt. FOUR_CORNERS,
+  [5] = _mt. FIVE_CORNERS,
+  [6] = _mt.  SIX_CORNERS,
+  [7] = _mt.SEVEN_CORNERS,
 }
 local _ct = pewpew.CannonType
 cannon_type = {
@@ -47,15 +45,15 @@ cannon_type = {
 }
 local _cf = pewpew.CannonFrequency
 cannon_frequency = {
-  _30  = _cf.FREQ_30,
-  _15  = _cf.FREQ_15,
-  _10  = _cf.FREQ_10,
-  _7_5 = _cf.FREQ_7_5,
-  _6   = _cf.FREQ_6,
-  _5   = _cf.FREQ_5,
-  _3   = _cf.FREQ_3,
-  _2   = _cf.FREQ_2,
-  _1   = _cf.FREQ_1,
+  [1]   = _cf.FREQ_1,
+  [2]   = _cf.FREQ_2,
+  [3]   = _cf.FREQ_3,
+  [5]   = _cf.FREQ_5,
+  [6]   = _cf.FREQ_6,
+  [7.5] = _cf.FREQ_7_5,
+  [10]  = _cf.FREQ_10,
+  [15]  = _cf.FREQ_15,
+  [30]  = _cf.FREQ_30,
 }
 local _bt = pewpew.BombType
 bomb_type = {
@@ -116,12 +114,17 @@ remove_wall = pewpew.remove_wall
 
 local update_callbacks = {}
 local post_update_callbacks = {}
+local tmp_update_callbacks = {}
 pewpew.add_update_callback(function()
   for _, c in ipairs(update_callbacks) do
     c()
   end
   for _, c in ipairs(post_update_callbacks) do
     c()
+  end
+  for i = #tmp_update_callbacks, 1, -1 do
+    tmp_update_callbacks[i]()
+    table.remove(tmp_update_callbacks, i)
   end
 end)
 
@@ -131,6 +134,10 @@ end
 
 function add_post_update_callback(f)
   table.insert(post_update_callbacks, 1, f)
+end
+
+function add_tmp_update_callback(f)
+  table.insert(tmp_update_callbacks, f)
 end
 
 local __increase_score_of_player = pewpew.increase_score_of_player
@@ -175,8 +182,8 @@ remove_arrow = pewpew.remove_arrow_from_player_ship
 make_player_ship_transparent = pewpew.make_player_ship_transparent
 
 local __set_player_ship_speed = pewpew.set_player_ship_speed
-function set_player_ship_speed(id, factor, offset, duration)
-  return __set_player_ship_speed(id, factor, offset, duration or -1)
+function set_player_ship_speed(id, speed, duration)
+  return __set_player_ship_speed(id, 0fx, speed, duration or -1)
 end
 
 get_all_entities = pewpew.get_all_entities
@@ -343,13 +350,30 @@ function new_bonus_weapon(x, y, cannon, frequency, weapon_duration, box_duration
   return __new_bonus(x, y, bonus_type.weapon, {cannon = cannon, frequency = frequency, weapon_duration = weapon_duration, box_duration = box_duration, taken_callback = callback})
 end
 
-function new_bonus_speed(x, y, speed_factor, speed_offset, speed_duration, box_duration, callback)
-  return __new_bonus(x, y, bonus_type.speed, {speed_factor = speed_factor, speed_offset = speed_offset, speed_duration = speed_duration, box_duration = box_duration, taken_callback = callback})
+function new_bonus_speed(x, y, speed, speed_duration, box_duration, callback)
+  return __new_bonus(x, y, bonus_type.speed, {speed_factor = 0fx, speed_offset = speed, speed_duration = speed_duration, box_duration = box_duration, taken_callback = callback})
 end
 
 function entity_change_pos(id, dx, dy)
   local x, y = entity_get_pos(id)
   entity_set_pos(id, x + dx, y + dy)
+end
+
+function preload_sounds(folder, ...)
+  local args = {...}
+  add_tmp_update_callback(function()
+    if #args == 1 or type(args[2]) == 'string' then
+      for _, file in ipairs(args) do
+        play_sound(string.format('%s/%s', folder, file), -10000fx, -10000fx)
+      end
+    else
+      for i = 1, #args, 2 do
+        for k = 0, args[i + 1] - 1 do
+          play_sound(string.format('%s/%s', folder, args[i]), -10000fx, -10000fx, k)
+        end
+      end
+    end
+  end)
 end
 
 local __get_player_inputs = pewpew.get_player_inputs
