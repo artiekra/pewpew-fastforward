@@ -2,11 +2,12 @@ require"/dynamic/ppol/.lua"
 require"globals"
 
 local hud = require"misc/hud"
+local time = require"misc/time"
 local timer = require"misc/timer"
-local labels = require"entities/misc/labels"
 local enemies = require"entities/spawn"
-local rays = require"entities/rays/logic"
 local shooting = require"misc/shooting"
+local rays = require"entities/rays/logic"
+local labels = require"entities/misc/labels"
 local performance = require"misc/performance"
 local angle = require"entities/graphics/angle/logic"
 local border = require"entities/graphics/border/logic"
@@ -48,6 +49,7 @@ function update_ship_speed(speed)
 end
 
 
+-- Calculate current level mode
 function get_level_mode(t, a, b)
   local div = t // a
   local m = div * 2
@@ -60,9 +62,10 @@ function get_level_mode(t, a, b)
 end
 
 
-time = 0
+-- Function called each tick
 function level_tick()
-  time = time + 1 -- global time variable
+  time.fast_forward(1)  -- keep count of time properly
+  local time = time.get_time()
 
   player_x, player_y = entity_get_pos(ship)
 
@@ -97,6 +100,8 @@ end
 
 
 ship_speed = update_ship_speed(ship_speed)
+
+-- [TODO: camera setup]
 
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
