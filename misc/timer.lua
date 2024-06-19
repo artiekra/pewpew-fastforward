@@ -3,6 +3,8 @@
 local helpers = require"entities/helpers"
 local ch = require"helpers/color_helpers"
 
+require"globals"
+
 local module = {}
 
 module.CURRENT_COLOR = 0
@@ -60,7 +62,7 @@ function module.update(labels, time)
   local colors = {0x00ff00ff, 0x0000ffff,
     0xff9100ff, 0x808080ff}
 
-  text = time_to_text(18000-time)
+  text = time_to_text(LEVEL_DURATION_TICKS-time)
 
   local color = helpers.get_color_state(time)
   if color ~= nil then
@@ -73,6 +75,12 @@ function module.update(labels, time)
   end
 
 end
+
+
+-- End the timer (at the end screen)
+-- functiom module.end(labels)
+--
+-- end
 
 
 return module

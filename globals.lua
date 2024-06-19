@@ -9,3 +9,5 @@ MODE_CHANGE_DURATION = 35
 MODE_CHANGE_FREQ = 200
 LEVEL_MODE_MAX = 6
 LEVEL_MODE = 0  -- mutable by level components variable
+
+LEVEL_DURATION_TICKS = 175

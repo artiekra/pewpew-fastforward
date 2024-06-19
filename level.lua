@@ -62,16 +62,14 @@ function get_level_mode(t, a, b)
 end
 
 
--- Function called each tick
-function level_tick()
-  time.fast_forward(1)  -- keep count of time properly
-  local time = time.get_time()
+-- Transition from normal gameplay to end screen
+function end_screen_transition()
+  -- timer.end(timer_labels)
+end
 
-  player_x, player_y = entity_get_pos(ship)
 
-  if get_has_lost() == true then
-    stop_game()
-  end
+-- Function called every tick (before the end screen)
+function level_tick_normal(time, player_x, player_y)
 
   -- update ship speed, exponentially
   local speed_upd_condition = ( ( time % (500-((ship_speed-1)*500)) ) // 1 ) == 0
@@ -80,10 +78,7 @@ function level_tick()
   end
 
   enemies.spawn(ship, time)
-  shooting.update(time, player_x, player_y)
-
-  rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
-    BEVEL_SIZE, player_x, player_y)
+  shooting.update(time, player_x, player_y)  -- [NOTE: cannot shoot on end screen]
 
   local player_score = get_score()
   performance.update(time, player_score)
@@ -91,10 +86,38 @@ function level_tick()
 
   timer.update(timer_labels, time)
 
+end
+
+
+-- Function called each tick
+local is_end_screen = false
+function level_tick()
+  time.fast_forward(1)  -- keep count of time properly
+  local time = time.get_time()
+
+  player_x, player_y = entity_get_pos(ship)
+
+  if (time >= LEVEL_DURATION_TICKS) and (not is_end_screen) then
+    is_end_screen = true
+    end_screen_transition()
+  end
+
+  if not is_end_screen then
+    level_tick_normal(time, player_x, player_y)
+  end
+
+  rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
+    BEVEL_SIZE, player_x, player_y)
+
+  -- [TODO: at end screen, dont change (but assure its even)]
   local interval = MODE_CHANGE_FREQ - MODE_CHANGE_DURATION
   LEVEL_MODE = get_level_mode(time, MODE_CHANGE_FREQ, interval)
   if LEVEL_MODE > LEVEL_MODE_MAX then
     LEVEL_MODE = LEVEL_MODE_MAX
+  end
+
+  if get_has_lost() == true then
+    stop_game()
   end
 end
 
