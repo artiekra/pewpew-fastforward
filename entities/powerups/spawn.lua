@@ -19,7 +19,9 @@ POWERUP_SPAWN_OFFSETS = {
 function module.spawn_shield_pu(ship)
   local x, y = helpers.random_coordinates(
     ship, table.unpack(POWERUP_SPAWN_OFFSETS.shield))
-  shield_pu.spawn(ship, x, y)
+  local powerup_outer, powerup_inner = shield_pu.spawn(ship, x, y)
+
+  return {powerup_outer, powerup_inner}
 end
 
 
@@ -27,7 +29,9 @@ end
 function module.spawn_score_pu(ship)
   local x, y = helpers.random_coordinates(
     ship, table.unpack(POWERUP_SPAWN_OFFSETS.score))
-  score_pu.spawn(ship, x, y)
+  local powerup_outer, powerup_inner = score_pu.spawn(ship, x, y)
+
+  return {powerup_outer, powerup_inner}
 end
 
 
@@ -35,7 +39,10 @@ end
 function module.spawn_performance_pu(ship)
   local x, y = helpers.random_coordinates(
     ship, table.unpack(POWERUP_SPAWN_OFFSETS.performance))
-  performance_pu.spawn(ship, x, y, random(1, 3))
+  local powerup_outer, powerup_inner = performance_pu.spawn(
+    ship, x, y, random(1, 3))
+
+  return {powerup_outer, powerup_inner}
 end
 
 
@@ -97,8 +104,9 @@ function module.spawn_powerup(ship, time)
   -- No preconditions satisfied, spawn random powerup
   -- (according to chance table)
   local choice = module.weighted_random(POWERUP_SPAWN_WEIGHTS)
-  choice(ship)
+  powerup = choice(ship)
 
+  return powerup
 end
 
 return module

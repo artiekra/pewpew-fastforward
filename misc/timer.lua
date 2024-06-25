@@ -1,4 +1,5 @@
 -- [TODO: merge the code with level border (static) labels]
+-- [TODO: fix flickering..?!]
 
 local helpers = require"entities/helpers"
 local ch = require"helpers/color_helpers"
@@ -75,12 +76,6 @@ function module.update(labels, time)
   end
 
 end
-
-
--- End the timer (at the end screen)
--- functiom module.end(labels)
---
--- end
 
 
 return module

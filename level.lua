@@ -64,7 +64,7 @@ end
 
 -- Transition from normal gameplay to end screen
 function end_screen_transition()
-  -- timer.end(timer_labels)
+  enemies.destroy_all_enemies()
 end
 
 
@@ -89,6 +89,13 @@ function level_tick_normal(time, player_x, player_y)
 end
 
 
+-- Function called every tick (at end screen)
+function level_tick_end_screen(time)
+  -- update ONLY the colors, time is 0
+  timer.update(timer_labels, LEVEL_DURATION_TICKS)
+end
+
+
 -- Function called each tick
 local is_end_screen = false
 function level_tick()
@@ -104,6 +111,8 @@ function level_tick()
 
   if not is_end_screen then
     level_tick_normal(time, player_x, player_y)
+  else
+    level_tick_end_screen(time)
   end
 
   rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,

@@ -7,8 +7,11 @@ local helpers = require"entities/helpers"
 local spawn_powerup = require"entities/powerups/spawn"
 
 require"globals"
+require"helpers/lua_helpers"
 
 local module = {}
+module.enemies = {}
+
 
 -- Initial spawn of the enemies at the start of the level
 -- (executed once, before the actual start / first tick of the level)
@@ -16,15 +19,21 @@ function module.init_spawn(ship)
 
   for i=1, 10 do
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    dust.spawn(x, y, fx_random(FX_TAU))
+    local enemy = dust.spawn(x, y, fx_random(FX_TAU))
+    table.insert(module.enemies, enemy)
   end
 
-  spawn_powerup.spawn_shield_pu(ship)
-  spawn_powerup.spawn_score_pu(ship)
-  spawn_powerup.spawn_performance_pu(ship)
+  print(debug_print_contents(module.enemies))
+  local pu1 = spawn_powerup.spawn_shield_pu(ship)
+  local pu2 = spawn_powerup.spawn_score_pu(ship)
+  local pu3 = spawn_powerup.spawn_performance_pu(ship)
+  table_insert_all(module.enemies, pu1[1], pu1[2],
+    pu2[1], pu2[2], pu3[1], pu3[2])
+  print(debug_print_contents(module.enemies))
 
   local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-  polygon.spawn(x, y, fx_random(FX_TAU))
+  local enemy = polygon.spawn(x, y, fx_random(FX_TAU))
+  table.insert(module.enemies, enemy)
 
   -- local x, y = helpers.random_coordinates(ship, 150fx, 50fx)
   -- score_powerup.spawn(ship, x, y)
@@ -33,7 +42,7 @@ end
 
 
 -- Spawn enemies, given total level time
-  -- [TODO: better condition, literally everywhere..]
+-- [TODO: better condition, literally everywhere..]
 function module.spawn(ship, time)
 
   ---- Spawn dust
@@ -43,30 +52,47 @@ function module.spawn(ship, time)
   -- print(req//1)
   if time % (req//1) == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    dust.spawn(x, y, fx_random(FX_TAU))
+    local enemy = dust.spawn(x, y, fx_random(FX_TAU))
+    table.insert(module.enemies, enemy)
   end
 
   -- Spawn polygon 
   if time % 200 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    polygon.spawn(x, y, fx_random(FX_TAU))
+    local enemy = polygon.spawn(x, y, fx_random(FX_TAU))
+    table.insert(module.enemies, enemy)
   end
 
   -- Spawn darkbaf
   if time % 30 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    darkbaf.spawn(x, y, fx_random(FX_TAU))
+    local enemy = darkbaf.spawn(x, y, fx_random(FX_TAU))
+    table.insert(module.enemies, enemy)
   end
 
   -- Spawn lightbaf
   if time % 30 == 0 then
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    lightbaf.spawn_wave(random(0, 3), random(3, 8), fx_random(0fx, 500fx))
+    local bafs = lightbaf.spawn_wave(random(0, 3), random(3, 8), fx_random(0fx, 500fx))
+    table_insert_all(module.enemies, table.unpack(bafs))
   end
 
   -- Spawn powerups
   if time % 400 == 0 then
-    spawn_powerup.spawn_powerup(ship, time)
+    local powerup = spawn_powerup.spawn_powerup(ship, time)
+    table_insert_all(module.enemies, table.unpack(powerup))  -- both inner and outer box
+  end
+
+end
+
+
+-- Destroy all enemies and powerups (not _entities_, but *enemies*)
+function module.destroy_all_enemies()
+
+  for _, enemy in ipairs(module.enemies) do
+    if entity_get_is_alive(enemy) then
+      entity_destroy(enemy)
+    end
   end
 
 end

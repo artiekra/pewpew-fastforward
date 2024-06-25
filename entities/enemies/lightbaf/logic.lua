@@ -100,6 +100,8 @@ end
 function module.spawn_wave(side, baf_n, offset)
   local baf_margin = 20fx
 
+  local bafs = {}
+
   local lh = LEVEL_HEIGHT
   local lw = LEVEL_WIDTH
   -- local bs = BEVEL_SIZE  -- needed to prevent going out of bevel when using offset..
@@ -121,9 +123,11 @@ function module.spawn_wave(side, baf_n, offset)
     end
 
     local angle = (side+1) * (FX_TAU/4fx)
-    module.spawn(x, y, angle)
+    local baf = module.spawn(x, y, angle)
+    table.insert(bafs, baf)
   end
 
+  return bafs
 end
 
 
