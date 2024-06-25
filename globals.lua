@@ -1,3 +1,5 @@
+LOG_LEVEL = "trace"
+
 LEVEL_WIDTH = 950fx 
 LEVEL_HEIGHT = 950fx
 BEVEL_SIZE = 150fx

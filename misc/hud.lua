@@ -4,13 +4,18 @@ local module = {}
 
 
 -- Initialise the HUD
+-- [TODO: fix grammar]
 function module.init()
+  log.info("hud", "Initializing the HUD")
   set_hud_string("#ff0000ffLoading...")
 end
 
 
 -- Set a HUD to new value, also set the right color
 function module.update(velocity, performance)
+  log.debug("hud", "Updating hud for velocity", velocity,
+    "and performance", performance)
+
   local mul = 255 -- multiplier for color
 
   local nvel = ((velocity-1)*mul) // 1
@@ -24,10 +29,14 @@ function module.update(velocity, performance)
   else
     perf_color_str = "#00ff00ff"
   end
+  log.trace("hud", "perf_color_str =", perf_color_str)
 
   local velocity_str = vel_color_str .. string.format("⚡ x%.2f", velocity)
   local performance_str = perf_color_str .. string.format("👁 x%.2f", performance)
-  set_hud_string(velocity_str .. "  " .. performance_str)
+  local hud_string = velocity_str .. "  " .. performance_str
+
+  log.trace("hud", "hud_string =", hud_string)
+  set_hud_string(hud_string)
 end
 
 

@@ -8,6 +8,8 @@ local colors = {0x00ff00ff, 0x0000ffff,
 
 -- Spawn entity (border), add update callback
 function module.spawn(x, y)
+  log.debug("Creating level border at", x, y)
+
   local border = new_entity(x, y)
   entity_set_mesh(border, "entities/graphics/border/mesh")
 

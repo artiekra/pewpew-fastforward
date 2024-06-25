@@ -6,6 +6,7 @@ local helper = {}
 -- https://stackoverflow.com/questions/13214926/lua-insert-multiple-variables-into-a-table
 -- [TODO: can be remade with new features of lua? for i=1, (...)]
 function table_insert_all(table, ...)
+  log.trace("hlpr", "Inserting multiple values into a table..")
 
   for i = 1, select('#',...) do
     table[#table+1] = select(i,...)

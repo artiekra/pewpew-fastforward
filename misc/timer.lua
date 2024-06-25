@@ -13,6 +13,8 @@ module.CURRENT_COLOR = 0
 
 -- Convert ticks to formatted text (time string)
 function time_to_text(time)
+  log.trace("timer", "Converting", time,
+    "into value (string) for the timer")
   local minutes = time // 1800
   local seconds = (time//30) % 60
   local ticks = time%30
@@ -51,6 +53,8 @@ end
 -- Create the timer
 -- [TODO: use coordinates based on small border box ones here]
 function module.init(lw, lh)
+  log.debug("timer", "Initializing the timer..")
+
   local labels = module.create_bold_label(lw-165fx, lh+52.2048fx, "timer", colors,
     1fx, 0fx, 2)
 
@@ -60,6 +64,8 @@ end
 
 -- Update the timer
 function module.update(labels, time)
+  log.debug("timer", "Updating the timer, time", time)
+
   local colors = {0x00ff00ff, 0x0000ffff,
     0xff9100ff, 0x808080ff}
 

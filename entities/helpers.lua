@@ -6,6 +6,8 @@ local module = {}
 -- Useful generalisation for set_entity_color(),
 -- based on LEVEL_MODE
 function module.get_color_state(time)
+  log.extra("hlpr", "Getting color state for time", time)
+
   local flicker_speed = 0.2
 
   -- colors isn't changing right now
@@ -27,6 +29,7 @@ function module.get_color_state(time)
     end
   end
 
+  log.extra("hlpr", "Returning nil..")
   return nil
 end
 
@@ -34,6 +37,7 @@ end
 -- Get the right color for the mesh, based on LEVEL_MODE,
 -- and also set it right away
 function module.set_entity_color(time, entity, colors)
+  log.extra("hlpr", "Setting entity color for", entity)
 
   local color_state = module.get_color_state(time)
   if color_state then

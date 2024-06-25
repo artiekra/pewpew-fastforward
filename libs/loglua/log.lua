@@ -14,6 +14,7 @@ log.level = "trace"
 
 
 local modes = {
+  { name = "extra", color = "\27[0m", },
   { name = "trace", color = "\27[34m", },
   { name = "debug", color = "\27[36m", },
   { name = "info",  color = "\27[32m", },
@@ -29,11 +30,11 @@ for i, v in ipairs(modes) do
 end
 
 
-local round = function(x, increment)
-  increment = increment or 1
-  x = x / increment
-  return (x > 0 and math.floor(x + .5) or math.ceil(x - .5)) * increment
-end
+-- local round = function(x, increment)
+--   increment = increment or 1
+--   x = x / increment
+--   return (x > 0 and math.floor(x + .5) or math.ceil(x - .5)) * increment
+-- end
 
 
 local _tostring = tostring
@@ -42,9 +43,9 @@ local tostring = function(...)
   local t = {}
   for i = 1, select('#', ...) do
     local x = select(i, ...)
-    if type(x) == "number" then
-      x = round(x, .01)
-    end
+    -- if type(x) == "number" then
+    --   x = round(x, .01)
+    -- end
     t[#t + 1] = _tostring(x)
   end
   return table.concat(t, " ")
@@ -53,7 +54,7 @@ end
 
 for i, x in ipairs(modes) do
   local nameupper = x.name:upper()
-  log[x.name] = function(...)
+  log[x.name] = function(env, ...)
     
     -- Return early if we're below the log level
     if i < levels[log.level] then
@@ -63,9 +64,10 @@ for i, x in ipairs(modes) do
     local msg = tostring(...)
 
     -- Output to console
-    print(string.format("%s<%s>%s %s",
+    print(string.format("%s<%s> %s %s %s",
                         log.usecolor and x.color or "",
                         nameupper,
+                        env,
                         log.usecolor and "\27[0m" or "",
                         msg))
 

@@ -2,7 +2,11 @@ require"/dynamic/ppol/.lua"
 require"globals"
 
 log = require"libs/loglua/log"
+log.level = LOG_LEVEL
 
+log.info("main", "Initialized logging, level", LOG_LEVEL)
+
+log.debug("main", "Loading other level files..")
 local hud = require"misc/hud"
 local time = require"misc/time"
 local timer = require"misc/timer"
@@ -14,6 +18,7 @@ local performance = require"misc/performance"
 local angle = require"entities/graphics/angle/logic"
 local border = require"entities/graphics/border/logic"
 
+log.debug("main", "Setting up level environment..")
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
 
 local ship = new_player_ship(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
@@ -60,29 +65,35 @@ function get_level_mode(t, a, b)
     m = m + 1
   end
 
+  log.debug("main", "get_level_mode() with args", t, a, b, "got", m)
   return m
 end
 
 
 -- Transition from normal gameplay to end screen
 function end_screen_transition()
+  log.info("main", "Transitioning to end screen..")
   enemies.destroy_all_enemies()
 end
 
 
 -- Function called every tick (before the end screen)
 function level_tick_normal(time, player_x, player_y)
+  log.debug("main", "Executing level_tick_normal()")
 
   -- update ship speed, exponentially
   local speed_upd_condition = ( ( time % (500-((ship_speed-1)*500)) ) // 1 ) == 0
   if speed_upd_condition then
     ship_speed = update_ship_speed(ship_speed)
+    log.info("main", "Player ship speed is updated, now", ship_speed)
   end
 
   enemies.spawn(ship, time)
   shooting.update(time, player_x, player_y)  -- [NOTE: cannot shoot on end screen]
 
   local player_score = get_score()
+  log.trace("main", "player_score =", player_score)
+
   performance.update(time, player_score)
   hud.update(ship_speed, performance.PERFORMANCE)
 
@@ -93,6 +104,8 @@ end
 
 -- Function called every tick (at end screen)
 function level_tick_end_screen(time)
+  log.debug("main", "Executing level_tick_end_screen()")
+
   -- update ONLY the colors, time is 0
   timer.update(timer_labels, LEVEL_DURATION_TICKS)
 end
@@ -100,11 +113,20 @@ end
 
 -- Function called each tick
 local is_end_screen = false
+local is_player_alive = true
 function level_tick()
+  if not is_player_alive then
+    return
+  end
+
   time.fast_forward(1)  -- keep count of time properly
   local time = time.get_time()
 
+  log.debug("main", "New tick, time =", time)
+  log.trace("main", "is_end_screen =", is_end_screen)
+
   player_x, player_y = entity_get_pos(ship)
+  log.debug("main", "Player pos:", player_x, player_y)
 
   if (time >= LEVEL_DURATION_TICKS) and (not is_end_screen) then
     is_end_screen = true
@@ -126,9 +148,13 @@ function level_tick()
   if LEVEL_MODE > LEVEL_MODE_MAX then
     LEVEL_MODE = LEVEL_MODE_MAX
   end
+  log.trace("main", "LEVEL_MODE =", LEVEL_MODE)
 
   if get_has_lost() == true then
+    log.warn("main", "Player lost, stopping the game..")
+    is_player_alive = false
     stop_game()
+    -- return
   end
 end
 
@@ -142,4 +168,5 @@ ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
 
 enemies.init_spawn(ship)
 
+log.debug("main", "Adding update callback - level tick")
 add_update_callback(level_tick)
