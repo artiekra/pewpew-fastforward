@@ -29,7 +29,7 @@ function module.init_spawn(ship)
   local pu3 = spawn_powerup.spawn_performance_pu(ship)
   table_insert_all(module.enemies, pu1[1], pu1[2],
     pu2[1], pu2[2], pu3[1], pu3[2])
-  print(debug_print_contents(module.enemies))
+  -- print(debug_print_contents(module.enemies))
 
   local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
   local enemy = polygon.spawn(x, y, fx_random(FX_TAU))

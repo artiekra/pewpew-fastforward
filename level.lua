@@ -1,6 +1,8 @@
 require"/dynamic/ppol/.lua"
 require"globals"
 
+log = require"libs/loglua/log"
+
 local hud = require"misc/hud"
 local time = require"misc/time"
 local timer = require"misc/timer"
