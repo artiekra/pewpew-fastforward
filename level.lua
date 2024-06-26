@@ -15,9 +15,9 @@ local shooting = require"misc/shooting"
 local rays = require"entities/rays/logic"
 local labels = require"entities/misc/labels"
 local performance = require"misc/performance"
-local end_screen = require"misc/end_screen/main"
 local angle = require"entities/graphics/angle/logic"
 local border = require"entities/graphics/border/logic"
+local end_screen = require"entities/misc/end_screen/main"
 
 log.debug("main", "Setting up level environment..")
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
@@ -76,7 +76,7 @@ function end_screen_transition()
   log.info("main", "Transitioning to end screen..")
 
   enemies.destroy_all_enemies()
-  end_screen.show_text()
+  end_screen.show()
 
 end
 

@@ -1,7 +1,7 @@
 -- [TODO: merge the code with level border (static) labels]
 -- [TODO: fix flickering..?!]
 
-local helpers = require"entities/helpers"
+local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
 require"globals"

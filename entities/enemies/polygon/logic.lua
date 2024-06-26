@@ -1,6 +1,6 @@
 local performance = require"misc/performance"
 local bullets = require"entities/enemies/polygon/bullets/logic"
-local helpers = require"entities/helpers"
+local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
 require"entities/enemies/polygon/config"

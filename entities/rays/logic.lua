@@ -1,4 +1,4 @@
-local helpers = require"entities/helpers"
+local helpers = require"entities/helpers/general"
 
 local module = {}
 

@@ -1,4 +1,4 @@
-local helpers = require"entities/helpers"
+local helpers = require"entities/helpers/general"
 local shield_pu = require"entities/powerups/powerup/shield/logic"
 local score_pu = require"entities/powerups/powerup/score/logic"
 local performance_pu = require"entities/powerups/powerup/performance/logic"
