@@ -1,6 +1,7 @@
 -- [TODO: combine some of the functions with the ones from entities/misc/labels]
 
-require "globals"
+require"globals"
+require"misc/end_screen/data"
 
 local helpers = require"entities/helpers"
 local ch = require"helpers/color_helpers"
@@ -53,7 +54,7 @@ function module.show_text()
   local colors = {0x00ff00ff, 0x0000ffff,
     0xff9100ff, 0x808080ff}
 
-  local main_label_text = "Well Done :з"
+  local main_label_text = MAIN_LABEL_VARIATIONS[random(1, 3)]
   module.create_bold_label(LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx, main_label_text, colors, 3fx, 0fx, 5)
 
 end
