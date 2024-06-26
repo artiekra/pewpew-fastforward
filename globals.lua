@@ -1,4 +1,4 @@
-LOG_LEVEL = "trace"
+LOG_LEVEL = "info"
 
 LEVEL_WIDTH = 950fx 
 LEVEL_HEIGHT = 950fx
