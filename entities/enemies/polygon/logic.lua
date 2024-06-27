@@ -33,6 +33,7 @@ local i_meshi = 7
 
 
 -- Function to explode the polygon, spawn bullets, etc..
+-- [TODO: fix weird behaviour when destroying a polygon on end screen]
 function module.destroy_polygon(polygon_id, color)
   entity_start_exploding(polygon_id, 15)
   performance.increase_player_score(5)
@@ -59,14 +60,18 @@ local function update_callback(id)
   e[i_time] = e[i_time] + 1
   e[i_highlight] = e[i_highlight] - 1
 
-  entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
+  if not IS_END_SCREEN then
 
-  if e[i_meshi] >= ANIMATION_TIME*60 then
-    e[i_meshi] = 0
+    entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
+
+    if e[i_meshi] >= ANIMATION_TIME*60 then
+      e[i_meshi] = 0
+    end
+
+    entity_set_mesh(id, "entities/enemies/polygon/mesh", e[i_meshi], e[i_meshi]+1)
+    e[i_meshi] = e[i_meshi] + 2
+
   end
-
-  entity_set_mesh(id, "entities/enemies/polygon/mesh", e[i_meshi], e[i_meshi]+1)
-  e[i_meshi] = e[i_meshi] + 2
 
   -- [TODO: fix highlights not always working]
   local color_state = helpers.get_color_state(e[i_time])

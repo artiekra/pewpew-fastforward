@@ -15,4 +15,4 @@ LEVEL_MODE = 0  -- mutable by level components variable
 -- End screen related variables
 LEVEL_DURATION_TICKS = 100
 IS_END_SCREEN = false  -- mutable by level components variable
-END_SCREEN_ENTITY_COLOR = 0x202020ff
+END_SCREEN_ENTITY_COLOR = 0x101010ff
