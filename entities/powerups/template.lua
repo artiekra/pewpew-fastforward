@@ -1,7 +1,9 @@
 local helpers = require"entities/helpers/general"
 local arrow = require"entities/powerups/arrow/logic"
 local ch = require"helpers/color_helpers"
+
 require"entities/powerups/config"
+require"globals"
 
 local module = {}
 
@@ -86,8 +88,8 @@ local function update_callback(id) -- id == box[i_id] in this case
     outer_color = box[i_colors][1][box[i_color_state]]
     inner_color = box[i_colors][2][box[i_color_state]]
   else
-    outer_color = 0  -- black color
-    inner_color = 0
+    outer_color = END_SCREEN_ENTITY_COLOR
+    inner_color = END_SCREEN_ENTITY_COLOR
   end
  
   if box[i_time] < start_dissapearing then

@@ -4,6 +4,7 @@ local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
 require"entities/enemies/polygon/config"
+require"globals"
 
 local module = {}
 
@@ -81,13 +82,9 @@ local function update_callback(id)
       end
 
     else
-      explosion_color = 0
-      if e[i_highlight] > 0 then
-        entity_set_mesh_color(id, 0x202020ff)  -- grey for end screen flickering highlights
-      else
-        entity_set_mesh_color(id, 0)
-      end
-
+      -- [TODO: consider working with highlights here?]
+      explosion_color = END_SCREEN_ENTITY_COLOR
+      entity_set_mesh_color(id, END_SCREEN_ENTITY_COLOR)
     end
   end
 

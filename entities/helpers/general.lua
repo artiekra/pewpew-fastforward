@@ -10,18 +10,6 @@ function module.get_color_state(time)
 
   local flicker_speed = 0.2
 
-  -- flicker current color and black in end screen transition
-  function flicker_black(color)
-    if LEVEL_MODE == -1 then
-      n = random(0, 1)
-      if n == 0 then
-        return color
-      end
-      return -1  -- black color
-    end
-    return color
-  end
-
   -- completely black, everything
   -- [TODO: maybe leave "ghost" enemies? make them grey.. they cant hurt]
   if LEVEL_MODE == -2 then
@@ -29,12 +17,12 @@ function module.get_color_state(time)
   end
 
   if LEVEL_MODE == -1 then
-    n = random(0, 1)
+    n = random(0, 5)  -- increased chances of NOT changing to end screen color
     if time % (1//flicker_speed) == 0 then  -- make flickering a bit slower
       if n == 0 then
-        return nil
+        return -1
       end
-      return -1
+      return nil
     end
   end
 
@@ -73,7 +61,7 @@ function module.set_entity_color(time, entity, colors)
     if color_state >= 0 then
       color = colors[color_state]
     else
-      color = 0  -- black color (actual black)
+      color = END_SCREEN_ENTITY_COLOR
     end
 
     entity_set_mesh_color(entity, color)

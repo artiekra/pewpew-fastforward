@@ -1,6 +1,8 @@
 local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
+require"globals"
+
 module = {}
 
 
@@ -23,7 +25,7 @@ function module.create_label(x, y, text, colors, scale, angle)
       if color_state >= 0 then
         color = colors[color_state]
       else
-        color = 0  -- black color (actual black)
+        color = END_SCREEN_ENTITY_COLOR
       end
 
       local text = ch.color_to_string(color) .. text

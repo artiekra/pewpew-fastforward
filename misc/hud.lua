@@ -12,6 +12,7 @@ end
 
 
 -- Set a HUD to new value, also set the right color
+-- [TODO: make it rainbow on end screen?]
 function module.update(velocity, performance)
   log.debug("hud", "Updating hud for velocity", velocity,
     "and performance", performance)

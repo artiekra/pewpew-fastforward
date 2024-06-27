@@ -75,7 +75,7 @@ end
 function end_screen_transition()
   log.info("main", "Transitioning to end screen..")
 
-  enemies.destroy_all_enemies()
+  -- enemies.destroy_all_enemies()
   end_screen.show()
 
 end
