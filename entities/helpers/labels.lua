@@ -16,9 +16,16 @@ function module.create_label(x, y, text, colors, scale, angle)
   function label_update_callback()
     time = time + 1
 
-    local color = helpers.get_color_state(time)
-    if color ~= nil then
-      local color = colors[color]
+    local color_state = helpers.get_color_state(time)
+    if color_state ~= nil then
+
+      local color
+      if color_state >= 0 then
+        color = colors[color_state]
+      else
+        color = 0  -- black color (actual black)
+      end
+
       local text = ch.color_to_string(color) .. text
       entity_set_string(label, text)
     end

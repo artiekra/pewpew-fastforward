@@ -1,4 +1,4 @@
-LOG_LEVEL = "info"
+LOG_LEVEL = "trace"
 
 LEVEL_WIDTH = 950fx 
 LEVEL_HEIGHT = 950fx
@@ -12,4 +12,6 @@ MODE_CHANGE_FREQ = 200
 LEVEL_MODE_MAX = 6
 LEVEL_MODE = 0  -- mutable by level components variable
 
-LEVEL_DURATION_TICKS = 175
+-- End screen related variables
+LEVEL_DURATION_TICKS = 100
+IS_END_SCREEN = false  -- mutable by level components variable

@@ -71,10 +71,17 @@ function module.update(labels, time)
 
   text = time_to_text(LEVEL_DURATION_TICKS-time)
 
-  local color = helpers.get_color_state(time)
-  if color ~= nil then
-    module.CURRENT_COLOR = colors[color]
+  local color_state = helpers.get_color_state(time)
+  if color_state ~= nil then
+
+    if color_state >= 0 then
+      module.CURRENT_COLOR = colors[color_state]
+    else
+      module.CURRENT_COLOR = 0  -- black color (actual black)
+    end
+
   end
+  log.trace("timer", "module.CURRENT_COLOR =", module.CURRENT_COLOR)
 
   for i, label in ipairs(labels) do
     text = ch.color_to_string(module.CURRENT_COLOR) .. text

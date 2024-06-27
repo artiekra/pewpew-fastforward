@@ -116,7 +116,6 @@ end
 
 
 -- Function called each tick
-local is_end_screen = false
 local is_player_alive = true
 function level_tick()
   if not is_player_alive then
@@ -127,17 +126,17 @@ function level_tick()
   local time = time.get_time()
 
   log.debug("main", "New tick, time =", time)
-  log.trace("main", "is_end_screen =", is_end_screen)
+  log.trace("main", "IS_END_SCREEN =", IS_END_SCREEN)
 
   player_x, player_y = entity_get_pos(ship)
   log.debug("main", "Player pos:", player_x, player_y)
 
-  if (time >= LEVEL_DURATION_TICKS) and (not is_end_screen) then
-    is_end_screen = true
+  if (time >= LEVEL_DURATION_TICKS) and (not IS_END_SCREEN) then
+    IS_END_SCREEN = true
     end_screen_transition()
   end
 
-  if not is_end_screen then
+  if not IS_END_SCREEN then
     level_tick_normal(time, player_x, player_y)
   else
     level_tick_end_screen(time)
@@ -146,12 +145,24 @@ function level_tick()
   rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
     BEVEL_SIZE, player_x, player_y)
 
-  -- [TODO: at end screen, dont change (but assure its even)]
-  local interval = MODE_CHANGE_FREQ - MODE_CHANGE_DURATION
-  LEVEL_MODE = get_level_mode(time, MODE_CHANGE_FREQ, interval)
-  if LEVEL_MODE > LEVEL_MODE_MAX then
-    LEVEL_MODE = LEVEL_MODE_MAX
+  if not IS_END_SCREEN then
+    local interval = MODE_CHANGE_FREQ - MODE_CHANGE_DURATION
+    LEVEL_MODE = get_level_mode(time, MODE_CHANGE_FREQ, interval)
+    if LEVEL_MODE > LEVEL_MODE_MAX then
+      LEVEL_MODE = LEVEL_MODE_MAX
+    end
+
+  else
+    local end_screen_time_passed = time - LEVEL_DURATION_TICKS
+    
+    -- can be zero, so.. < instead of <=
+    if end_screen_time_passed < MODE_CHANGE_DURATION then
+      LEVEL_MODE = -1
+    else
+      LEVEL_MODE = -2
+    end
   end
+
   log.trace("main", "LEVEL_MODE =", LEVEL_MODE)
 
   if get_has_lost() == true then

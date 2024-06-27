@@ -76,13 +76,20 @@ local function update_callback(id) -- id == box[i_id] in this case
   end
   box[i_time] = box[i_time] + 1
 
+  local outer_color, inner_color
+
   local color_state = helpers.get_color_state(box[i_time])
-  if color_state then
+
+  local color
+  if color_state >= 0 then
     box[i_color_state] = color_state
+    outer_color = box[i_colors][1][box[i_color_state]]
+    inner_color = box[i_colors][2][box[i_color_state]]
+  else
+    outer_color = 0  -- black color
+    inner_color = 0
   end
-  local outer_color = box[i_colors][1][box[i_color_state]]
-  local inner_color = box[i_colors][2][box[i_color_state]]
-  
+ 
   if box[i_time] < start_dissapearing then
     entity_set_mesh_color(box[i_box], outer_color)
     entity_set_mesh_color(box[i_ibox], inner_color)

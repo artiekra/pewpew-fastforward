@@ -67,14 +67,27 @@ local function update_callback(id)
   entity_set_mesh(id, "entities/enemies/polygon/mesh", e[i_meshi], e[i_meshi]+1)
   e[i_meshi] = e[i_meshi] + 2
 
+  -- [TODO: fix highlights not always working]
   local color_state = helpers.get_color_state(e[i_time])
   if color_state then
-    color = colors[color_state]
-    explosion_color = color
-    if e[i_highlight] > 0 then
-      entity_set_mesh_color(id, ch.make_color_with_alpha(color, 255))
+
+    if color_state >= 0 then
+      color = colors[color_state]
+      explosion_color = color
+      if e[i_highlight] > 0 then
+        entity_set_mesh_color(id, ch.make_color_with_alpha(color, 255))
+      else
+        entity_set_mesh_color(id, color)
+      end
+
     else
-      entity_set_mesh_color(id, color)
+      explosion_color = 0
+      if e[i_highlight] > 0 then
+        entity_set_mesh_color(id, 0x202020ff)  -- grey for end screen flickering highlights
+      else
+        entity_set_mesh_color(id, 0)
+      end
+
     end
   end
 
