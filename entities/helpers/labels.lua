@@ -33,7 +33,14 @@ function module.create_label(x, y, text, colors, scale, angle)
     end
   end
 
-  entity_set_update_callback(label, label_update_callback)
+  if type(colors) == "number" then
+    local text = ch.color_to_string(colors) .. text
+    entity_set_string(label, text)
+
+  elseif type(colors) == "table" then
+    entity_set_update_callback(label, label_update_callback)
+
+  end
 
   return label
 end

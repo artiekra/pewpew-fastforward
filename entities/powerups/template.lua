@@ -53,22 +53,26 @@ local function player_collision(entity_id, player_id, ship_id)
   local x, y = entity_get_pos(ship_id)
   local box = entities[entity_id]
   
-  if box[i_rgb] then
-    local r, g, b = table.unpack(box[i_colors])
-    new_floating_message(x, y, color_to_string(make_color(r, g, b, 255)) .. box[i_text], 1fx, 16)
-  else
-    new_floating_message(x, y, color_to_string(box[i_colors][3][box[i_color_state]]) .. box[i_text], 1fx, 16)
-  end
-  
-  if box[i_callback] then
-    box[i_callback](entity_id, player_id, ship_id)
-  end
+  if not IS_END_SCREEN then
 
-  play_sound("entities/powerups/sounds/pickup")
+    if box[i_rgb] then
+      local r, g, b = table.unpack(box[i_colors])
+      new_floating_message(x, y, color_to_string(make_color(r, g, b, 255)) .. box[i_text], 1fx, 16)
+    else
+      new_floating_message(x, y, color_to_string(box[i_colors][3][box[i_color_state]]) .. box[i_text], 1fx, 16)
+    end
+    
+    if box[i_callback] then
+      box[i_callback](entity_id, player_id, ship_id)
+    end
 
-  entity_start_exploding(box[i_box], 11)
-  entity_start_exploding(box[i_ibox], 11)
-  entities[entity_id] = nil
+    play_sound("entities/powerups/sounds/pickup")
+
+    entity_start_exploding(box[i_box], 11)
+    entity_start_exploding(box[i_ibox], 11)
+    entities[entity_id] = nil
+
+  end
 end
 
 local function update_callback(id) -- id == box[i_id] in this case
@@ -82,9 +86,12 @@ local function update_callback(id) -- id == box[i_id] in this case
 
   local color_state = helpers.get_color_state(box[i_time])
 
-  local color
-  if color_state >= 0 then
+  if color_state then
     box[i_color_state] = color_state
+  end
+
+  local color
+  if box[i_color_state] >= 0 then
     outer_color = box[i_colors][1][box[i_color_state]]
     inner_color = box[i_colors][2][box[i_color_state]]
   else
@@ -97,15 +104,19 @@ local function update_callback(id) -- id == box[i_id] in this case
     entity_set_mesh_color(box[i_ibox], inner_color)
     return
   end
-  
-  if box[i_time] == lifetime then
-    entity_destroy(box[i_box])
-    entity_destroy(box[i_ibox])
-    entities[id] = nil
-  else
-    local opacity = (lifetime - box[i_time]) * 255 // (lifetime - start_dissapearing)
-    entity_set_mesh_color(box[i_box], change_alpha(outer_color, opacity))
-    entity_set_mesh_color(box[i_ibox], change_alpha(inner_color, opacity))
+
+  if not IS_END_SCREEN then
+
+    if box[i_time] == lifetime then
+      entity_destroy(box[i_box])
+      entity_destroy(box[i_ibox])
+      entities[id] = nil
+    else
+      local opacity = (lifetime - box[i_time]) * 255 // (lifetime - start_dissapearing)
+      entity_set_mesh_color(box[i_box], change_alpha(outer_color, opacity))
+      entity_set_mesh_color(box[i_ibox], change_alpha(inner_color, opacity))
+    end
+
   end
 
 end
