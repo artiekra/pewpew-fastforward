@@ -1,6 +1,8 @@
 local performance = require"misc/performance"
 local helpers = require"entities/helpers/general"
 
+require"globals"
+
 local module = {}
 
 local entities = {}
@@ -26,7 +28,9 @@ local function update_callback(id)
   end
   e[i_time] = e[i_time] + 1
 
-  entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
+  if not IS_END_SCREEN then
+    entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
+  end
 
   helpers.set_entity_color(e[i_time], id, colors)
 end
@@ -55,10 +59,12 @@ end
 
 -- Set player collision callback function for the entity
 local function player_collision(entity_id, player_id, ship_id)
-  damage_player_ship(ship_id, 1)
-  entity_start_exploding(entity_id, 10)
-  entities[entity_id] = nil
-  performance.increase_player_score(1)
+  if not IS_END_SCREEN then
+    damage_player_ship(ship_id, 1)
+    entity_start_exploding(entity_id, 10)
+    entities[entity_id] = nil
+    performance.increase_player_score(1)
+  end
 end
 
 

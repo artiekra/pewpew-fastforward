@@ -119,22 +119,26 @@ end
 
 -- Set player collision callback function for the entity
 local function player_collision(entity_id, player_id, ship_id)
-  local e = entities[entity_id]
-  if not e then
-    return
+  if not IS_END_SCREEN then
+
+    local e = entities[entity_id]
+    if not e then
+      return
+    end
+
+    local health = e[i_health]
+
+    if health > 3 then
+      damage_player_ship(ship_id, 3)
+    else
+      damage_player_ship(ship_id, health)
+    end
+    module.destroy_polygon(entity_id, explosion_color)
+
+    entities[entity_id] = nil
+    performance.increase_player_score(3)
+
   end
-
-  local health = e[i_health]
-
-  if health > 3 then
-    damage_player_ship(ship_id, 3)
-  else
-    damage_player_ship(ship_id, health)
-  end
-  module.destroy_polygon(entity_id, explosion_color)
-
-  entities[entity_id] = nil
-  performance.increase_player_score(3)
 end
 
 
