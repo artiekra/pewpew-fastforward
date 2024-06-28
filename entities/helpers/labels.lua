@@ -15,7 +15,11 @@ function module.rainbow_string(str)
 
   local new_str = {}
   for i = 1, #str do
-    new_char = ch.color_to_string(ch.make_color(hsv_to_rgb(((i+time.TIME//3) % 45) * 8, 100, 50))) .. string.sub(str, i, i)
+
+    local hue = ((i+time.TIME//3) % 45) * 8
+    local rgb = ch.make_color(hsv_to_rgb(hue, 100, 50))
+    local new_char = ch.color_to_string(rgb) .. string.sub(str, i, i)
+
     table.insert(new_str, new_char)
   end
 

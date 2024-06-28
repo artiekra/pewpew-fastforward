@@ -1,6 +1,5 @@
 -- Convert color with hue to RGB colors
--- thanks so :з
--- https://stackoverflow.com/questions/68317097/how-to-properly-convert-hsl-colors-to-rgb-colors-in-lua
+-- stack overflow question 68317097, thanks :з
 function hsv_to_rgb(h, s, l)
     h = h / 360
     s = s / 100
@@ -33,8 +32,7 @@ end
 
 
 -- Insert several elements into table at once
--- thanks so :з
--- https://stackoverflow.com/questions/13214926/lua-insert-multiple-variables-into-a-table
+-- stack overflow question 13214926, thanks :з
 -- [TODO: can be remade with new features of lua? for i=1, (...)]
 function table_insert_all(table, ...)
   log.trace("hlpr", "Inserting multiple values into a table..")
