@@ -75,6 +75,8 @@ end
 function end_screen_transition()
   log.info("main", "Transitioning to end screen..")
 
+  set_joystick_colors(0x101010ff, 0x101010ff)
+
   -- enemies.destroy_all_enemies()
   end_screen.show()
   hud.clear()
@@ -83,7 +85,7 @@ function end_screen_transition()
 
   camera.static_x = -LEVEL_WIDTH * 0.2560fx
   camera.static_y = LEVEL_HEIGHT / 2.256fx
-  camera.static_z = -1000fx
+  camera.static_z = -1500fx
   camera.static_angle = TILT_ANGLE
 
   camera.speed = 15fx
