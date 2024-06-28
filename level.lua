@@ -78,6 +78,13 @@ function end_screen_transition()
   -- enemies.destroy_all_enemies()
   end_screen.show()
 
+  camera.static_x = LEVEL_WIDTH * 1.2048fx
+  camera.static_y = LEVEL_HEIGHT / 2.256fx
+  camera.static_z = -1000fx
+  camera.static_angle = FX_TAU*20fx/21fx
+
+  camera.speed = 1fx
+
 end
 
 
