@@ -15,7 +15,7 @@ end
 
 function ppo_require(...)
   for _, path in ipairs{...} do
-    require(string.format('%s%s', 'ppol/', path))
+    require(string.format('%s%s', 'libs/ppol/', path))
   end
 end
 

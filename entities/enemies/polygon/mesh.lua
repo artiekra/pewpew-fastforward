@@ -1,4 +1,4 @@
-require"/dynamic/ppol/.lua"
+require"/dynamic/libs/ppol/.lua"
 require"entities/enemies/polygon/config"
 
 meshes = {}

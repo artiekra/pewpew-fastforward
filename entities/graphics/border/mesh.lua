@@ -1,4 +1,4 @@
-require"/dynamic/ppol/.lua"
+require"/dynamic/libs/ppol/.lua"
 
 local gh = require"helpers/graphics_helpers"
 local ch = require"helpers/color_helpers"
