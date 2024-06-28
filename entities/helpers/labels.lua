@@ -1,9 +1,24 @@
 local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
+local time = require"misc/time"
 
+require"helpers/lua_helpers"
 require"globals/general"
 
 module = {}
+
+
+-- Make rainbow string, based on global time
+function module.rainbow_string(str)
+
+  local new_str = {}
+  for i = 1, #str do
+    new_char = ch.color_to_string(ch.make_color(hsv_to_rgb(((i+time.TIME//3) % 45) * 8, 100, 50))) .. string.sub(str, i, i)
+    table.insert(new_str, new_char)
+  end
+
+  return table.concat(new_str)
+end
 
 
 -- Create a specific label
@@ -34,12 +49,23 @@ function module.create_label(x, y, text, colors, scale, angle, tilt)
     end
   end
 
+  function label_update_callback_rainbow()
+    local colored_text = module.rainbow_string(text)
+    entity_set_string(label, colored_text)
+  end
+
+  -- make color static
   if type(colors) == "number" then
     local text = ch.color_to_string(colors) .. text
     entity_set_string(label, text)
 
+  -- make color depend on current level mode
   elseif type(colors) == "table" then
     entity_set_update_callback(label, label_update_callback)
+
+  -- make color rainbow
+  elseif colors == nil then
+    entity_set_update_callback(label, label_update_callback_rainbow)
 
   end
 

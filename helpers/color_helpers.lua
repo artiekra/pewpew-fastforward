@@ -38,9 +38,9 @@ end
 
 -- Returns the color as a string that can be used to colorize text.
 function helper.color_to_string(color)
-  -- log.trace("hlpr", "Color as string for color", color)
+  log.extra("hlpr", "Color as string for color", color)
 
-  local s = string.format("%x", color)
+  local s = string.format("%x", color//1)
   while string.len(s) < 8 do
     s = "0" .. s
   end

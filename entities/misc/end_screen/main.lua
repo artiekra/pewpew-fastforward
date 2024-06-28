@@ -17,7 +17,7 @@ function module.show()
   -- [TODO: make this smooth]
   camera.offset_z = -750fx
 
-  local color = 0xff0000ff
+  local color = nil  -- make it rainbow
 
   local main_label_text = MAIN_LABEL_VARIATIONS[random(1, 3)]
   helpers.create_bold_label(-LEVEL_WIDTH * 2fx/3fx, LEVEL_HEIGHT - 100fx,
