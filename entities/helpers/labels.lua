@@ -1,3 +1,5 @@
+-- [TODO: improve bold text]
+
 local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 local time = require"misc/time"

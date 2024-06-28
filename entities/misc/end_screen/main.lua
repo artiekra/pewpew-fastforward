@@ -20,8 +20,8 @@ function module.show()
   local color = nil  -- make it rainbow
 
   local main_label_text = MAIN_LABEL_VARIATIONS[random(1, 3)]
-  helpers.create_bold_label(-LEVEL_WIDTH * 2fx/3fx, LEVEL_HEIGHT - 100fx,
-    main_label_text, color, 3fx, 0fx, -TILT_ANGLE*1.2048fx, 5)
+  helpers.create_bold_label(-LEVEL_WIDTH * 2fx/3fx, LEVEL_HEIGHT - 150fx,
+    main_label_text, color, 4fx, 0fx, -TILT_ANGLE*1.2048fx, 6)
 
 end
 
