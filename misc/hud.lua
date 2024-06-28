@@ -41,4 +41,10 @@ function module.update(velocity, performance)
 end
 
 
+-- Remove hud. ASSUMES that module.update() is not being called anymore
+function module.clear()
+  set_hud_string("")
+end
+
+
 return module

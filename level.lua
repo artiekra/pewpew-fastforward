@@ -16,8 +16,7 @@ local shooting = require"misc/shooting"
 local rays = require"entities/rays/logic"
 local labels = require"entities/misc/labels"
 local performance = require"misc/performance"
-local angle = require"entities/graphics/angle/logic"
-local border = require"entities/graphics/border/logic"
+local angle = require"entities/graphics/angle/logic" local border = require"entities/graphics/border/logic"
 local end_screen = require"entities/misc/end_screen/main"
 
 log.debug("main", "Setting up level environment..")
@@ -78,6 +77,7 @@ function end_screen_transition()
 
   -- enemies.destroy_all_enemies()
   end_screen.show()
+  hud.clear()
 
   camera.set_default_ease()
 
