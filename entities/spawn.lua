@@ -6,7 +6,7 @@ local lightbaf = require"entities/enemies/lightbaf/logic"
 local helpers = require"entities/helpers/general"
 local spawn_powerup = require"entities/powerups/spawn"
 
-require"globals"
+require"globals/general"
 require"helpers/lua_helpers"
 
 local module = {}

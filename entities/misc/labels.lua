@@ -11,8 +11,8 @@ function module.create_decorations(lw, lh)
   local label1_text = "Fast Forward ⏩"
   local label2_text = "@artiekra"
 
-  helpers.create_bold_label(-40fx, 200fx, label1_text, colors, 3fx/2fx, FX_TAU/4fx, 3)
-  helpers.create_bold_label(lw+40fx, lh-120fx, label2_text, colors, 3fx/2fx, 3fx*FX_TAU/4fx, 3)
+  helpers.create_bold_label(-40fx, 200fx, label1_text, colors, 3fx/2fx, FX_TAU/4fx, 0fx, 3)
+  helpers.create_bold_label(lw+40fx, lh-120fx, label2_text, colors, 3fx/2fx, 3fx*FX_TAU/4fx, 0fx, 3)
 
 end
 

@@ -1,7 +1,7 @@
 require"/dynamic/ppol/.lua"
 
 local gh = require"helpers/graphics_helpers"
-require"globals"
+require"globals/general"
 
 
 function mesh_add_dotted_line(mesh, point1, point2, color)

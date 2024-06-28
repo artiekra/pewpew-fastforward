@@ -4,7 +4,7 @@ local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
 require"entities/enemies/polygon/config"
-require"globals"
+require"globals/general"
 
 local module = {}
 

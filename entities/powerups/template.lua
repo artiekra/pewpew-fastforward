@@ -3,7 +3,7 @@ local arrow = require"entities/powerups/arrow/logic"
 local ch = require"helpers/color_helpers"
 
 require"entities/powerups/config"
-require"globals"
+require"globals/general"
 
 local module = {}
 

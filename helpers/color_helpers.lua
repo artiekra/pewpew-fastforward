@@ -1,4 +1,4 @@
-require"globals"
+require"globals/general"
 
 log = require"libs/loglua/log"
 log.level = LOG_LEVEL

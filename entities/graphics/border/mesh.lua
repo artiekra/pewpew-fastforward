@@ -3,7 +3,7 @@ require"/dynamic/ppol/.lua"
 local gh = require"helpers/graphics_helpers"
 local ch = require"helpers/color_helpers"
 
-require"globals"
+require"globals/general"
 
 
 ---- Draws simple shape to outline the border

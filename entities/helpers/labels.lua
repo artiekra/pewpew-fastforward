@@ -1,18 +1,19 @@
 local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
-require"globals"
+require"globals/general"
 
 module = {}
 
 
 -- Create a specific label
-function module.create_label(x, y, text, colors, scale, angle)
+function module.create_label(x, y, text, colors, scale, angle, tilt)
   -- local alpha = 255
 
   local label = new_entity(x, y)
   entity_set_mesh_scale(label, scale)
   entity_add_mesh_angle(label, angle, 0fx, 0fx, 1fx)
+  entity_add_mesh_angle(label, tilt, 1fx, 0fx, 0fx)
 
   local time = 0
   function label_update_callback()
@@ -46,10 +47,10 @@ function module.create_label(x, y, text, colors, scale, angle)
 end
 
 
-function module.create_bold_label(x, y, text, colors, scale, angle, width)
+function module.create_bold_label(x, y, text, colors, scale, angle, tilt, width)
 
   for i=1, width do
-    local label = module.create_label(x+i, y+i, text, colors, scale, angle)
+    local label = module.create_label(x+i, y+i, text, colors, scale, angle, tilt)
   end
 
 end

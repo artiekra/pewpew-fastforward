@@ -2,7 +2,7 @@ local performance = require"misc/performance"
 local helpers = require"entities/helpers/general"
 
 require"entities/enemies/darkbaf/config"
-require"globals"
+require"globals/general"
 
 local module = {}
 

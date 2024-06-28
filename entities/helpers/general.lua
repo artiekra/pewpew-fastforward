@@ -1,4 +1,4 @@
-require"globals"
+require"globals/general"
 
 local module = {}
 

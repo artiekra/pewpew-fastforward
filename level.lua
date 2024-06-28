@@ -1,5 +1,6 @@
 require"/dynamic/ppol/.lua"
-require"globals"
+require"globals/general"
+require"globals/end_screen"
 
 log = require"libs/loglua/log"
 log.level = LOG_LEVEL
@@ -78,12 +79,14 @@ function end_screen_transition()
   -- enemies.destroy_all_enemies()
   end_screen.show()
 
-  camera.static_x = LEVEL_WIDTH * 1.2048fx
+  camera.set_default_ease()
+
+  camera.static_x = -LEVEL_WIDTH * 0.2560fx
   camera.static_y = LEVEL_HEIGHT / 2.256fx
   camera.static_z = -1000fx
-  camera.static_angle = FX_TAU*20fx/21fx
+  camera.static_angle = TILT_ANGLE
 
-  camera.speed = 1fx
+  camera.speed = 15fx
 
 end
 
