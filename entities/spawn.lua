@@ -1,4 +1,5 @@
 local dust = require"entities/enemies/dust/logic"
+local flower = require"entities/enemies/flower/logic"
 local polygon = require"entities/enemies/polygon/logic"
 local darkbaf = require"entities/enemies/darkbaf/logic"
 local lightbaf = require"entities/enemies/lightbaf/logic"
@@ -79,6 +80,14 @@ function module.spawn(ship, time)
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     local bafs = lightbaf.spawn_wave(random(0, 3), random(3, 8), fx_random(0fx, 500fx))
     table_insert_all(module.enemies, table.unpack(bafs))
+  end
+
+  -- Spawn flower
+  if time % 200 == 0 then
+    log.trace("spawn", "Spawning flower.. (W.I.P.)")
+    local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
+    -- local enemy = flower.spawn(x, y, fx_random(FX_TAU))
+    table.insert(module.enemies, enemy)
   end
 
   -- Spawn powerups
