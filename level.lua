@@ -16,8 +16,9 @@ local shooting = require"misc/shooting"
 local rays = require"entities/rays/logic"
 local labels = require"entities/misc/labels"
 local performance = require"misc/performance"
-local angle = require"entities/graphics/angle/logic" local border = require"entities/graphics/border/logic"
-local end_screen = require"entities/misc/end_screen/main"
+local angle = require"entities/graphics/angle/logic"
+local border = require"entities/graphics/border/logic"
+local end_screen = require"entities/misc/end_screen/spawn"
 
 log.debug("main", "Setting up level environment..")
 set_level_size(LEVEL_WIDTH, LEVEL_HEIGHT)
