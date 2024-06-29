@@ -1,6 +1,6 @@
 -- [TODO: make unique icon]
 
-r = 22
+r = 10
 b = r/2.5
 a = r/5
 

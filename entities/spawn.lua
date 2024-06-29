@@ -28,8 +28,9 @@ function module.init_spawn(ship)
   local pu1 = spawn_powerup.spawn_shield_pu(ship)
   local pu2 = spawn_powerup.spawn_score_pu(ship)
   local pu3 = spawn_powerup.spawn_performance_pu(ship)
+  local pu4 = spawn_powerup.spawn_slowdown_pu(ship)
   table_insert_all(module.enemies, pu1[1], pu1[2],
-    pu2[1], pu2[2], pu3[1], pu3[2])
+    pu2[1], pu2[2], pu3[1], pu3[2], pu4[1], pu4[2])
 
   local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
   local enemy = polygon.spawn(x, y, fx_random(FX_TAU))
