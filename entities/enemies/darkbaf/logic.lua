@@ -29,7 +29,7 @@ local function update_callback(id)
     entity_add_mesh_angle(id, SPIN_SPEED, e[i_dx], e[i_dy], 0fx)
   end
 
-  helpers.set_entity_color(e[i_time], id, COLORS)
+  helpers.set_entity_color(id, COLORS)
 end
 
 
@@ -93,7 +93,7 @@ function module.spawn(x, y, angle)
   
   entities[id] = {0, angle, dx, dy}
 
-  helpers.set_entity_color(0, id, COLORS)
+  helpers.set_entity_color(id, COLORS)
 
   entity_set_update_callback(id, initial_interpolation_fix)
   entity_set_wall_collision(id, true, wall_collision)

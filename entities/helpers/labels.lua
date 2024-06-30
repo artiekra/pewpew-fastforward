@@ -40,7 +40,7 @@ function module.create_label(x, y, text, colors, scale, angle, tilt)
   function label_update_callback()
     time = time + 1
 
-    local color_state = helpers.get_color_state(time)
+    local color_state = helpers.get_color_state()
     if color_state ~= nil then
 
       local color

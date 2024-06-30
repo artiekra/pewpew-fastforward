@@ -74,7 +74,7 @@ local function update_callback(id)
   end
 
   -- [TODO: fix highlights not always working]
-  local color_state = helpers.get_color_state(e[i_time])
+  local color_state = helpers.get_color_state()
   if color_state then
 
     if color_state >= 0 then
@@ -182,7 +182,7 @@ function module.spawn(x, y, angle)
   
   entities[id] = {0, angle, dx, dy, default_health, 0, 0}
 
-  helpers.set_entity_color(0, id, colors)
+  helpers.set_entity_color(id, colors)
 
   entity_set_update_callback(id, initial_interpolation_fix)
   entity_set_wall_collision(id, true, wall_collision)

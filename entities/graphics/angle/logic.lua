@@ -16,7 +16,7 @@ function module.spawn(x, y, pos_angle)
   function angle_update_callback()
     time = time + 1
 
-    helpers.set_entity_color(time, angle, colors)
+    helpers.set_entity_color(angle, colors)
   end
 
   entity_set_update_callback(angle, angle_update_callback)

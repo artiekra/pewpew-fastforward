@@ -137,7 +137,9 @@ function level_tick()
     return
   end
 
-  time.fast_forward(1)  -- keep count of time properly
+  if time.get_ticks() % TIME_FACTOR == 0 then
+    time.fast_forward(1)  -- increment time by one
+  end
   local time = time.get_time()
 
   log.debug("main", "New tick, time =", time)
@@ -179,6 +181,7 @@ ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 
 enemies.init_spawn(ship)
+time.init()
 
 log.debug("main", "Adding update callback - level tick")
 add_update_callback(level_tick)

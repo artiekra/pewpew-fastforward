@@ -32,7 +32,7 @@ local function update_callback(id)
     entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
   end
 
-  helpers.set_entity_color(e[i_time], id, colors)
+  helpers.set_entity_color(id, colors)
 end
 
 
@@ -80,7 +80,7 @@ function module.spawn(x, y, angle)
 
   entities[id] = {0, angle, dx, dy}
 
-  helpers.set_entity_color(0, id, colors)
+  helpers.set_entity_color(id, colors)
 
   entity_set_update_callback(id, initial_interpolation_fix)
   entity_set_wall_collision(id, true, wall_collision)

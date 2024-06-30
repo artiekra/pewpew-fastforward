@@ -84,7 +84,7 @@ local function update_callback(id) -- id == box[i_id] in this case
 
   local outer_color, inner_color
 
-  local color_state = helpers.get_color_state(box[i_time])
+  local color_state = helpers.get_color_state()
 
   if color_state then
     box[i_color_state] = color_state

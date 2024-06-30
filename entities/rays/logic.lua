@@ -18,7 +18,7 @@ function module.create_individual(x, y, angle)
   function ray_update_callback()
     time = time + 1
 
-    helpers.set_entity_color(time, ray, colors)
+    helpers.set_entity_color(ray, colors)
   end
 
   entity_set_update_callback(ray, ray_update_callback)

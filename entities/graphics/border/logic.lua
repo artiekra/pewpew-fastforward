@@ -17,7 +17,7 @@ function module.spawn(x, y)
   function border_update_callback()
     time = time + 1
 
-    helpers.set_entity_color(time, border, colors)
+    helpers.set_entity_color(border, colors)
   end
 
   entity_set_update_callback(border, border_update_callback)

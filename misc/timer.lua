@@ -71,7 +71,7 @@ function module.update(labels, time)
 
   text = time_to_text(LEVEL_DURATION_TICKS-time)
 
-  local color_state = helpers.get_color_state(time)
+  local color_state = helpers.get_color_state()
   if color_state ~= nil then
 
     if color_state >= 0 then

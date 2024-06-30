@@ -38,7 +38,7 @@ function module.add_arrow(owner, target, colors)
     entity_set_pos(arrow, ox+dx*distance, oy+dy*distance)
 
     -- change colors according to level mode
-    helpers.set_entity_color(time, arrow, colors)
+    helpers.set_entity_color(arrow, colors)
   end
 
   entity_set_update_callback(arrow, arrow_update_callback)
