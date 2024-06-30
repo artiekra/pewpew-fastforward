@@ -13,4 +13,4 @@ MODE_CHANGE_EVENTS = {60, 10800}
 LEVEL_MODE_MAX = 4
 LEVEL_MODE = 0  -- mutable by level components variable
 
-TIME_FACTOR = 2  -- mutable by level components variable
+TIME_FACTOR = 1  -- mutable by level components variable

@@ -1,3 +1,5 @@
+local level_time = require"misc/time"
+
 require"globals/general"
 
 local module = {}
@@ -5,7 +7,8 @@ local module = {}
 
 -- Dynamically set angle of weapon "TRIPLE"
 -- https://jpcdn.it/img/91227887dd6cfc276304a68cd908f741.png
-function module.update(time, x, y)
+function module.update(x, y)
+  local time = level_time.TICK  -- so that its not affected by slowdowns
   log.debug("shoot", "Shooting, time", time, " and x y", x, y)
 
   local max_spread = 1fx/3fx

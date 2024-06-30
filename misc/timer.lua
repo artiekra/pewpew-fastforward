@@ -12,6 +12,7 @@ module.CURRENT_COLOR = 0
 
 
 -- Convert ticks to formatted text (time string)
+-- [TODO: display miliseconds instead of ticks at the end]
 function time_to_text(time)
   log.trace("timer", "Converting", time,
     "into value (string) for the timer")

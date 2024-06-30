@@ -9,6 +9,7 @@ log.info("main", "Initialized logging, level", LOG_LEVEL)
 
 log.debug("main", "Loading other level files..")
 local hud = require"misc/hud"
+local events = require"events"
 local time = require"misc/time"
 local timer = require"misc/timer"
 local enemies = require"entities/spawn"
@@ -92,7 +93,7 @@ function level_tick_normal(time, player_x, player_y)
   end
 
   enemies.spawn(ship, time)
-  shooting.update(time, player_x, player_y)  -- [NOTE: cannot shoot on end screen]
+  shooting.update(player_x, player_y)  -- [NOTE: cannot shoot on end screen]
 
   local player_score = get_score()
   log.trace("main", "player_score =", player_score)
@@ -141,6 +142,8 @@ function level_tick()
     time.fast_forward(1)  -- increment time by one
   end
   local time = time.get_time()
+
+  events.process_events()
 
   log.debug("main", "New tick, time =", time)
   log.trace("main", "IS_END_SCREEN =", IS_END_SCREEN)

@@ -7,7 +7,7 @@ module.TICK = 0
 -- Get current time
 -- [TODO: remove and access variable directly instead?]
 function module.get_time()
-  log.trace("time", "Request to get time..")
+  log.extra("time", "Request to get time..")
   return module.TIME
 end
 
