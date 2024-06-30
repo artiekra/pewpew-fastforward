@@ -31,7 +31,8 @@ local function update_callback(id)
   e[i_time] = e[i_time] + 1
 
   if not IS_END_SCREEN then
-    entity_change_pos(id, e[i_dx] * speed, e[i_dy] * speed)
+    entity_change_pos(id, e[i_dx] * speed / to_fx(TIME_FACTOR),
+                          e[i_dy] * speed / to_fx(TIME_FACTOR))
   end
 
   helpers.set_entity_color(id, colors)

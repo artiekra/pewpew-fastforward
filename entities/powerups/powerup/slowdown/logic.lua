@@ -11,12 +11,13 @@ function slowdown_player_collision(entity_id, player_id, ship_id)
 
   -- [TODO: potentially can rollback another powerup]
   function rollback_effect(new_factor)
-    TIME_FACTOR = (1 or new_factor)
+    TIME_FACTOR = (new_factor or 1)
   end
 
   TIME_FACTOR = 3
-  events.register_event(60, rollback_effect, 2)
-  events.register_event(60, rollback_effect)
+  for i=60, 100 do
+    events.register_event(i, rollback_effect, 3.5-(i/40))
+  end
 
 end
 

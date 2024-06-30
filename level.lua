@@ -138,7 +138,8 @@ function level_tick()
     return
   end
 
-  if time.get_ticks() % TIME_FACTOR == 0 then
+  -- [TODO: round TIME_FACTOR to nearest int instead of flooring down]
+  if time.get_ticks() % (TIME_FACTOR//1) == 0 then
     time.fast_forward(1)  -- increment time by one
   end
   local time = time.get_time()
