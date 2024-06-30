@@ -134,9 +134,6 @@ end
 -- Function called each tick
 local is_player_alive = true
 function level_tick()
-  if not is_player_alive then
-    return
-  end
 
   -- [TODO: round TIME_FACTOR to nearest int instead of flooring down]
   if time.get_ticks() % (TIME_FACTOR//1) == 0 then
@@ -144,10 +141,15 @@ function level_tick()
   end
   local time = time.get_time()
 
-  events.process_events()
-
   log.debug("main", "New tick, time =", time)
   log.trace("main", "IS_END_SCREEN =", IS_END_SCREEN)
+
+  -- before alive check to be able to process even after player death
+  events.process_events()
+
+  if not is_player_alive then
+    return
+  end
 
   player_x, player_y = entity_get_pos(ship)
   log.debug("main", "Player pos:", player_x, player_y)
@@ -171,8 +173,14 @@ function level_tick()
   if get_has_lost() == true then
     log.warn("main", "Player lost, stopping the game..")
     is_player_alive = false
-    stop_game()
-    -- return
+
+    -- flicker into grey when player dies
+    LEVEL_MODE = -1
+    events.register_event(MODE_CHANGE_DURATION, function()
+      print("Hi!")
+      LEVEL_MODE = -2
+      stop_game()
+    end)
   end
 end
 
