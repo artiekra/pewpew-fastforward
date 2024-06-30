@@ -58,20 +58,6 @@ function update_ship_speed(speed)
 end
 
 
--- Calculate current level mode
-function get_level_mode(t, a, b)
-  local div = t // a
-  local m = div * 2
-  local remainder = t % a
-  if remainder > b then
-    m = m + 1
-  end
-
-  log.debug("main", "get_level_mode() with args", t, a, b, "got", m)
-  return m
-end
-
-
 -- Transition from normal gameplay to end screen
 function end_screen_transition()
   log.info("main", "Transitioning to end screen..")
@@ -116,6 +102,13 @@ function level_tick_normal(time, player_x, player_y)
 
   timer.update(timer_labels, time)
 
+  for i, event in ipairs(MODE_CHANGE_EVENTS) do
+    if time == event then
+      LEVEL_MODE = i*2 - 1
+    elseif time == event + MODE_CHANGE_DURATION then
+      LEVEL_MODE = i*2
+    end
+  end
 end
 
 
@@ -125,6 +118,15 @@ function level_tick_end_screen(time)
 
   -- update ONLY the colors, time is 0
   timer.update(timer_labels, LEVEL_DURATION_TICKS)
+
+  local end_screen_time_passed = time - LEVEL_DURATION_TICKS
+  
+  -- can be zero, so.. < instead of <=
+  if end_screen_time_passed < MODE_CHANGE_DURATION then
+    LEVEL_MODE = -1
+  else
+    LEVEL_MODE = -2
+  end
 end
 
 
@@ -157,24 +159,6 @@ function level_tick()
 
   rays.update(ray1, ray2, LEVEL_WIDTH, LEVEL_HEIGHT,
     BEVEL_SIZE, player_x, player_y)
-
-  if not IS_END_SCREEN then
-    local interval = MODE_CHANGE_FREQ - MODE_CHANGE_DURATION
-    LEVEL_MODE = get_level_mode(time, MODE_CHANGE_FREQ, interval)
-    if LEVEL_MODE > LEVEL_MODE_MAX then
-      LEVEL_MODE = LEVEL_MODE_MAX
-    end
-
-  else
-    local end_screen_time_passed = time - LEVEL_DURATION_TICKS
-    
-    -- can be zero, so.. < instead of <=
-    if end_screen_time_passed < MODE_CHANGE_DURATION then
-      LEVEL_MODE = -1
-    else
-      LEVEL_MODE = -2
-    end
-  end
 
   log.trace("main", "LEVEL_MODE =", LEVEL_MODE)
 

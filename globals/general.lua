@@ -8,6 +8,6 @@ WEAPON_HZ = 15
 
 -- Level mode related variables (level theme, green/blue)
 MODE_CHANGE_DURATION = 35
-MODE_CHANGE_FREQ = 200
-LEVEL_MODE_MAX = 6
+MODE_CHANGE_EVENTS = {3600, 10800}
+LEVEL_MODE_MAX = 4
 LEVEL_MODE = 0  -- mutable by level components variable
