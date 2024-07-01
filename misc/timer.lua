@@ -12,16 +12,20 @@ module.CURRENT_COLOR = 0
 
 
 -- Convert ticks to formatted text (time string)
--- [TODO: display miliseconds instead of ticks at the end]
 function time_to_text(time)
   log.trace("timer", "Converting", time,
     "into value (string) for the timer")
   local minutes = time // 1800
   local seconds = (time//30) % 60
   local ticks = time%30
+  local deciseconds = (ticks*0.333) // 1
 
   -- local text = string.format("%02d:%02d", minutes, seconds)
-  local text = string.format("%02d:%02d.%02d", minutes, seconds, ticks)
+  -- local text = string.format("%02d:%02d .%02d", minutes, seconds, ticks)
+
+  -- looks more natural with random digit at the end
+  local text = string.format("%02d:%02d.%1d%1d",
+    minutes, seconds, deciseconds, random(0, 9))
 
   return text
 end
