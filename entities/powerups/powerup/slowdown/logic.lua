@@ -38,7 +38,7 @@ function module.spawn(ship_id, x, y)
     {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff}
   }
 
-    local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/slowdown/icon",
+  local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/slowdown/icon",
     "time slowed down!", colors, slowdown_player_collision)
 
   return outer_box, inner_box

@@ -3,6 +3,7 @@ local shield_pu = require"entities/powerups/powerup/shield/logic"
 local score_pu = require"entities/powerups/powerup/score/logic"
 local performance_pu = require"entities/powerups/powerup/performance/logic"
 local slowdown_pu = require"entities/powerups/powerup/slowdown/logic"
+local fastforward_pu = require"entities/powerups/powerup/fastforward/logic"
 
 pu_spawn_module = {}
 
@@ -13,9 +14,11 @@ POWERUP_SPAWN_OFFSETS = {
   shield = {150fx, 50fx},
   score = {150fx, 50fx},
   performance = {150fx, 50fx},
-  slowdown = {150fx, 50fx}
+  slowdown = {150fx, 50fx},
+  fastforward = {250fx, 100fx}
 }
 
+-- [TODO: aggregate following functions]
 
 -- Get random coordinates and spawn shield powerup
 function pu_spawn_module.spawn_shield_pu(ship)
@@ -59,11 +62,25 @@ function pu_spawn_module.spawn_slowdown_pu(ship)
 end
 
 
+-- Get random coordinates and spawn fastforward powerup
+function pu_spawn_module.spawn_fastforward_pu(ship)
+  local x, y = helpers.random_coordinates(
+    ship, table.unpack(POWERUP_SPAWN_OFFSETS.fastforward))
+  local powerup_outer, powerup_inner = fastforward_pu.spawn(
+    ship, x, y, random(1, 3))
+
+  return {powerup_outer, powerup_inner}
+end
+
+
+
 -- Chance table for powerups (after preconditions)
 POWERUP_SPAWN_WEIGHTS = {
   {100, pu_spawn_module.spawn_shield_pu},
   {100, pu_spawn_module.spawn_score_pu},
-  {100, pu_spawn_module.spawn_performance_pu}
+  {100, pu_spawn_module.spawn_performance_pu},
+  {100, pu_spawn_module.spawn_slowdown_pu},
+  {100, pu_spawn_module.spawn_fastforward_pu}
 }
 
 

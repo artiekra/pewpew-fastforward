@@ -20,8 +20,9 @@ local i_time = 4
 local i_text = 5
 local i_color_state = 6
 local i_callback = 7
-local i_rgb = 8 -- rgb state index - true if rgb colors should be used
+local i_rgb = 8  -- rgb state index - true if rgb colors should be used
 
+-- [TODO: modify this function]
 local dc = 5
 local function update_rgb(r, g, b, state)
   if state == 1 then
