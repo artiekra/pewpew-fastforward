@@ -6,10 +6,11 @@ local module = {}
 
 
 -- [TODO: rework with events]
-function performance_player_collision(multiplier)
+function performance_player_collision(entity_id, player_id,
+                                      ship_id, multiplier)
   local duration = 135
 
-  performance.upgrade(3, duration)
+  performance.upgrade(multiplier, duration)
 end
 
 
@@ -23,7 +24,7 @@ function module.spawn(ship_id, x, y, multiplier)
 
   local text = "x" .. multiplier .. " performance"
   local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/performance/icon",
-    text, colors, performance_player_collision)
+    text, colors, performance_player_collision, {multiplier})
 
   return outer_box, inner_box
 end

@@ -20,13 +20,13 @@ local i_time = 4
 local i_text = 5
 local i_color_state = 6
 local i_callback = 7
-local i_rgb = 8  -- rgb state index - true if rgb colors should be used
+local i_callback_args = 8
+local i_rgb = 9  -- rgb state index - true if rgb colors should be used
 
 -- [TODO: modify this function]
 local dc = 5
 local function update_rgb(r, g, b, state)
-  if state == 1 then
-    if r > 0 then
+  if state == 1 then if r > 0 then
       r = r - dc
       g = g + dc
     else
@@ -64,13 +64,12 @@ local function player_collision(entity_id, player_id, ship_id)
     end
     
     if box[i_callback] then
-      box[i_callback](entity_id, player_id, ship_id)
+      box[i_callback](entity_id, player_id, ship_id, table.unpack(box[i_callback_args]))
     end
 
     play_sound("entities/powerups/sounds/pickup")
 
-    entity_start_exploding(box[i_box], 11)
-    entity_start_exploding(box[i_ibox], 11)
+    entity_start_exploding(box[i_box], 11) entity_start_exploding(box[i_ibox], 11)
     entities[entity_id] = nil
 
   end
@@ -153,7 +152,13 @@ local function update_callback_rgb(id)
 end
 
 -- Spawn entity, add update callback
-function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback) -- provide nil instead of colors and rgb pallette will be used instead
+-- Provide nil instead of colors and rgb pallette will be used instead
+-- [TODO: change arrow color in rgb powerups too]
+function module.spawn(ship_id, x, y, icon_mesh, text,
+  colors, callback, callback_args) 
+  if callback_args == nil then
+    callback_args = {}
+  end
   
   -- local angle = fx_random(0fx, FX_TAU)
   local angle = 0fx
@@ -170,11 +175,12 @@ function module.spawn(ship_id, x, y, icon_mesh, text, colors, callback) -- provi
   entity_set_mesh_angle(inner_box, angle, 0fx, 0fx, 1fx)
   
   if colors then
-    entities[box] = {box, inner_box, colors, 0, text, 1, callback}
+    entities[box] = {box, inner_box, colors, 0, text, 1, callback, callback_args}
     arrow.add_arrow(ship_id, box, colors[1])
     entity_set_update_callback(box, update_callback)
   else
-    entities[box] = {box, inner_box, {255, 0, 0, 1}, 0, text, 1, callback, true}
+    entities[box] = {box, inner_box, {255, 0, 0, 1}, 0, text,
+      1, callback, callback_args, true}
     arrow.add_arrow(ship_id, box, {0xff0000ff, 0x00ff00ff, 0x0000ffff, 0xffffffff})
     entity_set_update_callback(box, update_callback_rgb)
   end
