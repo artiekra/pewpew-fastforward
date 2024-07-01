@@ -4,6 +4,7 @@ local polygon = require"entities/enemies/polygon/logic"
 local darkbaf = require"entities/enemies/darkbaf/logic"
 local lightbaf = require"entities/enemies/lightbaf/logic"
 
+local level_time = require"misc/time"
 local helpers = require"entities/helpers/general"
 local spawn_powerup = require"entities/powerups/spawn"
 
@@ -44,7 +45,10 @@ end
 
 -- Spawn enemies, given total level time
 -- [TODO: better condition, literally everywhere..]
-function module.spawn(ship, time)
+-- [TODO: add a gap to account for precise time being float]
+function module.spawn(ship)
+  -- local time = level_time.PRECISE_TIME
+  local time = level_time.TIME
   log.debug("spawn", "Spawning enemies, time", time)
 
   ---- Spawn dust

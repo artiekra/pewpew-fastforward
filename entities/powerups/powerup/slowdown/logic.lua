@@ -14,9 +14,17 @@ function slowdown_player_collision(entity_id, player_id, ship_id)
     TIME_FACTOR = (new_factor or 1)
   end
 
-  TIME_FACTOR = 3
-  for i=60, 100 do
-    events.register_event(i, rollback_effect, 3.5-(i/40))
+  TIME_FACTOR = 4
+
+  -- slowly revert the changes
+  local mf = 1
+  local nf = 4
+  local st = 80
+  local et = 135
+  for i=st, et do
+    -- [NOTE: https://jpcdn.it/img/a5f4af01882a096a2decffce3c20cf26.png]
+    events.register_event(i, rollback_effect,
+      ((i-st)*(mf-nf))/(et-st)+nf)
   end
 
 end

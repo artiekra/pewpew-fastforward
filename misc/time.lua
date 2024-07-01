@@ -1,5 +1,6 @@
 local module = {}
 
+module.PRECISE_TIME = 0
 module.TIME = 0
 module.TICK = 0
 
@@ -15,7 +16,9 @@ end
 -- Increment time
 function module.fast_forward(delta)
   log.debug("time", "Incrementing time by", delta)
-  module.TIME = module.TIME + (delta or 1)
+  module.PRECISE_TIME = module.PRECISE_TIME + (delta or 1)
+
+  module.TIME = module.PRECISE_TIME//1
 end
 
 

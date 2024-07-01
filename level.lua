@@ -135,10 +135,7 @@ end
 local is_player_alive = true
 function level_tick()
 
-  -- [TODO: round TIME_FACTOR to nearest int instead of flooring down]
-  if time.get_ticks() % (TIME_FACTOR//1) == 0 then
-    time.fast_forward(1)  -- increment time by one
-  end
+  time.fast_forward(1/TIME_FACTOR)
   local time = time.get_time()
 
   log.debug("main", "New tick, time =", time)
