@@ -183,8 +183,6 @@ end
 
 ship_speed = update_ship_speed(ship_speed)
 
--- [TODO: camera setup]
-
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)
 

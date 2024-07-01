@@ -3,8 +3,7 @@ local ch = require"helpers/color_helpers"
 local module = {}
 
 
--- Initialise the HUD
--- [TODO: fix grammar]
+-- Initialize the HUD
 function module.init()
   log.info("hud", "Initializing the HUD")
   set_hud_string("#ff0000ffLoading...")
@@ -12,7 +11,6 @@ end
 
 
 -- Set a HUD to new value, also set the right color
--- [TODO: make it rainbow on end screen?]
 function module.update(velocity, performance)
   log.debug("hud", "Updating hud for velocity", velocity,
     "and performance", performance)

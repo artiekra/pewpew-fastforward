@@ -13,10 +13,8 @@ function module.get_color_state()
 
   local flicker_speed = 0.2
 
-  -- completely black, everything
-  -- [TODO: maybe leave "ghost" enemies? make them grey.. they cant hurt]
   if LEVEL_MODE == -2 then
-    return -1  -- black on end screen
+    return -1
   end
 
   if LEVEL_MODE == -1 then
