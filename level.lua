@@ -153,7 +153,6 @@ function level_tick()
 
   player_x, player_y = entity_get_pos(ship)
   log.debug("main", "Player pos:", player_x, player_y)
-
   if (time >= LEVEL_DURATION_TICKS) and (not IS_END_SCREEN) then
     IS_END_SCREEN = true
     end_screen_transition()
@@ -177,8 +176,8 @@ function level_tick()
     -- flicker into grey when player dies
     LEVEL_MODE = -1
     events.register_event(MODE_CHANGE_DURATION, function()
-      print("Hi!")
       LEVEL_MODE = -2
+      hud.clear()
       stop_game()
     end)
   end

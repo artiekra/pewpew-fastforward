@@ -36,22 +36,40 @@ local function update_callback(id)
   end
 
   helpers.set_entity_color(id, colors)
-end
+  --[TODO: implement random rainbow colors]
+  -- local color_state = helpers.get_color_state()
+  -- if color_state ~= nil then
+  --
+  --   local color
+  --   if color_state >= 0 then
+  --     color = colors[color_state]
+  --   else
+  --     if random(1, 3) == 1 then
+  --       color = END_SCREEN_ENTITY_COLOR
+  --     else
+  --       local hue = random(1, 360)
+  --       color = ch.make_color(hsv_to_rgb(hue, 100, 50))
+  --     end
+  --   end
+  --
+  --   entity_set_mesh_color(id, color)
+  --   end
+  end
 
 
--- Fixing interpolation at first 2 ticks
--- has to be after update_callback due to local visibility
-local function initial_interpolation_fix(id)
-  local e = entities[id]
-  if not e then
-    return
+  -- Fixing interpolation at first 2 ticks
+  -- has to be after update_callback due to local visibility
+  local function initial_interpolation_fix(id)
+    local e = entities[id]
+    if not e then
+      return
+    end
+    e[i_time] = e[i_time] + 1
+    if e[i_time] == 2 then
+      entity_set_update_callback(id, update_callback)
+      entity_set_mesh(id, 'entities/enemies/dust/mesh')
+    end
   end
-  e[i_time] = e[i_time] + 1
-  if e[i_time] == 2 then
-    entity_set_update_callback(id, update_callback)
-    entity_set_mesh(id, 'entities/enemies/dust/mesh')
-  end
-end
 
 
 -- Set wall collision callback function for the entity
