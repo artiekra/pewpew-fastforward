@@ -108,7 +108,7 @@ local function wall_collision(entity_id, wall_normal_x, wall_normal_y)
   dy = dy - 2fx * dot_product * wall_normal_y
 
   local angle = fx_atan2(dy, dx)
-  entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
+  entity_set_mesh_angle(entity_id, angle, 0fx, 0fx, 1fx)
   e[i_angle] = angle
   e[i_dx] = dx
   e[i_dy] = dy
@@ -184,8 +184,8 @@ function flower_module.spawn(x, y, angle, speed)
   entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
 
   entity_set_update_callback(id, initial_interpolation_fix)
-  entity_set_wall_collision(id, true, wall_collision_callback)
-  entity_set_player_collision(id, player_collision_callback)
+  entity_set_wall_collision(id, true, wall_collision)
+  entity_set_player_collision(id, player_collision)
   entity_set_weapon_collision(id, weapon_collision)
 
   entities[id] = e
