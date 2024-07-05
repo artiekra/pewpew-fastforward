@@ -8,20 +8,23 @@ local module = {}
 
 
 function fastforward_player_collision(entity_id, player_id, ship_id)
-  set_shield(get_shield() + 1)
+  camera.set_default_ease()
+
+  camera.static_x = LEVEL_WIDTH / 2fx
+  camera.static_y = LEVEL_HEIGHT / 5fx
+  camera.static_z = -750fx
+  camera.static_angle = -FX_TAU * 1fx/6fx
+
+  camera.speed = 15fx
 end
 
 
 -- Spawn entity, add update callback
 function module.spawn(ship_id, x, y)
-  -- local colors = {
-  --   {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff},
-  --   {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff},
-  --   {0x007a50ff, 0x0000ffff, 0xe07400ff, 0x808080ff}
-  -- }
+  local colors = nil  -- make it rgb
 
   local outer_box, inner_box = template.spawn(ship_id, x, y, "entities/powerups/powerup/fastforward/icon",
-    "fast forward!", nil, fastforward_player_collision)
+    "fast forward!", colors, fastforward_player_collision)
 
   return outer_box, inner_box
 end

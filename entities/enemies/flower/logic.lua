@@ -1,19 +1,17 @@
 local performance = require"misc/performance"
-local bullets = require"entities/enemies/polygon/bullets/logic"
 local helpers = require"entities/helpers/general"
 local ch = require"helpers/color_helpers"
 
-require"entities/enemies/polygon/config"
 require"globals/general"
 
-local module = {}
+local flower_module = {}
 
 local entities = {}
 
 -- Some entity globals
-local speed = 4fx
-local radius = 32fx
-local default_health = 5
+local radius = 22.2048fx
+local default_health = 7
+local rolling_speed = 10fx
 
 -- [NOTE: cant have maximum alpha value,
 --  its increased for effect, when hit by bullet]
@@ -24,30 +22,24 @@ local explosion_color = colors[1]
 
 -- Declaring scheme for entity table
 local i_time = 1
-local i_angle = 2
-local i_dx = 3
-local i_dy = 4
-local i_health = 5
-local i_highlight = 6
-local i_meshi = 7
+local i_speed = 2
+local i_angle = 3
+local i_dx = 4
+local i_dy = 5
+local i_health = 6
+local i_highlight = 7
 
 
--- Function to explode the polygon, spawn bullets, etc..
--- [TODO: fix weird behaviour when destroying a polygon on end screen]
-function module.destroy_polygon(polygon_id, color)
-  entity_start_exploding(polygon_id, 15)
+-- Function to explode the flower, spawn smaller ones, etc..
+-- [TODO: test this on end screen]
+function flower_module.destroy_flower(flower_id, color)
+  entity_start_exploding(flower_id, 15)
   performance.increase_player_score(5)
 
-  local x, y = entity_get_pos(polygon_id)
-  create_explosion(x, y, color, 2fx, 50)
+  entities[flower_id] = nil
 
-  local a = FX_TAU / TOTAL_BULLETS
-  for i=1, TOTAL_BULLETS do
-    local bullet1 = bullets.spawn(x, y, a * i - GROUP_SPREAD)
-    local bullet2 = bullets.spawn(x, y, a * i + GROUP_SPREAD)
-    entity_set_mesh_angle(bullet1, a * i - GROUP_SPREAD, 0fx, 0fx, 1fx)
-    entity_set_mesh_angle(bullet2, a * i + GROUP_SPREAD, 0fx, 0fx, 1fx)
-  end
+  local x, y = entity_get_pos(flower_id)
+  create_explosion(x, y, color, 2fx, 50)
 end
 
 
@@ -61,17 +53,8 @@ local function update_callback(id)
   e[i_highlight] = e[i_highlight] - 1
 
   if not IS_END_SCREEN then
-
-    entity_change_pos(id, e[i_dx] * speed / to_fx(TIME_FACTOR),
-                          e[i_dy] * speed / to_fx(TIME_FACTOR))
-
-    if e[i_meshi] >= ANIMATION_TIME*60 then
-      e[i_meshi] = 0
-    end
-
-    entity_set_mesh(id, "entities/enemies/flower/mesh", e[i_meshi], e[i_meshi]+1)
-    e[i_meshi] = e[i_meshi] + 2
-
+    entity_change_pos(id, e[i_dx], e[i_dy])
+    entity_add_mesh_angle(id, rolling_speed * e[i_speed], -e[i_dy], e[i_dx], 0fx)
   end
 
   -- [TODO: fix highlights not always working]
@@ -107,7 +90,7 @@ local function initial_interpolation_fix(id)
   e[i_time] = e[i_time] + 1
   if e[i_time] == 2 then
     entity_set_update_callback(id, update_callback)
-    entity_set_mesh(id, "entities/enemies/polygon/mesh")
+    entity_set_mesh(id, "entities/enemies/flower/mesh")
   end
 end
 
@@ -115,11 +98,20 @@ end
 -- Set wall collision callback function for the entity
 local function wall_collision(entity_id, wall_normal_x, wall_normal_y)
   local e = entities[entity_id]
-  local dot_product_move = ((wall_normal_x * e[i_dx]) + (wall_normal_y * e[i_dy])) * 2fx
-  e[i_dx] = e[i_dx] - wall_normal_x * dot_product_move
-  e[i_dy] = e[i_dy] - wall_normal_y * dot_product_move
-  e[i_angle] = fx_atan2(e[i_dy], e[i_dx])
-  entity_set_mesh_angle(entity_id, e[i_angle], 0fx, 0fx, 1fx)
+  if not e then  -- [TODO: this potentionally not needed?]
+    return
+  end
+
+  local dx, dy = e[i_dx], e[i_dy]
+  local dot_product = dx * wall_normal_x + dy * wall_normal_y
+  dx = dx - 2fx * dot_product * wall_normal_x
+  dy = dy - 2fx * dot_product * wall_normal_y
+
+  local angle = fx_atan2(dy, dx)
+  entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
+  e[i_angle] = angle
+  e[i_dx] = dx
+  e[i_dy] = dy
 end
 
 
@@ -139,7 +131,7 @@ local function player_collision(entity_id, player_id, ship_id)
     else
       damage_player_ship(ship_id, health)
     end
-    module.destroy_polygon(entity_id, explosion_color)
+    flower_module.destroy_flower(entity_id, explosion_color)
 
     entities[entity_id] = nil
     performance.increase_player_score(3)
@@ -162,7 +154,7 @@ local function weapon_collision(entity_id, player_index, weapon)
       e[i_health] = health - 1  -- [TODO: assigning to health, reference to array?]
       e[i_highlight] = 5
       if e[i_health] <= 0 then
-        module.destroy_polygon(entity_id, explosion_color)
+        flower_module.destroy_flower(entity_id, explosion_color)
       end
     end
   end
@@ -172,26 +164,34 @@ end
 
 
 -- Spawn entity, add update callback
-function module.spawn(x, y, angle)
-
+function flower_module.spawn(x, y, angle, speed)
   local id = new_entity(x, y)
   entity_start_spawning(id, 5)
   entity_set_radius(id, radius)
-
-  local dy, dx = fx_sincos(angle)
-  entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
-  
-  entities[id] = {0, angle, dx, dy, default_health, 0, 0}
-
   helpers.set_entity_color(id, colors)
 
+  local dy, dx = fx_sincos(angle)
+  local e = {}
+  e[i_time] = 0
+  e[i_angle] = angle
+  e[i_speed] = speed
+  e[i_dx] = dx * speed
+  e[i_dy] = dy * speed
+  e[i_health] = default_health
+  e[i_highlight] = 0
+
+  entity_set_mesh(id, "entities/enemies/flower/mesh")
+  entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
+
   entity_set_update_callback(id, initial_interpolation_fix)
-  entity_set_wall_collision(id, true, wall_collision)
-  entity_set_player_collision(id, player_collision)
+  entity_set_wall_collision(id, true, wall_collision_callback)
+  entity_set_player_collision(id, player_collision_callback)
   entity_set_weapon_collision(id, weapon_collision)
+
+  entities[id] = e
 
   return id 
 end
 
 
-return module
+return flower_module
