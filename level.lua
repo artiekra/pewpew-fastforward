@@ -138,7 +138,7 @@ local is_player_alive = true
 function level_tick()
 
   time.fast_forward(1/TIME_FACTOR)
-  local time = time.get_time()
+  local time = time.TIME
 
   log.debug("main", "New tick, time =", time)
   log.trace("main", "IS_END_SCREEN =", IS_END_SCREEN)

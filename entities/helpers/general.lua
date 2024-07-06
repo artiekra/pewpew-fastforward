@@ -8,7 +8,7 @@ local module = {}
 -- Useful generalisation for set_entity_color(),
 -- based on LEVEL_MODE
 function module.get_color_state()
-  local time = level_time.get_time()
+  local time = level_time.TIME
   log.extra("hlpr", "Getting color state for time", time)
 
   local flicker_speed = 0.2
