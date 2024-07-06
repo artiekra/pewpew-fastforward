@@ -1,6 +1,7 @@
 -- [TODO: refactor]
 -- [TODO: change health based on size]
 -- [TODO: improve rolling animation]
+-- [TODO: stop on end screen]
 local dust = require"entities/enemies/dust/logic"
 local helpers = require"entities/helpers/general"
 local performance = require"misc/performance"
