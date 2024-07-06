@@ -7,6 +7,7 @@ local helpers = require"entities/helpers/general"
 local performance = require"misc/performance"
 local ch = require"helpers/color_helpers"
 
+require"entities/enemies/keys"
 require"globals/general"
 
 local flower_module = {}

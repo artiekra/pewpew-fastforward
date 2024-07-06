@@ -2,18 +2,12 @@ local performance = require"misc/performance"
 local helpers = require"entities/helpers/general"
 
 require"entities/enemies/darkbaf/config"
+require"entities/enemies/keys"
 require"globals/general"
 
 local module = {}
 
 local entities = {}
-
-
--- Declaring scheme for entity table
-local i_time = 1
-local i_angle = 2
-local i_dx = 3
-local i_dy = 4
 
 
 -- Function to call every tick on entity

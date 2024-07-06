@@ -1,4 +1,3 @@
--- [TODO: take a look at entity.def_keys() in ppo, add similar]
 -- [TODO: fix logs]
 require"/dynamic/libs/ppol/.lua"
 require"globals/general"

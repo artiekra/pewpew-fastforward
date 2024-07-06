@@ -1,6 +1,7 @@
 local performance = require"misc/performance"
 local helpers = require"entities/helpers/general"
 
+require"entities/enemies/keys"
 require"globals/general"
 
 local module = {}
