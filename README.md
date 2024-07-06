@@ -6,10 +6,10 @@ Install PPL-utils: https://github.com/pewpewlive/ppl-utils
 
 Clone this repo to `/content/levels/` (in sub folder).
 
-This level uses PPOL framework: https://github.com/glebi574/pewpew-overhaul-lite
+*This level uses PPOL framework: https://github.com/glebi574/pewpew-overhaul-lite*
 
 ### Thanks
 
-Special thanks to glebi for contributing to the level :з
+Special thanks to glebi for contributing to the level ((っ◔◡◔)っ
 
-To JF for helping with the fix of the level mode change intervals.
+Also thanks for helping to JF, MutoX and SKPG :з
