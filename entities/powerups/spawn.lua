@@ -7,6 +7,7 @@ local fastforward_pu = require"entities/powerups/powerup/fastforward/logic"
 
 pu_spawn_module = {}
 
+
 -- How far away can powerups spawn from:
 -- 1. Player ship (square around ship is blocked)
 -- 2. Borders
@@ -18,60 +19,28 @@ POWERUP_SPAWN_OFFSETS = {
   fastforward = {250fx, 100fx}
 }
 
--- [TODO: aggregate following functions]
 
--- Get random coordinates and spawn shield powerup
-function pu_spawn_module.spawn_shield_pu(ship)
-  local x, y = helpers.random_coordinates(
-    ship, table.unpack(POWERUP_SPAWN_OFFSETS.shield))
-  local powerup_outer, powerup_inner = shield_pu.spawn(ship, x, y)
+-- [TODO: automatically recognise module name too here?]
+local function register_spawn_pu_func(name, module, ...)
+  local func_args = {...}
 
-  return {powerup_outer, powerup_inner}
+  pu_spawn_module["spawn_" .. name .. "_pu"] = function(ship)
+    local x, y = helpers.random_coordinates(
+      ship, table.unpack(POWERUP_SPAWN_OFFSETS[name]))
+    local powerup_outer, powerup_inner = module.spawn(
+      ship, x, y, table.unpack(func_args))
+
+    return {powerup_outer, powerup_inner}
+  end
+
 end
 
 
--- Get random coordinates and spawn score powerup
-function pu_spawn_module.spawn_score_pu(ship)
-  local x, y = helpers.random_coordinates(
-    ship, table.unpack(POWERUP_SPAWN_OFFSETS.score))
-  local powerup_outer, powerup_inner = score_pu.spawn(ship, x, y)
-
-  return {powerup_outer, powerup_inner}
-end
-
-
--- Get random coordinates and spawn performance powerup
-function pu_spawn_module.spawn_performance_pu(ship)
-  local x, y = helpers.random_coordinates(
-    ship, table.unpack(POWERUP_SPAWN_OFFSETS.performance))
-  local powerup_outer, powerup_inner = performance_pu.spawn(
-    ship, x, y, random(1, 3))
-
-  return {powerup_outer, powerup_inner}
-end
-
-
--- Get random coordinates and spawn slowdown powerup
-function pu_spawn_module.spawn_slowdown_pu(ship)
-  local x, y = helpers.random_coordinates(
-    ship, table.unpack(POWERUP_SPAWN_OFFSETS.slowdown))
-  local powerup_outer, powerup_inner = slowdown_pu.spawn(
-    ship, x, y, random(1, 3))
-
-  return {powerup_outer, powerup_inner}
-end
-
-
--- Get random coordinates and spawn fastforward powerup
-function pu_spawn_module.spawn_fastforward_pu(ship)
-  local x, y = helpers.random_coordinates(
-    ship, table.unpack(POWERUP_SPAWN_OFFSETS.fastforward))
-  local powerup_outer, powerup_inner = fastforward_pu.spawn(
-    ship, x, y, random(1, 3))
-
-  return {powerup_outer, powerup_inner}
-end
-
+register_spawn_pu_func("fastforward", fastforward_pu)
+register_spawn_pu_func("slowdown", slowdown_pu)
+register_spawn_pu_func("performance", performance_pu, random(1, 3))
+register_spawn_pu_func("score", score_pu)
+register_spawn_pu_func("shield", shield_pu)
 
 
 -- Chance table for powerups (after preconditions)
