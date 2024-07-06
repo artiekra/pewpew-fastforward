@@ -5,7 +5,6 @@ require"entities/powerups/config"
 local module = {}
 
 
--- [TODO: rework with events]
 function performance_player_collision(entity_id, player_id,
                                       ship_id, multiplier)
   local duration = 135

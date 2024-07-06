@@ -33,11 +33,11 @@ end
 
 -- Insert several elements into table at once
 -- stack overflow question 13214926, thanks :з
--- [TODO: can be remade with new features of lua? for i=1, (...)]
-function table_insert_all(table, ...)
+-- modified by glebi a bit
+function table_insert_all(target_table, ...)
   log.trace("hlpr", "Inserting multiple values into a table..")
 
-  for i = 1, select('#',...) do
-    table[#table+1] = select(i,...)
+  for _, v in ipairs{...} do
+    table.insert(target_table, v)
   end
 end

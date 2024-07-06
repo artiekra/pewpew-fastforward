@@ -9,7 +9,7 @@ module.UPGRADE_TIME = 0
 
 -- Update performance multiplier (basic score&time calculation)
 -- MUST BE CALLED EACH TICK!
--- [TODO: rework time system]
+-- [TODO: balance time system]
 function module.update(time, score)
   log.debug("perf", "Updating performance, time", time,
     "and score", score)
