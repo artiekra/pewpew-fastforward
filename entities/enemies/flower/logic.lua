@@ -1,5 +1,9 @@
-local performance = require"misc/performance"
+-- [TODO: refactor]
+-- [TODO: change health based on size]
+-- [TODO: improve rolling animation]
+local dust = require"entities/enemies/dust/logic"
 local helpers = require"entities/helpers/general"
+local performance = require"misc/performance"
 local ch = require"helpers/color_helpers"
 
 require"globals/general"
@@ -11,7 +15,10 @@ local entities = {}
 -- Some entity globals
 local radius = 22.2048fx
 local default_health = 7
-local rolling_speed = 10fx
+local rolling_speed = 2fx
+
+local SPEED = {8fx, 6fx, 4fx}
+local SCALE = {0.2048fx, 1fx, 1.2048fx}
 
 -- [NOTE: cant have maximum alpha value,
 --  its increased for effect, when hit by bullet]
@@ -28,6 +35,7 @@ local i_dx = 4
 local i_dy = 5
 local i_health = 6
 local i_highlight = 7
+local i_size = 8
 
 
 -- Function to explode the flower, spawn smaller ones, etc..
@@ -36,10 +44,27 @@ function flower_module.destroy_flower(flower_id, color)
   entity_start_exploding(flower_id, 15)
   performance.increase_player_score(5)
 
-  entities[flower_id] = nil
+  local e = entities[flower_id]
+  if not e then
+    return
+  end
 
   local x, y = entity_get_pos(flower_id)
   create_explosion(x, y, color, 2fx, 50)
+
+  for i = 1, 4 do
+    local angle = e[i_angle] + i*FX_TAU/4fx
+
+    if e[i_size] == 3 then
+      local enemy = flower_module.spawn(x, y, angle, 2)
+    elseif e[i_size] == 2 then
+      local enemy = flower_module.spawn(x, y, angle, 1)
+    elseif e[i_size] == 1 then
+      local enemy = dust.spawn(x, y, angle)
+    end
+  end
+
+  entities[flower_id] = nil
 end
 
 
@@ -164,11 +189,13 @@ end
 
 
 -- Spawn entity, add update callback
-function flower_module.spawn(x, y, angle, speed)
+function flower_module.spawn(x, y, angle, size)
   local id = new_entity(x, y)
   entity_start_spawning(id, 5)
   entity_set_radius(id, radius)
   helpers.set_entity_color(id, colors)
+
+  local speed = SPEED[size]
 
   local dy, dx = fx_sincos(angle)
   local e = {}
@@ -179,8 +206,10 @@ function flower_module.spawn(x, y, angle, speed)
   e[i_dy] = dy * speed
   e[i_health] = default_health
   e[i_highlight] = 0
+  e[i_size] = size
 
   entity_set_mesh(id, "entities/enemies/flower/mesh")
+  entity_set_mesh_scale(id, SCALE[size])
   entity_set_mesh_angle(id, angle, 0fx, 0fx, 1fx)
 
   entity_set_update_callback(id, initial_interpolation_fix)

@@ -93,7 +93,7 @@ function module.spawn(ship)
   if time % 200 == 0 then
     log.trace("spawn", "Spawning flower.. (W.I.P.)")
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
-    local enemy = flower.spawn(x, y, fx_random(FX_TAU), 10fx)
+    local enemy = flower.spawn(x, y, fx_random(FX_TAU), 2)
     table.insert(module.enemies, enemy)
   end
 
