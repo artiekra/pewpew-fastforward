@@ -3,6 +3,7 @@ fx_atan2 = fmath.atan2
 fx_sincos = fmath.sincos
 fx_sqrt = fmath.sqrt
 
+to_fx = fmath.to_fixedpoint
 to_int = fmath.to_int
 
 FX_MIN = -fmath.max_fixedpoint()
@@ -30,9 +31,4 @@ end
 
 function abs(a)
   return a > 0 and a or -a
-end
-
-local f = fmath.to_fixedpoint
-function to_fx(a)
-  return f((a * 4096) // 1) / 4096fx
 end

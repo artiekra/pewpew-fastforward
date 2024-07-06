@@ -1,3 +1,4 @@
+-- [TODO: stop using non-ppol meshes]
 local color_helper = require("helpers/color_helpers")
 local helper = {}
 

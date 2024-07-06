@@ -1,3 +1,4 @@
+-- [TODO: stop using color helpers in favour of ppol ones]
 require"globals/general"
 
 log = require"libs/loglua/log"
