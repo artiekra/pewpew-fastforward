@@ -71,6 +71,9 @@ function end_screen_transition()
   hud.clear()
 
   camera.set_default_ease()
+  camera.ease_function_z = function(dz)
+    return dz
+  end
 
   camera.static_x = -LEVEL_WIDTH * 0.2560fx
   camera.static_y = LEVEL_HEIGHT / 2.256fx
