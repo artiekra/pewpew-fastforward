@@ -3,7 +3,7 @@
 local helpers = require"entities/helpers/general"
 local time = require"misc/time"
 
-require"helpers/lua_helpers"
+require"helpers/colors"
 require"globals/general"
 
 module = {}

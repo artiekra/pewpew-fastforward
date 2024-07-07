@@ -9,7 +9,7 @@ local helpers = require"entities/helpers/general"
 local spawn_powerup = require"entities/powerups/spawn"
 
 require"globals/general"
-require"helpers/lua_helpers"
+require"helpers/coding"
 require"entities/spawn/balance"
 
 local module = {}

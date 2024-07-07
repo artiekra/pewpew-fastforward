@@ -1,5 +1,6 @@
 -- [TODO: fix logs]
 -- [TODO: check caching benefits in implemented places]
+-- [TODO: deal with potential over-imports? (imorting lib when already done)]
 require"/dynamic/libs/ppol/.lua"
 require"globals/general"
 require"globals/end_screen"

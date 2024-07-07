@@ -4,6 +4,7 @@ local helpers = require"entities/helpers/general"
 require"entities/enemies/darkbaf/config"
 require"entities/enemies/keys"
 require"globals/general"
+require"helpers/colors"
 
 local module = {}
 

@@ -1,6 +1,6 @@
 require"/dynamic/libs/ppol/.lua"
 
-local gh = require"helpers/graphics_helpers"
+local gh = require"helpers/graphics"
 
 require"globals/general"
 

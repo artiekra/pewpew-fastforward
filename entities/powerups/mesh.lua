@@ -1,6 +1,6 @@
 require"/dynamic/libs/ppol/.lua"
 
-gh = require"helpers/graphics_helpers"
+gh = require"helpers/graphics"
 require"entities/powerups/config"
 
 

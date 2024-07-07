@@ -1,3 +1,6 @@
+require"globals/general"  -- to access cache
+
+
 -- Convert color with hue to RGB colors
 -- stack overflow question 68317097, thanks :з
 function hsv_to_rgb(h, s, l)
@@ -42,16 +45,4 @@ function hsv_to_rgb(h, s, l)
   end
 
   return table.unpack(color)
-end
-
-
--- Insert several elements into table at once
--- stack overflow question 13214926, thanks :з
--- modified by glebi a bit
-function table_insert_all(target_table, ...)
-  log.trace("hlpr", "Inserting multiple values into a table..")
-
-  for _, v in ipairs{...} do
-    table.insert(target_table, v)
-  end
 end
