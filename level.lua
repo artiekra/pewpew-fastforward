@@ -98,7 +98,7 @@ function level_tick_normal(time, player_x, player_y)
   local player_score = get_score()
   log.trace("main", "player_score =", player_score)
 
-  performance.update(time, player_score)
+  performance.update(time, player_score, player_x, player_y)
   hud.update(speed.SPEED, performance.PERFORMANCE)
 
   timer.update(timer_labels, time)
