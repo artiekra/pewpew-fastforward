@@ -78,10 +78,10 @@ local function update_callback(id)
   e[i_time] = e[i_time] + 1
   e[i_highlight] = e[i_highlight] - 1
 
-  if not IS_END_SCREEN then
-    entity_change_pos(id, e[i_dx], e[i_dy])
-    entity_add_mesh_angle(id, rolling_speed * e[i_speed], -e[i_dy], e[i_dx], 0fx)
-  end
+  entity_change_pos(id, e[i_dx] * to_fx(TIME_FACTOR),
+                        e[i_dy] * to_fx(TIME_FACTOR))
+  entity_add_mesh_angle(id, rolling_speed * e[i_speed] * to_fx(TIME_FACTOR),
+    -e[i_dy], e[i_dx], 0fx)
 
   -- [TODO: fix highlights not always working]
   local color_state = helpers.get_color_state()

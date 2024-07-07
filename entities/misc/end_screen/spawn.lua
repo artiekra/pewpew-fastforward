@@ -1,4 +1,5 @@
 -- [TODO: fix score problems by making a separate score module]
+-- [TODO: fix end screen..]
 local underline = require"entities/misc/end_screen/underline/logic"
 local helpers = require"entities/helpers/labels"
 local events = require"events"

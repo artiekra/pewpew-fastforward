@@ -62,8 +62,8 @@ local function update_callback(id)
 
   if not IS_END_SCREEN then
 
-    entity_change_pos(id, e[i_dx] * speed / to_fx(TIME_FACTOR),
-                          e[i_dy] * speed / to_fx(TIME_FACTOR))
+    entity_change_pos(id, e[i_dx] * speed * to_fx(TIME_FACTOR),
+                          e[i_dy] * speed * to_fx(TIME_FACTOR))
 
     if e[i_meshi] >= ANIMATION_TIME*60 then
       e[i_meshi] = 0

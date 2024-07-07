@@ -25,11 +25,9 @@ local function update_callback(id)
   end
   e[i_time] = e[i_time] + 1
 
-  if not IS_END_SCREEN then
-    entity_change_pos(id, e[i_dx] * SPEED / to_fx(TIME_FACTOR),
-                          e[i_dy] * SPEED / to_fx(TIME_FACTOR))
-    entity_add_mesh_angle(id, SPIN_SPEED, e[i_dx], e[i_dy], 0fx)
-  end
+  entity_change_pos(id, e[i_dx] * SPEED * to_fx(TIME_FACTOR),
+                        e[i_dy] * SPEED * to_fx(TIME_FACTOR))
+  entity_add_mesh_angle(id, SPIN_SPEED, e[i_dx], e[i_dy], 0fx)
 
   helpers.set_entity_color(id, COLORS)
 end

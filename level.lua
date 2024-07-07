@@ -3,7 +3,7 @@
 -- [TODO: check caching benefits in implemented places]
 -- [TODO: dont pass time as argument anyware, use global time instead]
 -- [TODO: deal with potential over-imports? (imorting lib when already done)]
---
+
 require"/dynamic/libs/ppol/.lua"
 
 require"globals/general"
@@ -22,6 +22,7 @@ local timer = require"misc/time/timer"
 local shooting = require"misc/shooting"
 local rays = require"entities/rays/logic"
 local labels = require"entities/misc/labels"
+local time_factor = require"misc/time/factor"
 local performance = require"misc/performance"
 local enemies = require"entities/spawn/spawn"
 local angle = require"entities/graphics/angle/logic"
@@ -71,6 +72,7 @@ function end_screen_transition()
   log.info("main", "Transitioning to end screen..")
 
   set_joystick_colors(0x101010ff, 0x101010ff)
+  time_factor.change_time_factor(0, 20)
 
   -- enemies.destroy_all_enemies()
   end_screen.show()
@@ -145,7 +147,7 @@ end
 local is_player_alive = true
 function level_tick()
 
-  time.fast_forward(1/TIME_FACTOR)
+  time.fast_forward(TIME_FACTOR)
   local time = time.TIME
 
   log.debug("main", "New tick, time =", time)

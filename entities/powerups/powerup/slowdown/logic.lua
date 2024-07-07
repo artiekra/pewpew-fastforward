@@ -10,7 +10,7 @@ local module = {}
 
 
 function slowdown_player_collision(entity_id, player_id, ship_id)
-  time_factor.change_time_factor(4, 20)
+  time_factor.change_time_factor(0.25, 20)
   events.register_event(80, function()
     time_factor.change_time_factor(1, 55)
   end)
