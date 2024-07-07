@@ -2,7 +2,6 @@
 -- [TODO: fix flickering..?!]
 
 local helpers = require"entities/helpers/general"
-local ch = require"helpers/color_helpers"
 
 require"globals/general"
 
@@ -89,7 +88,7 @@ function module.update(labels, time)
   log.trace("timer", "module.CURRENT_COLOR =", module.CURRENT_COLOR)
 
   for i, label in ipairs(labels) do
-    text = ch.color_to_string(module.CURRENT_COLOR) .. text
+    text = color_to_string(module.CURRENT_COLOR) .. text
     entity_set_string(label, text)
   end
 

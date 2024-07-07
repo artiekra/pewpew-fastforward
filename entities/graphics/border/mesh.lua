@@ -1,7 +1,6 @@
 require"/dynamic/libs/ppol/.lua"
 
 local gh = require"helpers/graphics_helpers"
-local ch = require"helpers/color_helpers"
 
 require"globals/general"
 
@@ -56,8 +55,8 @@ function make_mesh(color1, color2)
 
   -- draw borders lower
   for z=init_z, -100, -25 do
-    local color1 = ch.make_color_with_alpha(color1, 2*z+225)
-    local color2 = ch.make_color_with_alpha(color2, 2*z+225)
+    local color1 = change_alpha(color1, 2*z+225)
+    local color2 = change_alpha(color2, 2*z+225)
     draw_border_outline(mesh, lw, lh, bevel, color1, color2, z)
   end
 

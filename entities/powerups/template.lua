@@ -1,6 +1,5 @@
 local helpers = require"entities/helpers/general"
 local arrow = require"entities/powerups/arrow/logic"
-local ch = require"helpers/color_helpers"
 
 require"entities/powerups/config"
 require"globals/general"

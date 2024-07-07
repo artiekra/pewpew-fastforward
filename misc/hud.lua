@@ -1,5 +1,3 @@
-local ch = require"helpers/color_helpers"
-
 local module = {}
 
 
@@ -18,13 +16,13 @@ function module.update(velocity, performance)
   local mul = 255 -- multiplier for color
 
   local nvel = ((velocity-1)*mul) // 1
-  local vel_color = ch.make_color(nvel, 255-nvel, 0, 255)
-  local vel_color_str = ch.color_to_string(vel_color)
+  local vel_color = make_color(nvel, 255-nvel, 0, 255)
+  local vel_color_str = color_to_string(vel_color)
 
   if performance < 1 then
     local nperf = (performance*mul) // 1
-    local perf_color = ch.make_color(255-nperf, nperf, 0, 255)
-    perf_color_str = ch.color_to_string(perf_color)
+    local perf_color = make_color(255-nperf, nperf, 0, 255)
+    perf_color_str = color_to_string(perf_color)
   else
     perf_color_str = "#00ff00ff"
   end

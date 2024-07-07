@@ -1,7 +1,6 @@
 -- [TODO: improve bold text]
 
 local helpers = require"entities/helpers/general"
-local ch = require"helpers/color_helpers"
 local time = require"misc/time"
 
 require"helpers/lua_helpers"
@@ -17,8 +16,8 @@ function module.rainbow_string(str)
   for i = 1, #str do
 
     local hue = ((i+time.TIME//3) % 45) * 8
-    local rgb = ch.make_color(hsv_to_rgb(hue, 100, 50))
-    local new_char = ch.color_to_string(rgb) .. string.sub(str, i, i)
+    local rgb = make_color(hsv_to_rgb(hue, 100, 50))
+    local new_char = color_to_string(rgb) .. string.sub(str, i, i)
 
     table.insert(new_str, new_char)
   end
@@ -50,7 +49,7 @@ function module.create_label(x, y, text, colors, scale, angle, tilt)
         color = END_SCREEN_ENTITY_COLOR
       end
 
-      local text = ch.color_to_string(color) .. text
+      local text = color_to_string(color) .. text
       entity_set_string(label, text)
     end
   end
@@ -62,7 +61,7 @@ function module.create_label(x, y, text, colors, scale, angle, tilt)
 
   -- make color static
   if type(colors) == "number" then
-    local text = ch.color_to_string(colors) .. text
+    local text = color_to_string(colors) .. text
     entity_set_string(label, text)
 
   -- make color depend on current level mode

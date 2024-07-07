@@ -1,7 +1,6 @@
 local performance = require"misc/performance"
 local bullets = require"entities/enemies/polygon/bullets/logic"
 local helpers = require"entities/helpers/general"
-local ch = require"helpers/color_helpers"
 
 require"entities/enemies/polygon/config"
 require"entities/enemies/keys"
@@ -83,7 +82,7 @@ local function update_callback(id)
       color = colors[color_state]
       explosion_color = color
       if e[i_highlight] > 0 then
-        entity_set_mesh_color(id, ch.make_color_with_alpha(color, 255))
+        entity_set_mesh_color(id, change_alpha(color, 255))
       else
         entity_set_mesh_color(id, color)
       end

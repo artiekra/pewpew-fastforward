@@ -1,5 +1,4 @@
 -- [TODO: stop using non-ppol meshes]
-local color_helper = require("helpers/color_helpers")
 local helper = {}
 
 --- Creates a new empty mesh.
@@ -171,8 +170,8 @@ function helper.add_elevating_squares(mesh,center,color,width,height,end_z,frequ
       z_extra = - z_extra
     end]]
     local a2 = a2 - z/3
-    local true_color = color_helper.make_color(r,g,b,a2)
-    local true_color2 = color_helper.make_color(r+80,g,b,a2)
+    local true_color = make_color(r,g,b,a2)
+    local true_color2 = make_color(r+80,g,b,a2)
 
     helper.add_line_to_mesh(mesh,{a1,b1,c1,d1},{true_color,true_color2,true_color,true_color2},true)
   end
