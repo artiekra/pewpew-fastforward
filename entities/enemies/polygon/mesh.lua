@@ -35,7 +35,8 @@ function make_mesh(angle_offset)
 end
 
 
-local step = PI * 2 / (ANIMATION_TIME*60)
+-- ability to slow down up to x8
+local step = PI * 2 / (BASE_ANIMATION_TIME*60*8)
 for angle_offset = 0, PI * 2, step do
   table.insert(meshes, make_mesh(angle_offset))
 end

@@ -1,7 +1,7 @@
 RADIUS = 44
 INNER_RADIUS = 22
 
-ANIMATION_TIME = 2.5
+BASE_ANIMATION_TIME = 2.5
 
 -- Polygon bullets creation settings
 TOTAL_BULLETS = 12

@@ -27,7 +27,8 @@ local function update_callback(id)
 
   entity_change_pos(id, e[i_dx] * SPEED * to_fx(TIME_FACTOR),
                         e[i_dy] * SPEED * to_fx(TIME_FACTOR))
-  entity_add_mesh_angle(id, SPIN_SPEED, e[i_dx], e[i_dy], 0fx)
+  entity_add_mesh_angle(id, SPIN_SPEED * to_fx(TIME_FACTOR),
+    e[i_dx], e[i_dy], 0fx)
 
   helpers.set_entity_color(id, COLORS)
 end

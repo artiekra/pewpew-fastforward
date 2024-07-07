@@ -65,12 +65,14 @@ local function update_callback(id)
     entity_change_pos(id, e[i_dx] * speed * to_fx(TIME_FACTOR),
                           e[i_dy] * speed * to_fx(TIME_FACTOR))
 
-    if e[i_meshi] >= ANIMATION_TIME*60 then
+    if e[i_meshi] >= BASE_ANIMATION_TIME*60*8 then
       e[i_meshi] = 0
     end
 
-    entity_set_mesh(id, "entities/enemies/polygon/mesh", e[i_meshi], e[i_meshi]+1)
-    e[i_meshi] = e[i_meshi] + 2
+    local offset = ( 8 * TIME_FACTOR ) // 1
+    entity_set_mesh(id, "entities/enemies/polygon/mesh",
+      e[i_meshi], e[i_meshi]+offset)
+    e[i_meshi] = e[i_meshi] + 2*offset
 
   end
 
