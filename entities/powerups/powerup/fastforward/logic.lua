@@ -7,7 +7,7 @@ require"globals/general"
 local module = {}
 
 
-function fastforward_player_collision(entity_id, player_id, ship_id)
+local function camera_setup()
   camera.set_default_ease()
 
   camera.static_x = LEVEL_WIDTH / 2fx
@@ -16,6 +16,11 @@ function fastforward_player_collision(entity_id, player_id, ship_id)
   camera.static_angle = -FX_TAU * 1fx/6fx
 
   camera.speed = 15fx
+end
+
+
+local function fastforward_player_collision(entity_id, player_id, ship_id)
+  camera_setup()
 end
 
 
