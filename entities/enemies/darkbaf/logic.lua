@@ -1,4 +1,4 @@
-local performance = require"misc/performance"
+local performance = require"misc/score/performance"
 local helpers = require"entities/helpers/general"
 
 require"entities/enemies/darkbaf/config"

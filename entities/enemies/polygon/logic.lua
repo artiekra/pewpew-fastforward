@@ -1,4 +1,4 @@
-local performance = require"misc/performance"
+local performance = require"misc/score/performance"
 local bullets = require"entities/enemies/polygon/bullets/logic"
 local helpers = require"entities/helpers/general"
 

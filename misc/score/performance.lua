@@ -1,9 +1,10 @@
+local score = require"misc/score/score"
+
 require"globals/general"
 
 local module = {}
 
 module.PERFORMANCE = 1
-module.SCORE = 0
 
 module.UPGRADE = 1
 module.UPGRADE_TIME = 0
@@ -55,16 +56,13 @@ end
 
 
 -- Increase player score, taking performance into account
+-- returns current player performance
 function module.increase_player_score(value)
   log.debug("perf", "Increasing player score by", value)
 
   -- internal score counter, so that non-integers scores are possible
   new_score = value * module.PERFORMANCE
-  module.SCORE = module.SCORE + new_score
-
-  new_game_score = module.SCORE // 1
-  log.trace("perf", "new_game_score =", new_game_score)
-  increase_score(new_game_score - get_score())
+  score.increase_score(new_score)
 
   return module.PERFORMANCE
 end

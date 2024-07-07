@@ -4,7 +4,7 @@
 -- [TODO: stop on end screen]
 local dust = require"entities/enemies/dust/logic"
 local helpers = require"entities/helpers/general"
-local performance = require"misc/performance"
+local performance = require"misc/score/performance"
 
 require"entities/enemies/keys"
 require"globals/general"

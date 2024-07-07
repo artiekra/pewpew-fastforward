@@ -1,5 +1,4 @@
 -- [TODO: fix logs]
--- [TODO: make any score increments smooth?]
 -- [TODO: check caching benefits in implemented places]
 -- [TODO: consider smoothing camera on slower time factor?]
 -- [TODO: dont pass time as argument anyware, use global time instead]
@@ -22,11 +21,12 @@ local speed = require"misc/speed"
 local time = require"misc/time/time"
 local timer = require"misc/time/timer"
 local shooting = require"misc/shooting"
+local score = require"misc/score/score"
 local rays = require"entities/rays/logic"
 local labels = require"entities/misc/labels"
 local time_factor = require"misc/time/factor"
-local performance = require"misc/performance"
 local enemies = require"entities/spawn/spawn"
+local performance = require"misc/score/performance"
 local angle = require"entities/graphics/angle/logic"
 local border = require"entities/graphics/border/logic"
 local end_screen = require"entities/misc/end_screen/spawn"
@@ -143,8 +143,8 @@ function level_tick()
 
   -- before alive check to be able to process even after player death
   events.process_events()
-
   speed.apply_speed()
+  score.update()
 
   if not is_player_alive then
     return

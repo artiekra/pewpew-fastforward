@@ -1,5 +1,5 @@
 local template = require"entities/powerups/template"
-local performance = require"misc/performance"
+local performance = require"misc/score/performance"
 require"entities/powerups/config"
 
 local module = {}
