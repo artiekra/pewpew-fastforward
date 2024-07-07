@@ -1,4 +1,5 @@
 -- [TODO: fix logs]
+-- [TODO: check caching benefits in implemented places]
 require"/dynamic/libs/ppol/.lua"
 require"globals/general"
 require"globals/end_screen"
@@ -184,6 +185,10 @@ function level_tick()
   end
 end
 
+
+if MEMORY_PRINT then
+  add_memory_print()
+end
 
 ship_speed = update_ship_speed(ship_speed)
 

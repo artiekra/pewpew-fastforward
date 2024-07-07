@@ -1,6 +1,7 @@
 local lru = require"libs/lrulua/lru"
 
 LOG_LEVEL = "info"
+MEMORY_PRINT = false
 
 LEVEL_WIDTH = 950fx 
 LEVEL_HEIGHT = 950fx
@@ -17,4 +18,4 @@ LEVEL_MODE = 0  -- mutable by level components variable
 
 TIME_FACTOR = 1  -- mutable by level components variable
 
-CACHE = lru.new(100, 2000)  -- limit cache by 2kb
+CACHE = lru.new(100, 75000)  -- limit cache by 75kb
