@@ -1,4 +1,4 @@
-local time = require"misc/time"
+local time = require"misc/time/time"
 
 require"helpers/colors"
 

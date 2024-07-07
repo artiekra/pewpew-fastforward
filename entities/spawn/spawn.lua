@@ -4,7 +4,7 @@ local polygon = require"entities/enemies/polygon/logic"
 local darkbaf = require"entities/enemies/darkbaf/logic"
 local lightbaf = require"entities/enemies/lightbaf/logic"
 
-local level_time = require"misc/time"
+local level_time = require"misc/time/time"
 local helpers = require"entities/helpers/general"
 local spawn_powerup = require"entities/powerups/spawn"
 

@@ -1,7 +1,7 @@
 -- [TODO: improve bold text]
 
 local helpers = require"entities/helpers/general"
-local time = require"misc/time"
+local time = require"misc/time/time"
 
 require"helpers/colors"
 require"globals/general"

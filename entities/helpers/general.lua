@@ -1,4 +1,4 @@
-local level_time = require"misc/time"
+local level_time = require"misc/time/time"
 
 require"globals/general"
 

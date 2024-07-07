@@ -1,7 +1,11 @@
 -- [TODO: fix logs]
+-- [TODO: make any score increments smooth?]
 -- [TODO: check caching benefits in implemented places]
+-- [TODO: dont pass time as argument anyware, use global time instead]
 -- [TODO: deal with potential over-imports? (imorting lib when already done)]
+--
 require"/dynamic/libs/ppol/.lua"
+
 require"globals/general"
 require"globals/end_screen"
 
@@ -13,8 +17,8 @@ log.info("main", "Initialized logging, level", LOG_LEVEL)
 log.debug("main", "Loading other level files..")
 local hud = require"misc/hud"
 local events = require"events"
-local time = require"misc/time"
-local timer = require"misc/timer"
+local time = require"misc/time/time"
+local timer = require"misc/time/timer"
 local shooting = require"misc/shooting"
 local rays = require"entities/rays/logic"
 local labels = require"entities/misc/labels"
