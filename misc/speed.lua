@@ -1,3 +1,5 @@
+require"globals/general"
+
 local module = {}
 
 module.SPEED = 1
@@ -18,8 +20,13 @@ end
 
 
 -- Apply speed, should be called each tick
+-- [TODO: consider easing?]
 function module.apply_speed()
+  if FREEZE_PLAYER then
+    set_player_ship_speed(1, 0fx)
+  else
     set_player_ship_speed(1, to_fx((module.SPEED*100)//10))
+  end
 end
 
 
