@@ -16,6 +16,8 @@ MODE_CHANGE_EVENTS = {3600, 10800}
 LEVEL_MODE_MAX = 4
 LEVEL_MODE = 0  -- mutable by level components variable
 
+FREEZE_PLAYER = false  -- mutable by level components variable
+
 TIME_FACTOR = 1  -- mutable by level components variable
 
 CACHE = lru.new(100, 75000)  -- limit cache by 75kb

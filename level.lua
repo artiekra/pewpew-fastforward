@@ -18,6 +18,7 @@ log.info("main", "Initialized logging, level", LOG_LEVEL)
 log.debug("main", "Loading other level files..")
 local hud = require"misc/hud"
 local events = require"events"
+local speed = require"misc/speed"
 local time = require"misc/time/time"
 local timer = require"misc/time/timer"
 local shooting = require"misc/shooting"
@@ -54,20 +55,6 @@ hud.init()
 local timer_labels = timer.init(LEVEL_WIDTH, LEVEL_HEIGHT)
 
 
--- if speed < limit, update it (increment) and change the HUD
-function update_ship_speed(speed)
-  local increment_val = 0.01
-  local limit = 2
-
-  if ship_speed < limit then
-    speed = speed + increment_val
-    set_player_ship_speed(1, to_fx((speed*100)//10))
-  end
-
-  return speed
-end
-
-
 -- Transition from normal gameplay to end screen
 function end_screen_transition()
   log.info("main", "Transitioning to end screen..")
@@ -101,8 +88,8 @@ function level_tick_normal(time, player_x, player_y)
   -- update ship speed, exponentially
   local speed_upd_condition = ( ( time % (500-((ship_speed-1)*500)) ) // 1 ) == 0
   if speed_upd_condition then
-    ship_speed = update_ship_speed(ship_speed)
-    log.info("main", "Player ship speed is updated, now", ship_speed)
+    speed.update_ship_speed()
+    log.info("main", "Player ship speed is updated, now", speed.SPEED)
   end
 
   enemies.spawn(ship, time)
@@ -112,7 +99,7 @@ function level_tick_normal(time, player_x, player_y)
   log.trace("main", "player_score =", player_score)
 
   performance.update(time, player_score)
-  hud.update(ship_speed, performance.PERFORMANCE)
+  hud.update(speed.SPEED, performance.PERFORMANCE)
 
   timer.update(timer_labels, time)
 
@@ -157,6 +144,8 @@ function level_tick()
   -- before alive check to be able to process even after player death
   events.process_events()
 
+  speed.apply_speed()
+
   if not is_player_alive then
     return
   end
@@ -198,7 +187,6 @@ if MEMORY_PRINT then
   add_memory_print()
 end
 
-ship_speed = update_ship_speed(ship_speed)
 
 ray1, ray2 = rays.create(LEVEL_WIDTH, LEVEL_HEIGHT,
   BEVEL_SIZE, LEVEL_WIDTH/2fx, LEVEL_HEIGHT/2fx)

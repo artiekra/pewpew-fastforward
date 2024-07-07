@@ -9,6 +9,7 @@ end
 
 
 -- Set a HUD to new value, also set the right color
+-- [TODO: consider getting this values right here?]
 function module.update(velocity, performance)
   log.debug("hud", "Updating hud for velocity", velocity,
     "and performance", performance)
