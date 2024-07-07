@@ -3,29 +3,27 @@ local events = require"events"
 
 require"entities/powerups/config"
 require"globals/general"
+require"helpers/easing"
 
 local module = {}
 
 
-function slowdown_player_collision(entity_id, player_id, ship_id)
-
   -- [TODO: potentially can rollback another powerup]
-  function rollback_effect(new_factor)
-    TIME_FACTOR = (new_factor or 1)
-  end
+function slowdown_player_collision(entity_id, player_id, ship_id)
 
   TIME_FACTOR = 4
 
   -- slowly revert the changes
-  -- [TODO: ease this]
   local mf = 1
   local nf = 4
   local st = 80
   local et = 135
   for i=st, et do
     -- [NOTE: https://jpcdn.it/img/a5f4af01882a096a2decffce3c20cf26.png]
-    events.register_event(i, rollback_effect,
-      ((i-st)*(mf-nf))/(et-st)+nf)
+    events.register_event(i, function()
+      local new_factor = ((i-st)*(mf-nf))/(et-st)+nf
+      TIME_FACTOR = ease_in_out_cubic(new_factor, nf, mf)
+    end)
   end
 
 end
