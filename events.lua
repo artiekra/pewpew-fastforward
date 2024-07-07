@@ -10,13 +10,13 @@ function events_module.register_event(time_delta, callback, ...)
   log.debug("event", "Registering event to be executed at time", time)
   args = {...}
 
-  local time = level_time.TIME + time_delta
+  local time = level_time.TICK + time_delta
   table.insert(events_module.EVENTS, {time, callback, args})
 end
 
 
 function events_module.process_events()
-  local time = level_time.TIME
+  local time = level_time.TICK
   log.trace("event", "Processing events, time", time)
 
   for _, event in ipairs(events_module.EVENTS) do

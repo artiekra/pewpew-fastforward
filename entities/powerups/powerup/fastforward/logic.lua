@@ -23,10 +23,10 @@ end
 local function fastforward_player_collision(entity_id, player_id, ship_id)
   camera_setup()
 
-  -- time_factor.change_time_factor(0.25, 20)
-  -- events.register_event(80, function()
-  --   time_factor.change_time_factor(1, 55)
-  -- end)
+  time_factor.change_time_factor(0, 20)
+  events.register_event(150, function()
+    time_factor.change_time_factor(1, 55)
+  end)
 end
 
 
