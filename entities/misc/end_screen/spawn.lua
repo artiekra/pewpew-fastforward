@@ -1,29 +1,12 @@
--- [TODO: fix score problems by making a separate score module]
 local underline = require"entities/misc/end_screen/underline/logic"
 local helpers = require"entities/helpers/labels"
+local score = require"misc/score/score"
 local events = require"events"
 
 require"globals/general"
 require"globals/end_screen"
 
 local module = {}
-
-
--- Increase score slowly
-function smooth_increase_score(delta, time)
-  local per_tick = delta // time
-  local last_tick_extra = delta % time
-
-  for i=1, time-1 do
-    events.register_event(i, function()
-      increase_score(per_tick)
-    end)
-  end
-  events.register_event(time, function()
-    increase_score(per_tick+last_tick_extra)
-  end)
-
-end
 
 
 -- Show end screen text
@@ -55,7 +38,7 @@ function module.show()
   create_sublabel(325fx, "> Shield bonus  " .. hb, 0x909090ff)
   create_sublabel(400fx, "> Total bonus  " .. tb, 0xffaf00ff)
 
-  smooth_increase_score(total_bonus, 90)
+  score.increase_score(total_bonus)
   events.register_event(150, function()
     set_has_lost(true)
   end)
