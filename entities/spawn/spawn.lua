@@ -47,21 +47,40 @@ end
 
 
 -- Get requirement for spawning dust
--- [TODO: cache this]
+-- [TODO: consider caching smaller part of the function]
 function get_dust_req(time)
   log.trace("spawn", "Getting the requiement to spawn dust..")
+  local cache_key = "dust_spawn_req"
+  local dust_req = nil
 
-  local dust_speed = 1  -- can be changed independently from the actual speed
-  local level_size_avg = to_int((LEVEL_HEIGHT+LEVEL_WIDTH)/2fx)
+  local function calculate(time)
+    log.debug("spawn", "Requirement not cached, calculating..")
 
-  local dust_req_base = ((level_size_avg/2)//dust_speed)
-  local dust_req_max = dust_req_base//DUST_BALANCE["on_screen_max"]
-  local dust_req_min = dust_req_base//DUST_BALANCE["on_screen_min"]
+    local dust_speed = 1  -- can be changed independently from the actual speed
+    local level_size_avg = to_int((LEVEL_HEIGHT+LEVEL_WIDTH)/2fx)
 
-  local dust_req = dust_req_min
-  local id = DUST_BALANCE["increase_duration"]
-  if time < id then
-    dust_req = dust_req_min - time // (id/(dust_req_min - dust_req_max))
+    local dust_req_base = ((level_size_avg/2)//dust_speed)
+    local dust_req_max = dust_req_base//DUST_BALANCE["on_screen_max"]
+    local dust_req_min = dust_req_base//DUST_BALANCE["on_screen_min"]
+
+    local dust_req = dust_req_min
+    local id = DUST_BALANCE["increase_duration"]
+    if time < id then
+      dust_req = dust_req_min - time // (id/(dust_req_min - dust_req_max))
+    end
+
+    return dust_req
+  end
+
+  if time % 300 == 0 then
+    dust_req = calculate(time)
+    CACHE:set(cache_key, dust_req, 8)
+  else
+    dust_req = CACHE:get(cache_key)
+    if dust_req == nil then
+      dust_req = calculate(time)
+      CACHE:set(cache_key, dust_req, 8) 
+    end
   end
 
   return dust_req
