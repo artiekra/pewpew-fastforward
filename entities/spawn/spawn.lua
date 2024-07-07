@@ -89,6 +89,7 @@ end
 
 -- Spawn enemies, given total level time
 -- [TODO: consider easing]
+-- [TODO: balancing improvements]
 function module.spawn(ship)
   local time = level_time.TICK
   log.debug("spawn", "Spawning enemies, time", time)

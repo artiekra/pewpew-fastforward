@@ -162,7 +162,7 @@ local function weapon_collision(entity_id, player_index, weapon)
   if health > 0 then
     if weapon == weapon_type.bullet then
       e[i_health] = health - 1  -- [TODO: assigning to health, reference to array?]
-      e[i_highlight] = 5
+      e[i_highlight] = 5 // TIME_FACTOR
       if e[i_health] <= 0 then
         module.destroy_polygon(entity_id, explosion_color)
       end
