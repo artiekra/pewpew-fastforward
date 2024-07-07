@@ -10,6 +10,7 @@ local spawn_powerup = require"entities/powerups/spawn"
 
 require"globals/general"
 require"helpers/lua_helpers"
+require"entities/spawn/balance"
 
 local module = {}
 module.enemies = {}
@@ -20,7 +21,7 @@ module.enemies = {}
 function module.init_spawn(ship)
   log.info("spawn", "Initial spawn of enemies")
 
-  for i=1, 10 do
+  for i=1, DUST_BALANCE["on_screen_min"] do
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     local enemy = dust.spawn(x, y, fx_random(FX_TAU))
     table.insert(module.enemies, enemy)
@@ -45,20 +46,36 @@ function module.init_spawn(ship)
 end
 
 
+-- Get requirement for spawning dust
+-- [TODO: cache this]
+function get_dust_req(time)
+  log.trace("spawn", "Getting the requiement to spawn dust..")
+
+  local dust_speed = 1  -- can be changed independently from the actual speed
+  local level_size_avg = to_int((LEVEL_HEIGHT+LEVEL_WIDTH)/2fx)
+
+  local dust_req_base = ((level_size_avg/2)//dust_speed)
+  local dust_req_max = dust_req_base//DUST_BALANCE["on_screen_max"]
+  local dust_req_min = dust_req_base//DUST_BALANCE["on_screen_min"]
+
+  local dust_req = dust_req_min
+  local id = DUST_BALANCE["increase_duration"]
+  if time < id then
+    dust_req = dust_req_min - time // (id/(dust_req_min - dust_req_max))
+  end
+
+  return dust_req
+end
+
+
 -- Spawn enemies, given total level time
--- [TODO: better condition, literally everywhere..]
--- [TODO: add a gap to account for precise time being float]
+-- [TODO: consider easing]
 function module.spawn(ship)
-  -- local time = level_time.PRECISE_TIME
-  local time = level_time.TIME
+  local time = level_time.TICK
   log.debug("spawn", "Spawning enemies, time", time)
 
-  ---- Spawn dust
-  -- Function graph: https://jpcdn.it/img/5716adb64996deddb9172d1a1542a643.png
-  -- [NOTE: might be slow]
-  req = 37.5 * (2.71828^(-0.00020362*time))
-  -- print(req//1)
-  if time % (req//1) == 0 then
+  -- Spawn dust
+  if time % get_dust_req(time) == 0 then
     log.trace("spawn", "Spawning dust..")
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     local enemy = dust.spawn(x, y, fx_random(FX_TAU))
@@ -90,7 +107,7 @@ function module.spawn(ship)
   end
 
   -- Spawn flower
-  if time % 200 == 0 then
+  if time % 2000 == 0 then
     log.trace("spawn", "Spawning flower.. (W.I.P.)")
     local x, y = helpers.random_coordinates(ship, 50fx, 20fx)
     local enemy = flower.spawn(x, y, fx_random(FX_TAU), 2)

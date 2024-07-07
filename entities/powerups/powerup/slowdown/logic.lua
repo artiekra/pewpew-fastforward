@@ -17,6 +17,7 @@ function slowdown_player_collision(entity_id, player_id, ship_id)
   TIME_FACTOR = 4
 
   -- slowly revert the changes
+  -- [TODO: ease this]
   local mf = 1
   local nf = 4
   local st = 80
